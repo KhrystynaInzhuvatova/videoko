@@ -1,0 +1,10 @@
+---
+ocale:
+  nav_bar:
+    log_out:
+    show_search:
+    show_user_menu:
+    show_user_name:
+  spree:
+    homepage:
+      shop_now:
