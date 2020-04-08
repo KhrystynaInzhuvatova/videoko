@@ -45,7 +45,7 @@
   <li>
     <div class="dropdown navbar-right-dropdown">
       <button id="locale-select" type="button" data-toggle="dropdown" class="navbar-right-dropdown-toggle" aria-label="<%= Spree.t('nav_bar.show_locale')%>">
-        <%= form_tag spree.set_locale_path  do %>
+        <%= form_tag spree.set_locale_path, method: :post do %>
           <label for="switch_to_locale">
               <%= Spree.t(:'i18n.language') %>
             </label>
