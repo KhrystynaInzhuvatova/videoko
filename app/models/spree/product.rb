@@ -198,12 +198,9 @@ module Spree
     # deleted products and products with nil or future available_on date
     # are not available
     def available?
-      !(available_on.nil? || available_on.future?) && !deleted? && !discontinued? 
+      !(available_on.nil? || available_on.future?)
     end
 
-    def show_product
-      self.show == true
-    end
 
     def discontinue!
       update_attribute(:discontinue_on, Time.current)

@@ -24,13 +24,6 @@
         </div>
       <% end %>
 
-      <div data-hook="new_product_prototype" class="col-12 col-md-4">
-        <%= f.field_container :prototype, class: ['form-group'] do %>
-          <%= f.label :prototype_id, Spree.t(:prototype) %>
-          <%= f.collection_select :prototype_id, Spree::Prototype.all, :id, :name, {include_blank: true}, {class: 'select2'} %>
-        <% end %>
-      </div>
-
       <div data-hook="new_product_price" class="col-12 col-md-4">
         <%= f.field_container :price, class: ['form-group'] do %>
           <%= f.label :price, Spree.t(:master_price) %> <span class="required">*</span>
@@ -38,16 +31,6 @@
           <%= f.error_message_on :price %>
         <% end %>
       </div>
-
-      
-      <div data-hook="new_product_available_on" class="col-12 col-md-4">
-        <%= f.field_container :available_on, class: ['form-group'] do %>
-          <%= f.label :available_on, Spree.t(:available_on) %>
-          <%= f.error_message_on :available_on %>
-          <%= f.text_field :available_on, class: 'datepicker form-control' %>
-        <% end %>
-      </div>
-
 
     </div>
 
@@ -59,25 +42,3 @@
 
   </fieldset>
 <% end %>
-
-<script type="text/javascript">
-//<![CDATA[
-  (function($){
-    var base_url = "<%= spree.admin_prototypes_url %>";
-    var prototype_select = $('#product_prototype_id');
-    prototype_select.change(function() {
-      var id = prototype_select.val();
-      if (id.length) {
-        var url = new Uri(base_url);
-        url.setPath(url.path() + '/' + id);
-        $('#product-from-prototype').load(url.toString());
-      } else {
-        $('#product-from-prototype').empty();
-      }
-    })
-    if (prototype_select.html() == "") {
-      prototype_select.change();
-    }
-  })(jQuery);
-//]]>
-</script>
