@@ -2,7 +2,7 @@ require 'csv'
 
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
-
+Spree::Store.last.update_attributes(default_currency: Spree::Config[:currency])
 CSV.foreach("db/taxonomy.csv", headers: true)do |property|
 Spree::Taxonomy.create! property.to_h
 end
@@ -144,3 +144,4 @@ Spree::Product.all.each do |prod|
                        Spree::OptionType.find_by!(name: 'specific').option_values.first]
   end
 end
+Spree::Product.first.update(show: false)

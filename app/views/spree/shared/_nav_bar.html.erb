@@ -43,18 +43,11 @@
     <%= render 'spree/shared/cart', class: 'd-xl-none', size: 24, item_count: 0 %>
   </li>
   <li>
-    <div class="dropdown navbar-right-dropdown">
-      <button id="locale-select" type="button" data-toggle="dropdown" class="navbar-right-dropdown-toggle" aria-label="<%= Spree.t('nav_bar.show_locale')%>">
-        <%= form_tag spree.set_locale_path, method: :post do %>
-          <label for="switch_to_locale">
-              <%= Spree.t(:'i18n.language') %>
-            </label>
-            <%= select_tag(:switch_to_locale,
-              options_for_select(available_locales_options, I18n.locale)) %>
-            <noscript><%= submit_tag %></noscript>
-          <% end %>
-      </button>
+    <% if I18n.locale.to_s == 'uk' %>
+         <%= link_to image_tag('icons/ru.svg', size:"50x100"), spree.set_locale_path(switch_to_locale: 'ru'), method: :post %>
+         <%else%>
+         <%= link_to image_tag('icons/uk.svg', size:"50x100"),spree.set_locale_path(switch_to_locale: 'uk'), method: :post %>
+       <% end %>
 
-    </div>
   </li>
 </ul>
