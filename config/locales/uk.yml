@@ -1,15 +1,5 @@
 ---
 uk:
-  spree/dont_have_account: Не маєте акаунту
-  log_in: Увійти
-  spree/log_in_to_continue: Увійти для продовження
-  no_available_date_set: Не встановлена дата
-  available: Доступно
-  sign_up: Зареєструватись
-  devise:
-    user_sessions:
-      spree_user:
-        already_signed_out: Покинули систему
   pdp:
     you_may_also_like: Супутні товари
   activemodel:
@@ -1543,6 +1533,16 @@ uk:
     name: Назва
     name_on_card: Ім’я на карті
     name_or_sku: Назва або артикул
+    dont_have_account: Не маєте акаунту
+    log_in: Увійти
+    log_in_to_continue: Увійти для продовження
+    no_available_date_set: Не встановлена дата
+    available: Доступно
+    sign_up: Зареєструватись
+    devise:
+      user_sessions:
+        spree_user:
+          already_signed_out: Покинули систему
     nav_bar:
       log_out: Вийти
       log_in: Увійти
