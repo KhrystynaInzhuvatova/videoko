@@ -240,12 +240,12 @@ module Spree
       params.permit(*filtering_params(id))&.reject { |_, v| v.blank? }&.to_s
     end
 
-    def available_option_types_cache_key
+    def available_option_types_cache_key(id)
       @available_option_types_cache_key ||= Spree::OptionType.maximum(:updated_at)&.utc&.to_i
     end
 
     def available_option_types(id)
-      @available_option_types ||= Rails.cache.fetch("available-option-types/#{available_option_types_cache_key}") do
+      @available_option_types ||= Rails.cache.fetch("available-option-types/#{available_option_types_cache_key(id)}") do
         Spree::OptionType.where(taxon_id: id).includes(:option_values).to_a
       end
       @available_option_types

@@ -43,7 +43,7 @@ module Spree
       [
         store_etag,
         @taxon,
-        available_option_types_cache_key,
+        available_option_types_cache_key(@taxon.id),
         filtering_params_cache_key(@taxon.id)
       ]
     end
