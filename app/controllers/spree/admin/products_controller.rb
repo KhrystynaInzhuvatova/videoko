@@ -16,7 +16,11 @@ module Spree
 
       def index
         session[:return_to] = request.url
-        respond_with(@collection)
+
+        respond_to do |format|
+          format.html {respond_with(@collection)}
+          format.csv {send_data Spree::Product.all.to_csv}
+        end
       end
 
       def update

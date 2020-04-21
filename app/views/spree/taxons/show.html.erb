@@ -1,10 +1,10 @@
 <div class="taxon">
   <div class="container">
-    <%= spree_breadcrumbs(@taxon) %>
+    <%= spree_breadcrumbs(@taxon, @taxon.id) %>
     <%= render 'header', taxon: @taxon %>
   </div>
-  <%= render 'subcategories', taxon: @taxon %>
+  <%= render 'subcategories', taxon: @taxon, id: @taxon.id %>
   <div data-hook="taxon_products">
-    <%= render template: 'spree/products/index', colors: @colors, sizes: @sizes %>
+    <%= render template: 'spree/products/index', colors: @colors, sizes: @sizes, id: @taxon.id %>
   </div>
 </div>

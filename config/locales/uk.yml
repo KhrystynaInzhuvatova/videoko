@@ -1,5 +1,10 @@
 ---
 uk:
+  spree:
+    no_available_date_set: Не встановлена дата
+    available: Доступно
+  pdp:
+    you_may_also_like: Супутні товари
   activemodel:
     attributes:
       spree/order_cancellations:
@@ -1396,7 +1401,7 @@ uk:
         master_variant:
         options:
       spree/product:
-        available_on:
+        available: Доступно
         promotionable:
         shipping_category:
         tax_category:
@@ -1535,11 +1540,12 @@ uk:
       log_out: Вийти
       log_in: Увійти
       show_locale: Мова
-      sign_up: зареєструватися
+      sign_up: Зареєструватися
       my_account: Мій обліковий запис
       show_search: показати пошук
       show_user_menu: Меню
       show_user_name: Ім’я користувача
+      my_orders: Мої замовлення
     new: Новий
     new_adjustment: Нове коригування
     new_adjustment_reason:
@@ -1862,7 +1868,7 @@ uk:
     quantity: Кількість
     quantity_returned: Кількість повернених
     quantity_shipped: Кількість відправлених
-    quick_search:
+    quick_search: Швидкий пошук
     rate: Ставка
     ready_to_ship: Готовий до відправлення
     reason: Підстава

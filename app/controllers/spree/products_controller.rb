@@ -9,6 +9,7 @@ module Spree
     respond_to :html
 
     def index
+      @taxon_id = params[:taxon_id]
       @searcher = build_searcher(params.merge(include_images: true))
       @products = @searcher.retrieve_products
 
@@ -18,7 +19,7 @@ module Spree
         store_etag,
         last_modified&.to_i,
         available_option_types_cache_key,
-        filtering_params_cache_key
+        filtering_params_cache_key(@taxon_id)
       ]
 
       fresh_when etag: etag, last_modified: last_modified, public: true
@@ -28,7 +29,9 @@ module Spree
       redirect_if_legacy_path
 
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
-
+      related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
+      @related_products = related.map{|c| Spree::Product.find(c)}
+      
       if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
         @product_properties = @product.product_properties.includes(:property)
@@ -39,7 +42,8 @@ module Spree
     end
 
     def related
-      @related_products = related_products
+      related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
+      @related_products = related.map{|c| Spree::Product.find(c)}
 
       if @related_products.any?
         render template: 'spree/products/related', layout: false

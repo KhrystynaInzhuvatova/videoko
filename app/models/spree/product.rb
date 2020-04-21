@@ -276,6 +276,32 @@ module Spree
       Spree::Taxonomy.includes(root: :children).map{|taxon| taxon.taxons.map{|prod|prod.products.map{|product| product}}.flatten(1)}
     end
 
+    def self.to_csv
+      attributes = %w{sku name description short_description price_master taxon_name option_type_name variant_name}
+      CSV.generate(headers:true) do |csv|
+        csv << attributes
+        all.each do |product|
+          csv << attributes.map{|atr| product.send(atr)}
+        end
+      end
+    end
+
+    def taxon_name
+      self.taxons.map{|t| t.name}
+    end
+
+    def option_type_name
+      self.option_types.map{|op|op.name}
+    end
+
+    def price_master
+      self.price.to_f
+    end
+
+    def variant_name
+      self.variants.map{|c|c.option_values.map{|v|[v.option_type.name, v.name]}}
+    end
+
     def find_id_taxonomy
       self.taxons.map{|t|t.taxonomy_id}.uniq.first
     end

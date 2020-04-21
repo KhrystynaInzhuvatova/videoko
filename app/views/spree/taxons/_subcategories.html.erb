@@ -1,4 +1,4 @@
-<% cache([base_cache_key, taxon, 'subcategories', permitted_product_params]) do %>
+<% cache([base_cache_key, taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
   <% subcategories = [taxon] %>
   <% unless taxon.children.any? %>
     <% subcategories.unshift(taxon.parent) %>
@@ -12,7 +12,7 @@
             <%=
               link_to_unless subcategory == taxon,
                             index.zero? ? Spree.t(:all) : subcategory.name,
-                            spree.nested_taxons_path(subcategory, params: permitted_product_params),
+                            spree.nested_taxons_path(subcategory, params: permitted_product_params(@taxon.id)),
                             class: "pt-4 pb-2 mb-2 #{index.zero? ? '' : 'pl-4 pt-4 pb-2'}" do
             %>
               <div class="pt-4 mb-2 <%= index.zero? ? '' : 'pl-4' %>">
