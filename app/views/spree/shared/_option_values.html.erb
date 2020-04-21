@@ -2,7 +2,7 @@
   <% selected_option_values = params_ot_downcase_name&.split(',')&.map(&:to_i) || [] %>
   <% option_type.option_values.each do |option_value| %>
     <% id = option_value.id %>
-    <% name = option_value.name %>
+    <% name = option_value.presentation %>
 
     <% option_value_param = (selected_option_values.include?(id) ? selected_option_values - [id] : selected_option_values + [id]).join(',') %>
     <%= link_to permitted_params.merge(ot_downcase_name => option_value_param, menu_open: 1) do %>
