@@ -241,13 +241,13 @@ module Spree
     end
 
     def available_option_types_cache_key(id)
-      @available_option_types_cache_key ||= Spree::OptionType.maximum(:updated_at)&.utc&.to_i
+      @available_option_types_cache_key ||= Spree::OptionType.where(taxon_id: id).maximum(:updated_at)&.utc&.to_i
     end
 
     def available_option_types(id)
-      @available_option_types ||= Rails.cache.fetch("available-option-types/#{available_option_types_cache_key(id)}") do
-        Spree::OptionType.where(taxon_id: id).includes(:option_values).to_a
-      end
+      #@available_option_types ||= Rails.cache.fetch("available-option-types(id)/#{available_option_types_cache_key(id)}") do
+        @available_option_types = Spree::OptionType.where(taxon_id: id).includes(:option_values).to_a
+      #end
       @available_option_types
     end
 

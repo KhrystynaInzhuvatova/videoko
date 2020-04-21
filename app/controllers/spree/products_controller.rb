@@ -9,7 +9,7 @@ module Spree
     respond_to :html
 
     def index
-      @taxon_id = params[:taxon_id]
+      @taxon = params[:taxon_id]
       @searcher = build_searcher(params.merge(include_images: true))
       @products = @searcher.retrieve_products
 
@@ -18,8 +18,8 @@ module Spree
       etag = [
         store_etag,
         last_modified&.to_i,
-        available_option_types_cache_key(@taxon_id),
-        filtering_params_cache_key(@taxon_id)
+        available_option_types_cache_key(@taxon.id),
+        filtering_params_cache_key(@taxon.id)
       ]
 
       fresh_when etag: etag, last_modified: last_modified, public: true
