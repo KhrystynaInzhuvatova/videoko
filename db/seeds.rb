@@ -28,43 +28,43 @@ p "products"
 option_types_attributes_camery = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Тип камери',
+    name: 'type_cam',
     presentation: 'Тип камери',
     position: 2
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Роздільна Здатність',
+    name: 'roz_zdat',
     presentation: 'Роздільна Здатність',
     position: 3
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Форм фактор',
+    name: 'form_f',
     presentation: 'Форм фактор',
     position: 4
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: "Тип об'єктива",
-    presentation: "Тип об'єктива",
+    name: "type_ob",
+    presentation: "Тип обʼєктива",
     position: 5
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Дальність підсвітки',
+    name: 'dal_pid',
     presentation: 'Дальність підсвітки',
     position: 6
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Камери").id,
-    name: 'Ступінь захисту',
+    name: 'st_z',
     presentation: 'Ступінь захисту',
     position: 7
   },
@@ -77,43 +77,43 @@ end
 option_types_attributes_ptz = [
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Тип камери',
+    name: 'type_cam',
     presentation: 'Тип камери',
     position: 2
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Роздільна Здатність',
+    name: 'roz_zdat',
     presentation: 'Роздільна Здатність',
     position: 3
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Форм фактор',
+    name: 'form_f',
     presentation: 'Форм фактор',
     position: 4
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: "Тип об'єктива",
-    presentation: "Тип об'єктива",
+    name: "type_ob",
+    presentation: "Тип обʼєктива",
     position: 5
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Дальність підсвітки',
+    name: 'dal_pid',
     presentation: 'Дальність підсвітки',
     position: 6
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id,
-    name: 'Ступінь захисту',
+    name: 'st_z',
     presentation: 'Ступінь захисту',
     position: 7
   },
@@ -124,21 +124,21 @@ option_types_attributes_ptz.each do |attrs|
 end
 
 "=============================================================================================================================="
-manufacturer_option_type_camera = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-type_cam_option_type_camera = Spree::OptionType.find_by!(name: 'Тип камери', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-roz_ability_option_type_camera = Spree::OptionType.find_by!(name: 'Роздільна Здатність', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-form_option_type_camera = Spree::OptionType.find_by!(name: 'Форм фактор', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-object_option_type_camera = Spree::OptionType.find_by!(name: "Тип об'єктива", taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-light_option_type_camera = Spree::OptionType.find_by!(name: 'Дальність підсвітки', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
-grade_option_type_camera = Spree::OptionType.find_by!(name: 'Ступінь захисту', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+manufacturer_option_type_camera = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+type_cam_option_type_camera = Spree::OptionType.find_by!(name: 'type_cam', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+roz_ability_option_type_camera = Spree::OptionType.find_by!(name: 'roz_zdat', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+form_option_type_camera = Spree::OptionType.find_by!(name: 'form_f', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+object_option_type_camera = Spree::OptionType.find_by!(name: "type_ob", taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+light_option_type_camera = Spree::OptionType.find_by!(name: 'dal_pid', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
+grade_option_type_camera = Spree::OptionType.find_by!(name: 'st_z', taxon_id: Spree::Taxon.find_by(name: "Камери").id)
 "=============================================================================================================================="
-manufacturer_option_type_ptz = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-type_cam_option_type_ptz = Spree::OptionType.find_by!(name: 'Тип камери', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-roz_ability_option_type_ptz = Spree::OptionType.find_by!(name: 'Роздільна Здатність', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-form_option_type_ptz = Spree::OptionType.find_by!(name: 'Форм фактор', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-object_option_type_ptz = Spree::OptionType.find_by!(name: "Тип об'єктива", taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-light_option_type_ptz = Spree::OptionType.find_by!(name: 'Дальність підсвітки', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
-grade_option_type_ptz = Spree::OptionType.find_by!(name: 'Ступінь захисту', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+manufacturer_option_type_ptz = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+type_cam_option_type_ptz = Spree::OptionType.find_by!(name: 'type_cam', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+roz_ability_option_type_ptz = Spree::OptionType.find_by!(name: 'roz_zdat', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+form_option_type_ptz = Spree::OptionType.find_by!(name: 'form_f', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+object_option_type_ptz = Spree::OptionType.find_by!(name: "type_ob", taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+light_option_type_ptz = Spree::OptionType.find_by!(name: 'dal_pid', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
+grade_option_type_ptz = Spree::OptionType.find_by!(name: 'st_z', taxon_id: Spree::Taxon.find_by(name: "PTZ камери").id)
 
 "=============================================================================================================================="
 manufacturer = { dahua: "Dahua", hikvision: "Hikvision", ezviz: "EZVIZ", imou: "IMOU"}
@@ -314,43 +314,43 @@ p "option type 1"
 option_types_attributes_reestrator = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Тип реєстратора',
+    name: 'type_r',
     presentation: 'Тип реєстратора',
     position: 2
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Аналогові канали',
+    name: 'an_can',
     presentation: 'Аналогові канали',
     position: 3
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'ІРС канали',
+    name: 'ipc_can',
     presentation: 'ІРС канали',
     position: 4
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Максимальний Запис',
+    name: 'max_z',
     presentation: 'Максимальний Запис',
     position: 5
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Кількість HDD',
+    name: 'k_hdd',
     presentation: 'Кількість HDD',
     position: 6
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id,
-    name: 'Аудіо входи',
+    name: 'audio_v',
     presentation: 'Аудіо входи',
     position: 7
   }
@@ -359,13 +359,13 @@ option_types_attributes_reestrator.each do |attrs|
   Spree::OptionType.where(attrs).first_or_create!
 end
 
-manufacturer_option_type_reestrator = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-type_cam_option_type_camera = Spree::OptionType.find_by!(name: 'Тип реєстратора', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-canal_option_type_reestrator = Spree::OptionType.find_by!(name: 'Аналогові канали', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-ipc_option_type_camera = Spree::OptionType.find_by!(name: 'ІРС канали', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-zapus_option_type_reestrator = Spree::OptionType.find_by!(name: 'Максимальний Запис', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-hdd_option_type_reestrator = Spree::OptionType.find_by!(name: 'Кількість HDD', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
-audio_option_type_reestrator = Spree::OptionType.find_by!(name: 'Аудіо входи', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+manufacturer_option_type_reestrator = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+type_cam_option_type_camera = Spree::OptionType.find_by!(name: 'type_r', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+canal_option_type_reestrator = Spree::OptionType.find_by!(name: 'an_can', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+ipc_option_type_camera = Spree::OptionType.find_by!(name: 'ipc_can', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+zapus_option_type_reestrator = Spree::OptionType.find_by!(name: 'max_z', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+hdd_option_type_reestrator = Spree::OptionType.find_by!(name: 'k_hdd', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
+audio_option_type_reestrator = Spree::OptionType.find_by!(name: 'audio_v', taxon_id: Spree::Taxon.find_by(name: "Реєстратори").id)
 
 
 manufacturer_reestrator = { dahua: "Dahua", hikvision: "Hikvision"}
@@ -484,13 +484,13 @@ p "option type 2"
 option_types_attributes_cron = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id,
-    name: 'Тип',
+    name: 'type_cronsh',
     presentation: 'Тип',
     position: 2
   }
@@ -499,8 +499,8 @@ option_types_attributes_cron.each do |attrs|
   Spree::OptionType.where(attrs).first_or_create!
 end
 
-manufacturer_option_type_cron = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id)
-type_option_type_cron = Spree::OptionType.find_by!(name: 'Тип', taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id)
+manufacturer_option_type_cron = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id)
+type_option_type_cron = Spree::OptionType.find_by!(name: 'type_cronsh', taxon_id: Spree::Taxon.find_by(name: "Кронштейни").id)
 
 manufacturer_cron = { dahua: "Dahua", hikvision: "Hikvision", zj: "ZJ"}
 
@@ -535,19 +535,19 @@ p "option type 3"
 option_types_attributes_acum = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id,
-    name: 'Тип',
+    name: 'type_acumm',
     presentation: 'Тип',
     position: 2
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id,
-    name: 'Ємність',
+    name: 'em',
     presentation: 'Ємність',
     position: 3
   }
@@ -556,9 +556,9 @@ option_types_attributes_acum.each do |attrs|
   Spree::OptionType.where(attrs).first_or_create!
 end
 
-manufacturer_option_type_acum = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
-type_option_type_acum = Spree::OptionType.find_by!(name: 'Тип', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
-em_option_type_acum = Spree::OptionType.find_by!(name: 'Ємність', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
+manufacturer_option_type_acum = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
+type_option_type_acum = Spree::OptionType.find_by!(name: 'type_acumm', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
+em_option_type_acum = Spree::OptionType.find_by!(name: 'em', taxon_id: Spree::Taxon.find_by(name: "Накопичувачі").id)
 
 manufacturer_acum = { hikvision: "Hikvision", seagate: "Seagate", w_digital: "Western Digital"}
 
@@ -605,7 +605,7 @@ p "option type 4"
 option_types_attributes_mic = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Зовнішні мікрофони").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   }
@@ -614,7 +614,7 @@ option_types_attributes_mic.each do |attrs|
   Spree::OptionType.where(attrs).first_or_create!
 end
 
-manufacturer_option_type_mic = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Зовнішні мікрофони").id)
+manufacturer_option_type_mic = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Зовнішні мікрофони").id)
 
 manufacturer_mic = { dahua: "Dahua", hikvision: "Hikvision"}
 
@@ -631,13 +631,13 @@ p "option type 5"
 option_types_attributes_pult = [
   {
     taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id,
-    name: 'Виробник',
+    name: 'vyrobnyk',
     presentation: 'Виробник',
     position: 1
   },
   {
     taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id,
-    name: 'Інтерфейси',
+    name: 'inter',
     presentation: 'Інтерфейси',
     position: 2
   }
@@ -646,8 +646,8 @@ option_types_attributes_pult.each do |attrs|
   Spree::OptionType.where(attrs).first_or_create!
 end
 
-manufacturer_option_type_pult = Spree::OptionType.find_by!(name: 'Виробник', taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id)
-type_option_type_pult = Spree::OptionType.find_by!(name: 'Інтерфейси', taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id)
+manufacturer_option_type_pult = Spree::OptionType.find_by!(name: 'vyrobnyk', taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id)
+type_option_type_pult = Spree::OptionType.find_by!(name: 'inter', taxon_id: Spree::Taxon.find_by(name: "Пульти керування").id)
 
 manufacturer_pult = { dahua: "Dahua", hikvision: "Hikvision"}
 

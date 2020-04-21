@@ -177,6 +177,7 @@ uk:
         tax_category: Податкова категорія
         weight: Вага
         width: Ширина
+        less_than: Менше
       spree/product_property:
         value: Назва
       spree/promotion:
@@ -814,6 +815,8 @@ uk:
         one:
         other:
   spree:
+    plp:
+      price: Ціна
     18n:
       available_locales: Доступні переклади
       fields: Поля
