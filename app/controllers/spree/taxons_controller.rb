@@ -40,11 +40,12 @@ module Spree
     end
 
     def etag
+      @taxon_id = @taxon.id
       [
         store_etag,
         @taxon,
-        available_option_types_cache_key(@taxon.id),
-        filtering_params_cache_key(@taxon.id)
+        available_option_types_cache_key(@taxon_id),
+        filtering_params_cache_key(@taxon_id)
       ]
     end
 
