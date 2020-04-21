@@ -18,7 +18,7 @@ module Spree
       etag = [
         store_etag,
         last_modified&.to_i,
-        available_option_types_cache_key,
+        available_option_types_cache_key(@taxon_id),
         filtering_params_cache_key(@taxon_id)
       ]
 
