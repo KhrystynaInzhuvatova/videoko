@@ -12,7 +12,7 @@
             </div>
           <% end %>
         </div>
-        
+
         <div class="py-xl-2 col-xl-3 offset-xl-1">
           <div class="d-none d-xl-block pt-4 pb-3 footer-spree-label">
             <%= Spree.t(:contact_us) %>
@@ -35,11 +35,11 @@
           <% spree_navigation_data.first(3).each do |root| %>
             <div class="col-3">
               <div class="footer-spree-label">
-                <%= link_to root[:title], root[:url] %>
+                <%= link_to root[:title], spree.nested_taxons_path(root[:url]) %>
               </div>
               <% if  root[:items].present? %>
                 <% root[:items].each do |item| %>
-                  <div class="pt-2"><%= link_to item[:title], item[:url] %></div>
+                  <div class="pt-2"><%= link_to item[:title], spree.nested_taxons_path(item[:url]) %></div>
                 <% end %>
               <% end %>
             </div>

@@ -1,7 +1,5 @@
 ---
 uk:
-  pdp:
-    you_may_also_like: Супутні товари
   activemodel:
     attributes:
       spree/order_cancellations:
@@ -1423,6 +1421,8 @@ uk:
         deleted_explanation_with_replacement:
         tax_category:
     home: Додому
+    pdp:
+      you_may_also_like: Супутні товари
     homepage:
       shop_now: До товарів
     icon: Іконка

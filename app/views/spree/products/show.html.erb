@@ -40,7 +40,7 @@
   </div>
   <div id="related-products">
 
-    <% if related_products.any? %>
+    <% if !@related_products.nil? %>
       <div id="related-products">
         <div class="product-details-related">
           <p class="font-weight-bold text-center text-uppercase product-details-carousel-text"><%= Spree.t('pdp.you_may_also_like') %></p>
@@ -55,9 +55,3 @@
 
   <%= render 'spree/shared/product_added_modal' %>
 <% end %>
-
-<div
-  data-related-products
-  data-related-products-id="<%= @product.slug %>"
-  data-related-products-enabled="<%= @product.respond_to?(:has_related_products?) %>"
-/>
