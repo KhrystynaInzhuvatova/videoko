@@ -244,11 +244,10 @@ module Spree
       @available_option_types_cache_key = Spree::OptionType.where(taxon_id: id).maximum(:taxon_id)
     end
 
-    #if ache empty,coment cache
     def available_option_types(id)
-      @available_option_types = Rails.cache.fetch(available_option_types_cache_key(id)) do
+      #@available_option_types = Rails.cache.fetch(available_option_types_cache_key(id)) do
         @available_option_types = Spree::OptionType.where(taxon_id: id).includes(:translations).includes(:option_values).to_a
-      end
+      #end
       @available_option_types
     end
 
