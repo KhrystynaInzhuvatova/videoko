@@ -1,4 +1,4 @@
-<% if spree_navigation_data.any? %>
+<% cache spree_navigation_data do %>
   <ul class="nav h-100 main-nav-bar">
     <% spree_navigation_data.first(3).each do |root| %>
       <li class="navbar main-nav-bar-dropdown main-nav-bar-category">

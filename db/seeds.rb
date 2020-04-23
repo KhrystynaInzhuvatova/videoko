@@ -3,6 +3,13 @@ require 'csv'
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
 Spree::Store.last.update_attributes(default_currency: Spree::Config[:currency])
+Spree::Role.create(name: "rozdrib")
+Spree::Role.create(name: "opt")
+Spree::Role.create(name: "gold")
+Spree::Role.create(name: "vip")
+Spree::Role.create(name: "vip2")
+Spree::Role.create(name: "vip1")
+Spree::Role.find_by(name: "user").destroy
 
 CSV.foreach("db/taxonomy.csv", headers: true)do |property|
 Spree::Taxonomy.create! property.to_h

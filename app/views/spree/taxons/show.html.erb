@@ -5,6 +5,6 @@
   </div>
   <%= render 'subcategories', taxon: @taxon, id: @taxon.id %>
   <div data-hook="taxon_products">
-    <%= render template: 'spree/products/index', colors: @colors, sizes: @sizes, id: @taxon.id %>
+    <%= render template: 'spree/products/index', id: @taxon.id %>
   </div>
 </div>
