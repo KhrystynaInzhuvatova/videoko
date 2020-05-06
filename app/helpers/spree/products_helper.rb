@@ -149,7 +149,7 @@ module Spree
     end
 
     def variants_option_types_presenter(variants, product)
-      @variants_option_types_presenter ||= begin
+      @variants_option_types_presenter = begin
         option_types = Spree::Variants::OptionTypesFinder.new(variant_ids: variants.map(&:id)).execute
 
         Spree::Variants::OptionTypesPresenter.new(option_types, variants, product)

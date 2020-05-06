@@ -18,8 +18,14 @@
         <%= f.label :sku, Spree.t(:sku) %>
         <%= f.text_field :sku, class: 'form-control' %>
       </div>
-
-
+      <%if f.object.prices.count > 1%>
+      <div class="form-group">
+        <%= f.fields_for :prices, @variant.prices do |pr| %>
+        <%= pr.label Spree::Role.find(pr.object.role_id).name %>
+        <%= pr.text_field :amount,class: 'form-control'%>
+        <% end %>
+      </div>
+      <%end%>
 </div>
 </div>
 </div>

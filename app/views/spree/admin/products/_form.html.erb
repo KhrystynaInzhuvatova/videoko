@@ -117,7 +117,7 @@ $(document).ready(function () {
      <%else%>
       <div data-hook="new_product_price" class="row">
       <div class="col-12">
-        <%= f.fields_for :prices do |pr| %>
+        <%= f.fields_for :prices, @product.prices.where(variant_id: f.object.id) do |pr| %>
         <%= pr.label Spree::Role.find(pr.object.role_id).name %>
         <%= pr.text_field :amount,class: 'form-control'%>
         <% end %>

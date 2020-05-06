@@ -5,12 +5,19 @@ module Spree
       new_action.before :new_before
       before_action :redirect_on_empty_option_values, only: [:new]
       before_action :load_data, only: [:new, :create, :edit, :update]
+      before_action :price_params, only: [ :create, :update]
 
+
+      def edit
+        @variant = Variant.find(params[:id])
+        @variant.prices
+      end
 
       # override the destroy method to set deleted_at value
       # instead of actually deleting the product.
       def destroy
         @variant = Variant.find(params[:id])
+        @variant.prices.delete_all
         if @variant.destroy
           flash[:success] = Spree.t('notice_messages.variant_deleted')
         else
@@ -55,6 +62,10 @@ module Spree
 
       def load_data
         @tax_categories = TaxCategory.order(:name)
+      end
+
+      def price_params
+        params.require(:variant).permit(prices_attributes:[:id,:role_id, :variant_id, :amount])
       end
 
       def redirect_on_empty_option_values

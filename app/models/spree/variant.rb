@@ -38,6 +38,7 @@ module Spree
              dependent: :destroy,
              inverse_of: :variant
 
+    accepts_nested_attributes_for :prices
 
     before_validation :set_cost_currency
 
@@ -319,6 +320,7 @@ module Spree
     end
 
     def set_prices
+
       product = Spree::Product.find(self.product_id)
       product.prices.each do |price|
         Spree::Price.create!(role_id: price.role_id, variant_id: self.id, product_id: price.product_id, amount: price.amount)
