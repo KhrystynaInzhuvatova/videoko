@@ -47,7 +47,9 @@ module Spree
              class_name: 'Spree::Variant',
              dependent: :destroy
 
-    has_many :prices, -> { order('spree_variants.position, spree_variants.id, currency') }, through: :variants
+    has_many :prices#, -> { order('spree_variants.position, spree_variants.id, currency') }, through: :variants
+
+    accepts_nested_attributes_for :prices
 
     has_many :stock_items, through: :variants_including_master
 
@@ -98,8 +100,8 @@ module Spree
     self.whitelisted_ransackable_scopes = %w[not_discontinued]
 
     [
-      :sku, :price, :currency, :weight, :height, :width, :depth, :is_master,
-      :cost_currency, :price_in, :amount_in, :cost_price
+      :sku, :currency, :weight, :height, :width, :depth, :is_master,
+      :cost_currency, :amount_in, :cost_price, :price_in
     ].each do |method_name|
       delegate method_name, :"#{method_name}=", to: :find_or_build_master
     end
@@ -355,7 +357,7 @@ module Spree
       values.each do |ids|
         variants.create(
           option_value_ids: ids,
-          price: master.price
+          prices: master.prices.map{|price| price.amount}
         )
       end
       throw(:abort) unless save

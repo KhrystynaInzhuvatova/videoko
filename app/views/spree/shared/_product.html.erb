@@ -6,7 +6,7 @@
       <div class="product-component-name" title="<%= product.name %>">
         <%= product.name %>
       </div>
-      <div class="product-component-price"><%= display_price(product) %></div>
+      <div class="product-component-price"><%= number_to_currency(product.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: "") %></div>
     </div>
   <% end %>
 <% end %>

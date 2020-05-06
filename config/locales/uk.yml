@@ -1,5 +1,10 @@
 ---
 uk:
+  number:
+    currency:
+      format:
+        separator: "."
+        delimiter: "."
   activemodel:
     attributes:
       spree/order_cancellations:

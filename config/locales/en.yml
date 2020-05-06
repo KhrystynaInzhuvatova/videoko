@@ -30,11 +30,4 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-    spree:
-      homepage:
-        shop_now:
-      nav_bar:
-        show_search:
-        show_user_menu:
-        show_user_name:
-        my_account: 
+  

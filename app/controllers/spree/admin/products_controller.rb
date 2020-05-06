@@ -9,6 +9,12 @@ module Spree
       helper_method :clone_object_url
       before_action :related, only: [:create, :update]
 
+
+      def edit
+        @product = Product.friendly.find(params[:id])
+        @product.prices
+      end
+
       def show
         session[:return_to] ||= request.referer
         redirect_to action: :edit
@@ -156,7 +162,7 @@ module Spree
       end
 
       def product_includes
-        [{ variants: [:images], master: [:images, :default_price] }]
+        [{ variants: [:images], master: [:images] }]
       end
 
       def clone_object_url(resource)
@@ -164,8 +170,9 @@ module Spree
       end
 
       def related
-              params.require(:product).permit(:show, related:[])
+        params.require(:product).permit(:show, :video, related:[],prices_attributes:[:id,:role_id, :variant_id, :amount])
       end
+
 
       private
 

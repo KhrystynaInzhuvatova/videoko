@@ -58,13 +58,72 @@ $(document).ready(function () {
     </div>
 
     <div class="col-12 col-md-4" data-hook="admin_product_form_right">
-      <div data-hook="admin_product_form_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-          <%= f.label :price, raw(Spree.t(:master_price) + required_span_tag) %>
-          <%= f.text_field :price, value: number_to_currency(@product.price, unit: ''), class: 'form-control', disabled: (cannot? :update, @product.master.default_price) %>
-          <%= f.error_message_on :price %>
+      <%if f.object.prices.count < 1%>
+      <div data-hook="new_product_price" class="row">
+      <div class="col-12">
+        <%= f.label :prices_rozdrib, Spree.t(:prices_rozdrib) %>
+        <%= f.fields_for :prices, @product.prices.build do |pr| %>
+        <%= pr.text_field :amount,class: 'form-control'%>
+        <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :rozdrib).id %>
+        <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
         <% end %>
       </div>
+
+        <div class="col-12">
+          <%= f.label :prices_opt, Spree.t(:prices_opt) %>
+          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= pr.text_field :amount,class: 'form-control'%>
+          <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :opt).id %>
+          <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <%= f.label :prices_gold, Spree.t(:prices_gold) %>
+          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= pr.text_field :amount,class: 'form-control'%>
+          <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :gold).id %>
+          <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <%= f.label :prices_vip, Spree.t(:prices_vip) %>
+          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= pr.text_field :amount,class: 'form-control'%>
+          <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip).id %>
+          <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <%= f.label :prices_vip2, Spree.t(:prices_vip2) %>
+          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= pr.text_field :amount,class: 'form-control'%>
+          <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip2).id %>
+          <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <%= f.label :prices_vip1, Spree.t(:prices_vip1) %>
+          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= pr.text_field :amount,class: 'form-control'%>
+          <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip1).id %>
+          <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
+          <% end %>
+        </div>
+      </div>
+     <%else%>
+      <div data-hook="new_product_price" class="row">
+      <div class="col-12">
+        <%= f.fields_for :prices do |pr| %>
+        <%= pr.label Spree::Role.find(pr.object.role_id).name %>
+        <%= pr.text_field :amount,class: 'form-control'%>
+        <% end %>
+      </div>
+    </div>
+      <%end%>
 
       <% if !f.object.video.attached?%>
       <div data-hook="admin_product_form_video" >
