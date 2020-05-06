@@ -17,7 +17,7 @@ Spree.config do |config|
   SpreeGlobalize::Config.supported_locales = [:ru, :uk] # displayed on translation forms
   Spree::Config[:currency] = "UAH"
   config.currency = 'UAH'
-  config.default_country_id = 230 
+  config.default_country_id = 230
 
   Money::Currency.register({
     :priority        => 1,
@@ -26,7 +26,7 @@ Spree.config do |config|
     :name            => "Ukrainian Hryvnia",
     :symbol          => "₴",
     :subunit         => "Kopiyka",
-    :subunit_to_unit => 1,
+    :subunit_to_unit => 100,
     :html_entity     => "&#x20B4;",
     :delimiter       => '.',
     :separator  => "."
