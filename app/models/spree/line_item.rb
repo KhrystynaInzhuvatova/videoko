@@ -126,9 +126,9 @@ module Spree
         self.currency = currency
         # variant.price_in(currency).amount can be nil if
         # there's no price for this currency
-        self.price = (variant.price_in(currency, opts[:options][:role_id_price]).amount || 0)
+        self.price = (opts[:role_id_price] || 0)
       else
-        self.price = (variant.price_in(currency, opts[:options][:role_id_price]).amount || 0)
+        self.price = (opts[:role_id_price] || 0)
       end
 
     end

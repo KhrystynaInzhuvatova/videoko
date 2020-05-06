@@ -11,6 +11,7 @@
 # config.setting_name = 'new value'
 Spree.config do |config|
   Spree::PermittedAttributes.product_attributes << [:short_description,:related]
+  Spree::PermittedAttributes.line_item_attributes << [:role_id_price]
   SpreeI18n::Config.available_locales = [:ru, :uk] # displayed on frontend select box
   Spree::Frontend::Config[:locale] = :uk
   Spree::Backend::Config[:locale] =:uk
