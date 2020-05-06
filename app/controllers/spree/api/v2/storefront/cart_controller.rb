@@ -32,7 +32,7 @@ module Spree
               quantity: params[:quantity],
               options: params[:options]
             )
-            
+            p result
             render_order(result)
           end
 

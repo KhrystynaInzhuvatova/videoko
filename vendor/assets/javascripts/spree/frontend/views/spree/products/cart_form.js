@@ -1,4 +1,4 @@
-//= require spree/api/storefront/cart
+
 //= require ../shared/product_added_modal
 
 var ADD_TO_CART_FORM_SELECTOR = '.add-to-cart-form'
@@ -254,7 +254,8 @@ Spree.ready(function($) {
     $addToCart.prop('disabled', true)
     variantId = $cartForm.find(VARIANT_ID_SELECTOR).val()
     quantity = parseInt($cartForm.find('[name="quantity"]').val())
-    role_id_price = parseInt($("[data-id='role_id_price']").val())
+    role_id_price = parseFloat($("[data-id='role_id_price']").val())
+    
     Spree.ensureCart(function() {
       SpreeAPI.Storefront.addToCart(
         variantId,
