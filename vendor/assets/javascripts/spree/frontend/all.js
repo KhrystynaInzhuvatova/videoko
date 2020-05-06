@@ -8,6 +8,6 @@
 //= require jquery_ujs
 //= require accounting.min
 //= require spree/frontend
-//= require spree/frontend/views/spree/products/cart_form
-//= require spree/frontend/views/spree/shared/product_added_modal
+
 //= require spree/frontend/spree_i18n
+//= require_tree .
