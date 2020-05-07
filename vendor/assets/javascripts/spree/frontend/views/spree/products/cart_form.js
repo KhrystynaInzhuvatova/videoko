@@ -243,7 +243,7 @@ Spree.ready(function($) {
     )
   }
 
-  $('#product-details').on('submit', ADD_TO_CART_FORM_SELECTOR, function(event) {
+  $('#product-details-second').on('submit', ADD_TO_CART_FORM_SELECTOR, function(event) {
     var role_id_price
     var variantId
     var quantity
@@ -292,4 +292,5 @@ Spree.ready(function($) {
   document.addEventListener('turbolinks:request-start', function () {
     Spree.hideProductAddedModal()
   })
+
 })
