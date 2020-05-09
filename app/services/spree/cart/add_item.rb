@@ -23,7 +23,7 @@ module Spree
           opts = ::Spree::PermittedAttributes.line_item_attributes.flatten.each_with_object({}) do |attribute, result|
               result[attribute] = options[attribute]
           end.merge(currency: order.currency).delete_if { |_key, value| value.nil? }
-          
+
           line_item = order.line_items.new(quantity: quantity,
                                            variant: variant,
                                            options: opts["currency"])

@@ -25,9 +25,12 @@ end
 end
 p "Taxons"
 
-
-CSV.foreach("db/products_test.csv", headers: true)do |product|
-Spree::Product.create! product.to_h
+CSV.foreach("db/products_video.csv", headers: true) do |product|
+if !product["post_title"].nil?
+  Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+else
+  Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+end
 end
 
 p "products"

@@ -15,7 +15,7 @@
   <%= render 'cart_form_availability_templates', type: 'out-of-stock' %>
 </template>
 
-<%= hidden_field_tag :role_id_price, @product_price, "data-id" => 'role_id_price' %>
+
 <% is_product_available_in_currency = product_available_in_currency? %>
 <% default_variant = default_variant(@variants, @product) %>
 <%= @other_price.join(", ") if @other_price%>
@@ -28,12 +28,14 @@
   } do |f| %>
   <div id="inside-product-cart-form" data-hook="inside_product_cart_form">
     <% if is_product_available_in_currency %>
+    <%= hidden_field_tag :role_id_price, @product_price, "data-id" => 'role_id_price' %>
       <div id="product-price" class="mb-2 text-center text-md-left add-to-cart-form-price" data-hook="product_price">
         <span class="price selling" content="<%= @product_price.to_d %>">
             <%= @product_price %>
           </span>
         <span content="<%= current_currency %>"></span>
       </div>
+
     <% end %>
 
 

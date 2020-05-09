@@ -320,9 +320,8 @@ module Spree
     end
 
     def set_prices
-
       product = Spree::Product.find(self.product_id)
-      product.prices.each do |price|
+      product.prices.where(variant_id: self.product_id).each do |price|
         Spree::Price.create!(role_id: price.role_id, variant_id: self.id, product_id: price.product_id, amount: price.amount)
       end
       nil_price = self.prices.find_by(product_id: nil)
