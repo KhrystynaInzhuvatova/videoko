@@ -8,7 +8,6 @@ module Spree
       update.before :update_before
       helper_method :clone_object_url
       before_action :related, only: [:create, :update]
-      after_action :video_attach, only: [:create, :update]
 
 
       def edit
@@ -51,6 +50,9 @@ module Spree
           @product.slug = @product.slug_was if @product.slug.blank?
           invoke_callbacks(:update, :fails)
           respond_with(@object)
+        end
+        if !params[:product][:video].nil?
+          @product.video.attach(params[:product][:video])
         end
       end
 
@@ -172,13 +174,6 @@ module Spree
 
       def related
         params.require(:product).permit(:show, :video, related:[],prices_attributes:[:id,:role_id, :variant_id, :amount])
-      end
-
-      def video_attach
-        p !params[:product][:video].nil?
-        if !params[:product][:video].nil?
-          @product.video.attach(params[:product][:video])
-        end
       end
 
 
