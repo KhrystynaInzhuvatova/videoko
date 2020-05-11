@@ -47,8 +47,8 @@ module Spree
           @other_price = [
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: "")
-
           ]
+          
           when "opt"
             @role_id = Spree::Role.find_by(name: :opt).id
             @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
@@ -98,6 +98,7 @@ module Spree
         @product_images = product_images(@product, @variants)
 
       end
+
     end
 
     def related

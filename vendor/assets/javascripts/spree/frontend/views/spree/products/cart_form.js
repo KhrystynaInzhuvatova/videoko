@@ -255,7 +255,7 @@ Spree.ready(function($) {
     variantId = $cartForm.find(VARIANT_ID_SELECTOR).val()
     quantity = parseInt($cartForm.find('[name="quantity"]').val())
     role_id_price = parseFloat($("[data-id='role_id_price']").val())
-
+    console.log($cartForm.find("[data-id='product_price']").val())
     Spree.ensureCart(function() {
       SpreeAPI.Storefront.addToCart(
         variantId,
