@@ -43,57 +43,79 @@ module Spree
 
         case case_price
         when "admin"
-
           @role_id = Spree::Role.find_by(name: :vip2).id
-          @product_price = default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount
+          @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+          if !@product_price == 0
           @other_price = [
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: "")
           ]
-
+        else
+          @other_price = []
+        end
           when "opt"
             @role_id = Spree::Role.find_by(name: :opt).id
-            @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
-            @other_price = [
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+            if !@product_price == 0
+              @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
+          else
+            @other_price = []
+          end
           when "gold"
             @role_id = Spree::Role.find_by(name: :gold).id
-            @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+            if !@product_price == 0
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
+          else
+            @other_price = []
+          end
           when "vip"
             @role_id = Spree::Role.find_by(name: :vip).id
-            @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+            if !@product_price == 0
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :gold).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
+          else
+            @other_price = []
+          end
           when "vip2"
             @role_id = Spree::Role.find_by(name: :vip2).id
-            @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+            if !@product_price == 0
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :gold).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :vip).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
+          else
+            @other_price = []
+          end
           when "vip1"
             @role_id = Spree::Role.find_by(name: :vip1).id
-            @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
+            if !@product_price == 0
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :gold).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :vip).id).amount, unit: "₴", separator: ".", delimiter: ""),
-              ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :vip1).id).amount, unit: "₴", separator: ".", delimiter: ""),
+              ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :vip2).id).amount, unit: "₴", separator: ".", delimiter: ""),
             ]
           else
+            @other_price = []
+          end
+          else
             @role_id = Spree::Role.find_by(name: :rozdrib).id
-            @product_price = default_variant(@product.variants, @product).price_in(current_currency,@role_id).amount
+            @product_price = !default_variant(@variants, @product).price_in(current_currency,@role_id).nil? ? default_variant(@variants, @product).price_in(current_currency,@role_id).amount : 0
             @other_price = []
           end
 
@@ -103,16 +125,16 @@ module Spree
 
     end
 
-    def related
-      related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
-      @related_products = related.map{|c| Spree::Product.find(c)}
+    #def related
+      #related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
+      #@related_products = related.map{|c| Spree::Product.find(c)}
 
-      if @related_products.any?
-        render template: 'spree/products/related', layout: false
-      else
-        head :no_content
-      end
-    end
+      #if @related_products.any?
+        #render template: 'spree/products/related', layout: false
+      #else
+        #head :no_content
+      #end
+    #end
 
     private
 

@@ -14,8 +14,6 @@ module Spree
     private
 
     def structured_product_hash(product,role_id)
-      p product
-      p role_id
       Rails.cache.fetch(common_product_cache_keys + ["spree/structured-data/#{product.cache_key_with_version}"]) do
         {
           '@context': 'https://schema.org/',
