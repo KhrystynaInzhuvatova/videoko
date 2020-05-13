@@ -13,7 +13,7 @@ module Spree
     has_many :adjustments, as: :adjustable, dependent: :destroy
     has_many :inventory_units, inverse_of: :line_item
 
-    before_validation :copy_price
+    #before_validation :copy_price
     before_validation :copy_tax_category
 
     validates :variant, :order, presence: true
@@ -48,16 +48,17 @@ module Spree
     self.whitelisted_ransackable_associations = ['variant']
     self.whitelisted_ransackable_attributes = ['variant_id']
 
-    def copy_price
+    def copy_price(role_id_price)
       if variant
-        update_price if price.nil?
+        update_price(role_id_price) if price.nil?
         self.cost_price = variant.cost_price if cost_price.nil?
         self.currency = variant.currency if currency.nil?
       end
     end
 
-    def update_price
-      self.price = variant.price_including_vat_for(tax_zone: tax_zone)
+    def update_price(role_id_price)
+      #self.price = variant.price_including_vat_for(tax_zone: tax_zone)
+      self.price = variant.price_in(Spree::Config[:currency],role_id_price).amount
     end
 
     def copy_tax_category
@@ -126,11 +127,12 @@ module Spree
         self.currency = currency
         # variant.price_in(currency).amount can be nil if
         # there's no price for this currency
-        self.price = (opts[:role_id_price] || 0)
+        self.price = (variant.price_in(currency, opts[:role_id_price]).amount || 0) +
+          variant.price_modifier_amount_in(currency, opts)
       else
-        self.price = (opts[:role_id_price] || 0)
+        self.price = variant.price_in(currency, opts[:role_id_price]) +
+          variant.price_modifier_amount(opts)
       end
-
     end
 
     def update_inventory

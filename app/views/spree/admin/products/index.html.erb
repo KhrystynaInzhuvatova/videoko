@@ -56,11 +56,11 @@
       <tr data-hook="admin_products_index_headers">
         <th><%= Spree.t(:sku) %></th>
         <th><%= Spree.t(:status) %></th>
-
-        <th colspan="2"><%= sort_link @search,:name, Spree.t(:name), { default_order: "desc" }, {title: 'admin_products_listing_name_title'} %></th>
-        <th class="text-center">
-          <%= sort_link @search, :master_default_price_amount, Spree.t(:master_price), {}, {title: 'admin_products_listing_price_title'} %>
-        </th>
+        <th><%= Spree.t(:name)%></th>
+        <th><%= Spree.t(:taxon) %></th>
+        <th><%= Spree.t(:taxonomy) %></th>
+        <th><%= Spree.t(:option_values) %></th>
+        <th ><%= Spree.t(:price) %></th>
         <th data-hook="admin_products_index_header_actions" class="actions"></th>
       </tr>
     </thead>
@@ -69,9 +69,55 @@
           <tr <%== "style='color: red;'" if product.deleted? %> id="<%= spree_dom_id product %>" data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
             <td class="sku"><%= product.sku rescue '' %></td>
             <td class="status"><%= available_status(product) %> </td>
-            <td class="image"><%= mini_image product %></td>
             <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
-            <td class="text-center"><%= product.display_price.to_html rescue '' %></td>
+            <td class="taxon"><%= product.taxons.map{|c|c.name}.join(",") %></td>
+            <td class="taxonomy"><%= product.taxons.first.taxonomy.name if product.taxons.count > 0%></td>
+            <td class="option_values">
+              <%if product.variants.count > 1%>
+              <a data-toggle="collapse" href="#variant<%=product.id%>" role="button" aria-expanded="false" aria-controls="variant<%product.id%>">
+                <%= "Кількість варіантів: " "#{product.variants.count}"%>
+              </a>
+              <div class="collapse" id="variant<%=product.id%>">
+              <div class="card card-body">
+              <% product.variants.each do |c| %>
+                <% c.option_values.each do |v| %>
+                  <p>
+                    <%= v.option_type.presentation%>
+                    <%= v.presentation %>
+                  </p>
+                <%end%>
+                <%end%>
+                <%end%>
+              </div>
+            </div>
+            </td>
+            </td>
+            <td>
+            <%if product.prices.count > 0%>
+            <a data-toggle="collapse" href="#collapse<%=product.id%>" role="button" aria-expanded="false" aria-controls="collapse<%product.id%>">
+              <%= number_to_currency(product.price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: "")%>
+            </a>
+            <div class="collapse" id="collapse<%=product.id%>">
+            <div class="card card-body">
+              <% product.prices.where(variant_id: product.id).each do |v|%>
+                <p><%= Spree::Role.find(v.role_id).name%>
+                <%=v.amount%></p>
+                <%end%>
+            </div>
+          </div>
+
+          <%else%>
+          <a data-toggle="collapse" href="#collapse<%=product.id%>" role="button" aria-expanded="false" aria-controls="collapse<%product.id%>">
+            <%= product.display_price.to_html rescue '' %>
+          </a>
+          <div class="collapse" id="collapse<%=product.id%>">
+          <div class="card card-body">
+            Наразі не встановлені
+          </div>
+        </div>
+
+        <%end%>
+        </td>
             <td class="actions actions-3 text-right" data-hook="admin_products_index_row_actions">
               <%= link_to_edit product, no_text: true, class: 'edit' if can?(:edit, product) && !product.deleted? %>
               <%= link_to_clone product, no_text: true, class: 'clone' if can?(:clone, product) %>

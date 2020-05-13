@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_24_142757) do
+ActiveRecord::Schema.define(version: 2020_05_12_172819) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_142757) do
     t.decimal "pre_tax_amount", precision: 12, scale: 4, default: "0.0", null: false
     t.decimal "taxable_adjustment_total", precision: 10, scale: 2, default: "0.0", null: false
     t.decimal "non_taxable_adjustment_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.integer "role_id_price"
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
     t.index ["tax_category_id"], name: "index_spree_line_items_on_tax_category_id"
     t.index ["variant_id"], name: "index_spree_line_items_on_variant_id"

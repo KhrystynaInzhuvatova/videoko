@@ -292,9 +292,9 @@ module Spree
       Spree::TaxRate.adjust(self, shipments) if shipments.any?
     end
 
-    def update_line_item_prices!
+    def update_line_item_prices!(role_id_price)
       transaction do
-        line_items.reload.each(&:update_price)
+        line_items.reload.each {|line| line.update_price(role_id_price)}
         save!
       end
     end

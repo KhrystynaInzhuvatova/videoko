@@ -38,17 +38,19 @@ module Spree
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
         @product_properties = @product.product_properties.includes(:property)
         load_variants
+
         case_price = !spree_current_user.nil?  ? spree_current_user.spree_roles.last.name : :rozdrib
 
         case case_price
         when "admin"
+
           @role_id = Spree::Role.find_by(name: :vip2).id
-          @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
+          @product_price = default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount
           @other_price = [
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
             ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: "")
           ]
-          
+
           when "opt"
             @role_id = Spree::Role.find_by(name: :opt).id
             @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
@@ -70,8 +72,8 @@ module Spree
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :opt).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :gold).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
-          when "vip1"
-            @role_id = Spree::Role.find_by(name: :vip1).id
+          when "vip2"
+            @role_id = Spree::Role.find_by(name: :vip2).id
             @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
@@ -79,8 +81,8 @@ module Spree
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :gold).id).amount, unit: "₴", separator: ".", delimiter: ""),
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :vip).id).amount, unit: "₴", separator: ".", delimiter: "")
             ]
-          when "vip2"
-            @role_id = Spree::Role.find_by(name: :vip2).id
+          when "vip1"
+            @role_id = Spree::Role.find_by(name: :vip1).id
             @product_price = default_variant(@variants, @product).price_in(current_currency,@role_id).amount
             @other_price = [
               ActionController::Base.helpers.number_to_currency(default_variant(@variants, @product).price_in(current_currency,Spree::Role.find_by(name: :rozdrib).id).amount, unit: "₴", separator: ".", delimiter: ""),
