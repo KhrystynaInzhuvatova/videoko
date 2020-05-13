@@ -31,8 +31,8 @@ module Spree
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
 
       if !@product.related.nil?
-      related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
-      @related_products = related.map{|c| Spree::Product.find(c)}
+      related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i).reject { |c| c == 0 }
+      @related_products = related.map{|c| Spree::Product.find(c) }
       end
       if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
