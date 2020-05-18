@@ -62,6 +62,15 @@ module Spree
         redirect_back(fallback_location: edit_admin_product_url(@product.id), notice: Spree.t(:delete))
       end
 
+      def search_taxonomy
+        @collection = Spree::Taxonomy.find(params[:taxonomy_id][:id].to_i).taxons.map{|t| t.products}.flatten! 
+
+        respond_to do |format|
+          format.html {}
+          format.js
+      end
+      end
+
       def destroy
         @product = Product.friendly.find(params[:id])
 
@@ -133,6 +142,7 @@ module Spree
         params[:q][:not_discontinued] ||= '1'
 
         params[:q][:s] ||= 'name asc'
+
         @collection = super
         # Don't delete params[:q][:deleted_at_null] here because it is used in view to check the
         # checkbox for 'q[deleted_at_null]'. This also messed with pagination when deleted_at_null is checked.

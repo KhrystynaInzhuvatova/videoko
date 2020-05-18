@@ -818,8 +818,16 @@ uk:
         one:
         other:
   spree:
+    order_success: Замовлення сформовано
+    order_success_explain: Деталі замовлення
+    added_to_cart: Додано до кошика
+    required: "*"
+    checkout_page:
+      back_to_cart: Повернутися до кошика
     plp:
       price: Ціна
+      filter_by: Фільтрувати
+      sort_by: Сортувати
     18n:
       available_locales: Доступні переклади
       fields: Поля
@@ -1425,6 +1433,7 @@ uk:
         deleted_explanation:
         deleted_explanation_with_replacement:
         tax_category:
+    go_to_category: До категорії
     home: Додому
     pdp:
       you_may_also_like: Супутні товари
@@ -1555,12 +1564,16 @@ uk:
       log_out: Вийти
       log_in: Увійти
       show_locale: Мова
+      show_menu: Меню
+      close_menu: Закрити
+      go_to_previous_menu: Повернутися
       sign_up: Зареєструватися
       my_account: Мій обліковий запис
       show_search: показати пошук
       show_user_menu: Меню
       show_user_name: Ім’я користувача
       my_orders: Мої замовлення
+
     new: Новий
     new_adjustment: Нове коригування
     new_adjustment_reason:

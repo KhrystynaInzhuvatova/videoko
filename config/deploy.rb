@@ -10,6 +10,7 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
  set :bundle_path, "/home/deploy/#{project_name}/shared/bundle"
  set :branch, ENV['branch'] || 'master'
 
+ set :shared_dirs, fetch(:shared_dirs, []).push('storage')
  set :shared_files, fetch(:shared_files, []).push(
    'config/master.key',
    '.env',

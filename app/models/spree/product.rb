@@ -95,7 +95,7 @@ module Spree
 
     alias options product_option_types
 
-    self.whitelisted_ransackable_associations = %w[stores variants_including_master master variants]
+    self.whitelisted_ransackable_associations = %w[stores taxonomy variants_including_master master variants]
     self.whitelisted_ransackable_attributes = %w[description name slug discontinue_on]
     self.whitelisted_ransackable_scopes = %w[not_discontinued]
 
