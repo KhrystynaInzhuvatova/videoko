@@ -1,6 +1,6 @@
-<% cache spree_navigation_data do %>
+<% cache spree_nav_cache_key('header') do %>
   <ul class="nav h-100 main-nav-bar">
-    <% spree_navigation_data.first(3).each do |root| %>
+    <% spree_navigation_data.each do |root| %>
       <li class="navbar main-nav-bar-dropdown main-nav-bar-category">
       <%= link_to root[:title], spree.nested_taxons_path(root[:url]), class: "p-2 main-nav-bar-item main-nav-bar-category-button" %>
         <% if root[:items].present? || root[:promo_banners].present? %>

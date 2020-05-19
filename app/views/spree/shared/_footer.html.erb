@@ -31,8 +31,7 @@
         </div>
       </div>
       <div class="row d-none d-xl-flex border-top py-5 text-uppercase footer-spree-menu-links">
-        <% cache spree_navigation_data do %>
-          <% spree_navigation_data.first(3).each do |root| %>
+        <% spree_navigation_data.each do |root| %>
             <div class="col-3">
               <div class="footer-spree-label">
                 <%= link_to root[:title], spree.nested_taxons_path(root[:url]) %>
@@ -44,7 +43,6 @@
               <% end %>
             </div>
           <% end %>
-        <% end %>
         <% if spree.respond_to?(:account_path) %>
           <div class="col-3">
             <div class="footer-spree-label">

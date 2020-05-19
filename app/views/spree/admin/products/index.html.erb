@@ -33,12 +33,17 @@
 
   </div>
 <% end %>
-<div class="form-group">
+
+<div class="form-inline">
+  <div class="form-group mb-6">
 <%= form_tag(admin_search_taxonomy_path, method: 'get', remote: true) do %>
 <%= collection_select :taxonomy_id, :id, Spree::Taxonomy.all, :id, :name, {include_blank: true},class: "form-control" %>
-<%= submit_tag(Spree.t(:search), class: "btn")%>
+</div>
+<div class="form-group mb-6">&nbsp;</div>
+<%= submit_tag(Spree.t(:search), class: "btn btn-primary mb-6", data: { disable_with: "Зачекайте..." })%>
 <%end%>
 </div>
+
 <%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
 <div id="collection">
 <%= render partial: 'spree/admin/products/collection', locals: { collection: @collection }%>
