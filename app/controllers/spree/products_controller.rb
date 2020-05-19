@@ -191,7 +191,6 @@ module Spree
       [
         store_etag,
         @product,
-        @product.variants,
         @taxon,
         @product.possible_promotion_ids,
         @product.possible_promotions.maximum(:updated_at),
