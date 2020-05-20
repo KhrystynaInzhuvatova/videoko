@@ -10,8 +10,8 @@ module Spree
 
     def index
       @taxon_id = params[:taxon_id]
-      #@searcher = build_searcher(params.merge(include_images: true))
-      #@products = @searcher.retrieve_products
+      @searcher = build_searcher(params.merge(include_images: true))
+      @products = @searcher.retrieve_products
 
       last_modified = @products.maximum(:updated_at)&.utc if @products.respond_to?(:maximum)
 
