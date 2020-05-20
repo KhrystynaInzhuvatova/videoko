@@ -10,8 +10,8 @@ module Spree
 
     def index
       @taxon_id = params[:taxon_id]
-      @searcher = build_searcher(params.merge(include_images: true))
-      @products = @searcher.retrieve_products
+      #@searcher = build_searcher(params.merge(include_images: true))
+      #@products = @searcher.retrieve_products
 
       last_modified = @products.maximum(:updated_at)&.utc if @products.respond_to?(:maximum)
 
@@ -36,7 +36,7 @@ module Spree
       end
       load_variants
 
-      #if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
+      if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
 
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
         @product_properties = @product.product_properties.includes(:property)
@@ -123,7 +123,7 @@ module Spree
 
         @product_images = product_images(@product, @variants)
 
-      #end
+      end
 
     end
 
@@ -191,6 +191,7 @@ module Spree
       [
         store_etag,
         @product,
+        @product.variants,
         @taxon,
         @product.possible_promotion_ids,
         @product.possible_promotions.maximum(:updated_at),

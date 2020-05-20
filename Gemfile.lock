@@ -314,6 +314,10 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    skylight (4.3.0)
+      skylight-core (= 4.3.0)
+    skylight-core (4.3.0)
+      activesupport (>= 4.2.0)
     spree (4.1.1)
       spree_api (= 4.1.1)
       spree_backend (= 4.1.1)
@@ -452,6 +456,7 @@ DEPENDENCIES
   rails (~> 6.0.1)
   sass-rails (>= 6)
   selenium-webdriver
+  skylight
   spree (~> 4.1)
   spree_auth_devise (~> 4.1)
   spree_gateway (~> 3.7)
