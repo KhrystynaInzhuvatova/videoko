@@ -15,7 +15,7 @@ module Spree
 
     # must include this after ensure_no_line_items to make sure price won't be deleted before validation
     include Spree::DefaultPrice
-
+    default_scope {includes(:prices)}
     with_options inverse_of: :variant do
       has_many :inventory_units
       has_many :line_items

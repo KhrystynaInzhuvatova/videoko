@@ -34,3 +34,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+elasticsearch-7.6.0/
+elasticsearch-7.6.0-linux-x86_64.tar.gz

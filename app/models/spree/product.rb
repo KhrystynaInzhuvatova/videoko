@@ -3,9 +3,50 @@ module Spree
     extend FriendlyId
     include Spree::ProductScopes
 
+    searchkick index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
+
+    mappings: {
+      properties:{
+        taxonomy_ids:{type: "keyword"},
+        prices:{type: "keyword"},
+        variants: {type: "keyword"}
+        }},
+     word_start: [:name] 
+
+     scope :search_import, ->{includes(:translations).includes(:taxons).includes(:variants).includes(:prices)}
+
+    def search_data
+    json = {
+      name: name,
+      active: available?,
+      show: show,
+      created_at: created_at,
+      updated_at: updated_at,
+      currency: Spree::Config[:currency],
+      taxon_ids: taxon_and_ancestors.map(&:id),
+      prices: prices_index.map(&:id),
+      variants: variants_index.map(&:id)
+    }
+    json
+  end
+
+  def taxon_and_ancestors
+    taxons.map(&:self_and_ancestors).flatten.uniq
+  end
+
+  def variants_index
+    variants.map{|var| var}
+  end
+
+  def prices_index
+    prices.map{|price| price}
+  end
+
     friendly_id :slug_candidates, use: :history
 
     acts_as_paranoid
+    default_scope {includes(:translations)}
+    default_scope {includes(:prices)}
 
     # we need to have this callback before any dependent: :destroy associations
     # https://github.com/rails/rails/issues/3458
@@ -87,7 +128,7 @@ module Spree
     end
 
     validates :slug, presence: true, uniqueness: { allow_blank: true, case_sensitive: false }
-    validate :discontinue_on_must_be_later_than_available_on, if: -> { available_on && discontinue_on }
+    #validate :discontinue_on_must_be_later_than_available_on, if: -> { available_on && discontinue_on }
 
     attr_accessor :option_values_hash
 
@@ -95,8 +136,8 @@ module Spree
 
     alias options product_option_types
 
-    self.whitelisted_ransackable_associations = %w[stores taxonomy variants_including_master master variants]
-    self.whitelisted_ransackable_attributes = %w[description name slug discontinue_on]
+    self.whitelisted_ransackable_associations = %w[stores variants_including_master master variants]
+    self.whitelisted_ransackable_attributes = %w[description name slug ] #discontinue_on]
     self.whitelisted_ransackable_scopes = %w[not_discontinued]
 
     [
@@ -118,7 +159,7 @@ module Spree
 
     # Cant use short form block syntax due to https://github.com/Netflix/fast_jsonapi/issues/259
     def in_stock?
-      variants_including_master.any?(&:in_stock?)
+      #variants_including_master.any?(&:in_stock?)
     end
 
     # Cant use short form block syntax due to https://github.com/Netflix/fast_jsonapi/issues/259
@@ -324,6 +365,11 @@ module Spree
         where(spree_taxonomies: { name: Spree.t(:taxonomy_categories_name) }).
         order(depth: :desc).
         first
+    end
+
+
+    def price_for_index
+      self.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount if self.prices.count > 0
     end
 
     private

@@ -10,19 +10,17 @@ module Spree
 
     def index
       @taxon_id = params[:taxon_id]
-      @searcher = build_searcher(params.merge(include_images: true))
-      @products = @searcher.retrieve_products
-
-      last_modified = @products.maximum(:updated_at)&.utc if @products.respond_to?(:maximum)
+      @searcher = build_searcher(params)
+      curr_page = @searcher.page || 1
+      @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
 
       etag = [
         store_etag,
-        last_modified&.to_i,
         available_option_types_cache_key(@taxon_id),
         filtering_params_cache_key(@taxon_id)
       ]
 
-      fresh_when etag: etag, last_modified: last_modified, public: true
+      fresh_when etag: etag, public: true
     end
 
     def show

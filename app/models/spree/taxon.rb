@@ -5,7 +5,7 @@ module Spree
     extend FriendlyId
     friendly_id :permalink, slug_column: :permalink, use: :history
     before_validation :set_permalink, on: :create, if: :name
-
+    searchkick
     acts_as_nested_set dependent: :destroy
 
     belongs_to :taxonomy, class_name: 'Spree::Taxonomy', inverse_of: :taxons

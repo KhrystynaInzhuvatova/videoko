@@ -59,3 +59,4 @@ gem 'spree_i18n', github: 'spree-contrib/spree_i18n'
 gem 'spree_globalize', github: 'spree-contrib/spree_globalize', branch: 'master'
 gem "mina"
 gem "skylight"
+gem 'searchkick'

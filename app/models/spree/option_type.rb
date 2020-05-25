@@ -20,7 +20,7 @@ module Spree
     end
 
     default_scope { order(:position) }
-
+    default_scope{includes(:translations)}
     accepts_nested_attributes_for :option_values, reject_if: ->(ov) { ov[:name].blank? || ov[:presentation].blank? }, allow_destroy: true
 
     after_touch :touch_all_products

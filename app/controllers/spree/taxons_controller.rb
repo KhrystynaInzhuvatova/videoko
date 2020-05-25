@@ -31,12 +31,13 @@ module Spree
     end
 
     def load_taxon
-      @taxon = Spree::Taxon.friendly.find(params[:id])
+      @taxon = Spree::Taxon.includes(:translations).friendly.find(params[:id])
     end
 
     def load_products
       @searcher = build_searcher(params.merge(taxon: @taxon.id, include_images: true))
-      @products = @searcher.retrieve_products
+      curr_page = @searcher.page || 1
+      @products = Spree::Product.search("*",where:{show: true, active: true, taxon_ids: @taxon.id}, page: curr_page, per_page: 9)
     end
 
     def etag
