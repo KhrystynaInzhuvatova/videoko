@@ -25,14 +25,14 @@ module Spree
 
     }
     if self.variants.count > 0 && self.option_types.count > 0
-    keys = self.option_types.map{|opt| opt.presentation.downcase!}
+    keys = self.option_types.map{|opt| opt.presentation.downcase!.gsub(/\s+/, "").gsub('-', '')}
     values =  self.variants.map{|var| var.option_values.map{|c|c.id}}.flatten!
     hash = Hash[keys.zip values]
 
     json.merge!(hash)
 
     end
-    if self.prices.count > 0
+    if self.prices.count > 0 
     price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
     json.merge!(price_hash)
     end
