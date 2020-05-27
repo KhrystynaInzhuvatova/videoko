@@ -35,10 +35,35 @@ module Spree
     end
 
     def load_products
-      @searcher = build_searcher(params.merge(taxon: @taxon.id, include_images: true))
-      curr_page = @searcher.page || 1
-      @products = Spree::Product.search("*",where:{show: true, active: true, taxon_ids: @taxon.id}, page: curr_page, per_page: 9)
+      query = params.permit!.to_h
+    if query.any?{|key,value| key == "price"}
+       query_params = query.reject{|key,value| key < "price"}
+       first_query = query_params.reject{|key,value| value.blank?}.transform_values{|value| value.split(",")}
+       if first_query.any?{|key,value| key == "price"}
+       price_query = first_query.reject{|key,value| key > "price"}.values.flatten!.pop
+       price = get_price_range(price_query)
+       clean_query = first_query.select{|key,value| key > "price"}.to_h
+       clean_query.merge!(price)
+     else
+       clean_query = first_query
+     end
+    else
+      query_params = query.select{|key,value| key > "menu_open"}
+      clean_query = query_params.reject{|key,value| value.blank?}.transform_values{|value| value.split(",")}
     end
+
+      @searcher = build_searcher(params.merge(taxon: @taxon.id))
+      curr_page = @searcher.page || 1
+    if !clean_query.present?
+      @products = Spree::Product.search("*",where:{show: true, active: true, taxon_ids: @taxon.id}, page: curr_page, per_page: 9)
+    else
+      clean_query.merge!(show: true, active: true, taxon_ids: @taxon.id)
+
+      @products = Spree::Product.search("*",where: clean_query, page: curr_page, per_page: 9)
+    end
+end
+
+
 
     def etag
       @taxon_id = @taxon.id

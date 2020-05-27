@@ -58,9 +58,10 @@ module Spree
     end
 
     def cache_key_for_products(products = @products, additional_cache_key = nil)
-      max_updated_at = (products.map(&:updated_at) || Date.today).to_s(:number)
-      products_cache_keys = "spree/products/#{products.map(&:id).join('-')}-#{params[:page]}-#{params[:sort_by]}-#{max_updated_at}-#{@taxon&.id}"
-      (common_product_cache_keys + [products_cache_keys] + [additional_cache_key]).compact.join('/')
+      count = @products.count
+      hash = Digest::SHA1.hexdigest(params.to_json)
+      max_updated_at = @products.map(&:updated_at).max || Date.today
+      "#{I18n.locale}/#{current_currency}/spree/products/all-#{params[:page]}-#{hash}-#{count}-#{max_updated_at.to_s(:number)}"
     end
 
     def cache_key_for_product(product = @product)

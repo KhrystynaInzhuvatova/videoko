@@ -7,26 +7,35 @@ module Spree
 
     mappings: {
       properties:{
-        taxonomy_ids:{type: "keyword"},
-        prices:{type: "keyword"},
-        variants: {type: "keyword"}
-        }},
-     word_start: [:name] 
+        taxonomy_ids: {type: "keyword"}
+                        }},
+     word_start: [:name]
 
-     scope :search_import, ->{includes(:translations).includes(:taxons).includes(:variants).includes(:prices)}
-
+     scope :search_import, ->{includes(:translations).includes(:prices).includes(:taxons).includes(:variants)}
     def search_data
     json = {
       name: name,
+      slug: slug,
       active: available?,
       show: show,
       created_at: created_at,
       updated_at: updated_at,
       currency: Spree::Config[:currency],
       taxon_ids: taxon_and_ancestors.map(&:id),
-      prices: prices_index.map(&:id),
-      variants: variants_index.map(&:id)
+
     }
+    if self.variants.count > 0 && self.option_types.count > 0
+    keys = self.option_types.map{|opt| opt.presentation.downcase!}
+    values =  self.variants.map{|var| var.option_values.map{|c|c.id}}.flatten!
+    hash = Hash[keys.zip values]
+
+    json.merge!(hash)
+
+    end
+    if self.prices.count > 0
+    price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
+    json.merge!(price_hash)
+    end
     json
   end
 
@@ -34,19 +43,12 @@ module Spree
     taxons.map(&:self_and_ancestors).flatten.uniq
   end
 
-  def variants_index
-    variants.map{|var| var}
-  end
 
-  def prices_index
-    prices.map{|price| price}
-  end
 
     friendly_id :slug_candidates, use: :history
 
     acts_as_paranoid
     default_scope {includes(:translations)}
-    default_scope {includes(:prices)}
 
     # we need to have this callback before any dependent: :destroy associations
     # https://github.com/rails/rails/issues/3458
@@ -159,7 +161,7 @@ module Spree
 
     # Cant use short form block syntax due to https://github.com/Netflix/fast_jsonapi/issues/259
     def in_stock?
-      #variants_including_master.any?(&:in_stock?)
+      variants_including_master.any?(&:in_stock?)
     end
 
     # Cant use short form block syntax due to https://github.com/Netflix/fast_jsonapi/issues/259
@@ -176,6 +178,9 @@ module Spree
       variants.any?
     end
 
+    def price_for_index
+      self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount
+    end
     # Returns default Variant for Product
     # If `track_inventory_levels` is enabled it will try to find the first Variant
     # in stock or backorderable, if there's none it will return first Variant sorted
@@ -367,10 +372,6 @@ module Spree
         first
     end
 
-
-    def price_for_index
-      self.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount if self.prices.count > 0
-    end
 
     private
 

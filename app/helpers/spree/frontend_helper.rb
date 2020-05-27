@@ -230,6 +230,21 @@ module Spree
       ]
     end
 
+    def get_price_range(price_param)
+      return if price_param.blank?
+
+      less_than_string = I18n.t('activerecord.attributes.spree/product.less_than')
+
+      if price_param.include? less_than_string
+        low_price = 0
+        high_price = Monetize.parse(price_param.remove("#{less_than_string} ")).to_i
+      else
+        low_price, high_price = Monetize.parse_collection(price_param).map(&:to_i)
+      end
+
+      {price: {gte:"#{low_price}",lte:"#{high_price}"}}
+    end
+
     def filtering_params(id)
       static_filters = %w(keywords price sort_by)
 
@@ -245,9 +260,9 @@ module Spree
     end
 
     def available_option_types(id)
-      #@available_option_types ||= Rails.cache.fetch("available-option-types/#{available_option_types_cache_key(id)}") do
+      @available_option_types ||= Rails.cache.fetch("available-option-types/#{available_option_types_cache_key(id)}") do
         @available_option_types = Spree::OptionType.where(taxon_id: id).includes(:translations).includes(:option_values).to_a
-      #end
+      end
       @available_option_types
     end
 

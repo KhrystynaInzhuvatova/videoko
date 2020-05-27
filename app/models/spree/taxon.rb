@@ -3,11 +3,12 @@ require 'stringex'
 module Spree
   class Taxon < Spree::Base
     extend FriendlyId
+
     friendly_id :permalink, slug_column: :permalink, use: :history
     before_validation :set_permalink, on: :create, if: :name
-    searchkick
-    acts_as_nested_set dependent: :destroy
 
+    acts_as_nested_set dependent: :destroy
+    default_scope {includes(:translations)}
     belongs_to :taxonomy, class_name: 'Spree::Taxonomy', inverse_of: :taxons
     has_many :classifications, -> { order(:position) }, dependent: :delete_all, inverse_of: :taxon
     has_many :products, through: :classifications

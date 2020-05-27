@@ -12,8 +12,19 @@ module Spree
       @taxon_id = params[:taxon_id]
       @searcher = build_searcher(params)
       curr_page = @searcher.page || 1
-      @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
-
+      if  params[:price].present?
+        first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
+        if !first_query.blank?
+        price_query = first_query.reject{|key,value| key > "price"}.values.pop
+        price = get_price_range(price_query)
+        price.merge!(show: true, active: true)
+        @products = Spree::Product.search("*",where: price, page: curr_page, per_page: 9)
+      else
+        @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
+      end
+      else
+        @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
+      end
       etag = [
         store_etag,
         available_option_types_cache_key(@taxon_id),
@@ -147,14 +158,16 @@ module Spree
     end
 
     def load_product
-      @products = if try_spree_current_user.try(:has_spree_role?, 'admin')
-                    Product.with_deleted
-                  else
-                    Product.active(current_currency).where(show:true)
-                  end
+      #@products = if try_spree_current_user.try(:has_spree_role?, 'admin')
+      #              Product.with_deleted
+      #            else
+      #              Product.active(current_currency).where(show:true)
+      #            end
 
-      @product = @products.includes(:master).
-                 friendly.
+      #@product = @products.includes(:master).
+      #           friendly.
+      #           find(params[:id])
+      @product = Spree::Product.includes(:master).friendly.
                  find(params[:id])
     end
 
@@ -165,7 +178,7 @@ module Spree
     def load_variants
       @variants = @product.
                   variants_including_master.
-                  spree_base_scopes.
+                  #spree_base_scopes.
                   active(current_currency).
                   includes(
                     #prices: prices,

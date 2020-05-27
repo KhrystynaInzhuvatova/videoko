@@ -1,7 +1,7 @@
 module Spree
   module StructuredDataHelper
     def products_structured_data(products, role_id)
-      p role_id
+
       content_tag :script, type: 'application/ld+json' do
         raw(
           products.map do |product|
@@ -26,7 +26,7 @@ module Spree
           sku: structured_sku(product),
           offers: {
             '@type': 'Offer',
-            price: product.default_variant.price_in(current_currency, role_id).amount,
+            price: product.default_variant.prices.find_by(role_id: role_id).amount,
             priceCurrency: current_currency,
             availability: product.in_stock? ? 'InStock' : 'OutOfStock',
             url: spree.product_url(product),
