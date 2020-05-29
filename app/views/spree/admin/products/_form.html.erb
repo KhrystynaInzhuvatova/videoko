@@ -4,10 +4,10 @@
 <script>
 
 $(document).ready(function () {
-  var categories =JSON.parse('<%= (Spree::Taxonomy.all.map{|t| t}).to_json.html_safe%>');
+  var categories =JSON.parse('<%= (Spree::Taxonomy.pluck(:id, :name)).to_json.html_safe%>');
   categories.forEach(function(element){
-        $(`#${JSON.stringify(element.id)}`).selectpicker({
-          title: JSON.stringify(element.name),
+        $(`#${JSON.stringify(element[0])}`).selectpicker({
+          title: JSON.stringify(element[1]),
           width: "100%"
         });
 
