@@ -58,11 +58,11 @@ $(document).ready(function () {
     </div>
 
     <div class="col-12 col-md-4" data-hook="admin_product_form_right">
-      <%if f.object.prices.count < 1%>
+      <%if f.object.default_variant.prices.count < 1%>
       <div data-hook="new_product_price" class="row">
       <div class="col-12">
         <%= f.label :prices_rozdrib, Spree.t(:prices_rozdrib) %><span class="required">*</span>
-        <%= f.fields_for :prices, @product.prices.build do |pr| %>
+        <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
         <%= pr.text_field :amount,class: 'form-control', required: :required%>
         <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :rozdrib).id %>
         <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -71,7 +71,7 @@ $(document).ready(function () {
 
         <div class="col-12">
           <%= f.label :prices_opt, Spree.t(:prices_opt) %><span class="required">*</span>
-          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
           <%= pr.text_field :amount,class: 'form-control', required: :required%>
           <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :opt).id %>
           <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
         <div class="col-12">
           <%= f.label :prices_gold, Spree.t(:prices_gold) %><span class="required">*</span>
-          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
           <%= pr.text_field :amount,class: 'form-control', required: :required%>
           <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :gold).id %>
           <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
         <div class="col-12">
           <%= f.label :prices_vip, Spree.t(:prices_vip) %><span class="required">*</span>
-          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
           <%= pr.text_field :amount,class: 'form-control', required: :required%>
           <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip).id %>
           <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -98,7 +98,7 @@ $(document).ready(function () {
 
         <div class="col-12">
           <%= f.label :prices_vip2, Spree.t(:prices_vip2) %><span class="required">*</span>
-          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
           <%= pr.text_field :amount,class: 'form-control', required: :required%>
           <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip2).id %>
           <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
         <div class="col-12">
           <%= f.label :prices_vip1, Spree.t(:prices_vip1) %><span class="required">*</span>
-          <%= f.fields_for :prices, @product.prices.build do |pr| %>
+          <%= f.fields_for :prices, @product.default_variant.prices.build do |pr| %>
           <%= pr.text_field :amount,class: 'form-control', required: :required%>
           <%= pr.hidden_field :role_id, :value => Spree::Role.find_by(name: :vip1).id %>
           <%= pr.hidden_field :variant_id, :value => f.object.default_variant.id %>
@@ -117,7 +117,7 @@ $(document).ready(function () {
      <%else%>
       <div data-hook="new_product_price" class="row">
       <div class="col-12">
-        <%= f.fields_for :prices, @product.prices.where(variant_id: f.object.default_variant.id) do |pr| %>
+        <%= f.fields_for :prices, @product.default_variant.prices.where(variant_id: f.object.default_variant.id) do |pr| %>
         <%= pr.label Spree::Role.find(pr.object.role_id).name %><span class="required">*</span>
         <%= pr.text_field :amount,class: 'form-control', required: :required%>
         <% end %>

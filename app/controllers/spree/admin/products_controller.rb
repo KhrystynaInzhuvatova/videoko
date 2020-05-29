@@ -63,7 +63,7 @@ module Spree
       end
 
       def search_taxonomy
-        @collection = Spree::Taxonomy.find(params[:taxonomy_id][:id].to_i).taxons.map{|t| t.products}.flatten! 
+        @collection = Spree::Taxonomy.find(params[:taxonomy_id][:id].to_i).taxons.map{|t| t.products}.flatten!
 
         respond_to do |format|
           format.html {}
