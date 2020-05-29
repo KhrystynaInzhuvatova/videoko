@@ -10,14 +10,14 @@ module Spree
 
     def index
       @taxon_id = params[:taxon_id]
-      @searcher = build_searcher(params)
-      curr_page = @searcher.page || 1
+      curr_page = params[:page] || 1
+      
       if  params[:price].present?
         first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
         if !first_query.blank?
         price_query = first_query.reject{|key,value| key > "price"}.values.pop
         price = get_price_range(price_query)
-        price.merge!(show: true, active: true)
+        price.merge!(show: true, active: true).delete("page")
         @products = Spree::Product.search("*",where: price, page: curr_page, per_page: 9)
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)

@@ -26,11 +26,11 @@ module Spree
           sku: structured_sku(product),
           offers: {
             '@type': 'Offer',
-            price: product.default_variant.prices.find_by(role_id: role_id).amount,
+            price: product.price_for_index(role_id: role_id),
             priceCurrency: current_currency,
-            availability: product.in_stock? ? 'InStock' : 'OutOfStock',
+            availability: true, #product.in_stock? ? 'InStock' : 'OutOfStock',
             url: spree.product_url(product),
-            availabilityEnds: product.discontinue_on ? product.discontinue_on.strftime('%F') : ''
+            availabilityEnds: ""#product.discontinue_on ? product.discontinue_on.strftime('%F') : ''
           }
         }
       end

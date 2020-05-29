@@ -32,10 +32,14 @@ module Spree
     json.merge!(hash)
 
     end
-    if self.prices.count > 0 
-    price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
-    json.merge!(price_hash)
+    if  self.prices.count > 0
+    if self.default_variant.prices.blank?
+    price_hash = Hash[price: self.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
+  else
+      price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
     end
+    json.merge!(price_hash)
+  end
     json
   end
 
@@ -178,8 +182,14 @@ module Spree
       variants.any?
     end
 
-    def price_for_index
-      self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount
+    def price_for_index(role_id: Spree::Role.find_by(name: :rozdrib).id)
+      if self.prices.count > 0
+      if self.default_variant.prices.blank?
+        self.prices.find_by(role_id: role_id).amount
+      else
+        self.default_variant.prices.find_by(role_id: role_id).amount
+      end
+     end
     end
     # Returns default Variant for Product
     # If `track_inventory_levels` is enabled it will try to find the first Variant
@@ -190,15 +200,15 @@ module Spree
     #
     # @return [Spree::Variant]
     def default_variant
-      track_inventory = Spree::Config[:track_inventory_levels]
+      #track_inventory = Spree::Config[:track_inventory_levels]
 
-      Rails.cache.fetch("spree/default-variant/#{cache_key_with_version}/#{track_inventory}") do
-        if track_inventory && variants.in_stock_or_backorderable.any?
-          variants.in_stock_or_backorderable.first
-        else
+      #Rails.cache.fetch("spree/default-variant/#{cache_key_with_version}/#{track_inventory}") do
+        #if track_inventory #&& variants.in_stock_or_backorderable.any?
+          #variants.in_stock_or_backorderable.first
+        #else
           has_variants? ? variants.first : master
-        end
-      end
+        #end
+      #end
     end
 
     # Returns default Variant ID for Product

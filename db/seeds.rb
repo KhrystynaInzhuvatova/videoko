@@ -33,14 +33,14 @@ else
   Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
 end
 end
-Spree::Product.all.each do |pr|
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:3)
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:4)
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:5)
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:6)
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:7)
-  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:8)
-end
+#Spree::Product.all.each do |pr|
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:3)
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:4)
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:5)
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:6)
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:7)
+#  Spree::Price.create(product_id: pr.id, amount: 1, variant_id: pr.id, role_id:8)
+#end
 Spree::Product.reindex
 p "products"
 
