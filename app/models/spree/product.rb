@@ -331,7 +331,7 @@ module Spree
     end
 
     def self.collection
-      Spree::Taxonomy.includes(root: :children).map{|taxon| taxon.taxons.map{|prod|prod.products.map{|product| product}}.flatten}
+      Spree::Taxonomy.all.map{|t|t.taxons.map{|c|c.products}.reject{|b|b.blank?}.flatten}
     end
 
     def self.to_csv
