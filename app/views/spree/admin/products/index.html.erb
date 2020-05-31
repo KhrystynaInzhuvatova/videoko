@@ -43,9 +43,10 @@
 <%= submit_tag(Spree.t(:search), class: "btn btn-primary mb-6", data: { disable_with: "Зачекайте..." })%>
 <%end%>
 </div>
+<div id="collection">
+<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
+
+<%= render partial: 'spree/admin/products/collection', locals: { collection: @collection }%>
 
 <%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
-<div id="collection">
-<%= render partial: 'spree/admin/products/collection', locals: { collection: @collection }%>
 </div>
-<%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>

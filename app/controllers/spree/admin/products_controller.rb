@@ -63,12 +63,15 @@ module Spree
       end
 
       def search_taxonomy
-        @collection = Spree::Taxonomy.find(params[:taxonomy_id][:id].to_i).taxons.map{|t| t.products}.flatten!
+        curr_page = params[:page] || 1
+        per_page = params[:per_page] || 25
 
+        @collection_category = Spree::Product.search("*",where:{taxonomy_ids: params[:taxonomy_id][:id]}, page: curr_page, per_page: per_page )
         respond_to do |format|
           format.html {}
           format.js
       end
+
       end
 
       def destroy
@@ -130,8 +133,8 @@ module Spree
       def load_data
         @taxons = Taxon.order(:name)
         @option_types = OptionType.order(:name)
-        @tax_categories = TaxCategory.order(:name)
-        @shipping_categories = ShippingCategory.order(:name)
+        #@tax_categories = TaxCategory.order(:name)
+        #@shipping_categories = ShippingCategory.order(:name)
       end
 
       def collection

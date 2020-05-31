@@ -22,7 +22,7 @@ module Spree
       updated_at: updated_at,
       currency: Spree::Config[:currency],
       taxon_ids: taxon_and_ancestors.map(&:id),
-
+      taxonomy_ids: taxonomy_ids
     }
     if self.variants.count > 0 && self.option_types.count > 0
     keys = self.option_types.map{|opt| opt.presentation.downcase!.gsub(/\s+/, "").gsub('-', '')}
@@ -45,6 +45,10 @@ module Spree
 
   def taxon_and_ancestors
     taxons.map(&:self_and_ancestors).flatten.uniq
+  end
+
+  def taxonomy_ids
+    taxons.map{|tax|tax.taxonomy_id}.flatten.uniq
   end
 
 
