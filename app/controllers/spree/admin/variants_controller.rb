@@ -65,7 +65,7 @@ module Spree
       end
 
       def price_params
-        params.require(:variant).permit(prices_attributes:[:id,:role_id, :variant_id, :amount])
+        params.require(:variant).permit(prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
       end
 
       def redirect_on_empty_option_values
