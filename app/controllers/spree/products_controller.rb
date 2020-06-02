@@ -11,7 +11,7 @@ module Spree
     def index
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
-      
+
       if  params[:price].present?
         first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
         if !first_query.blank?
@@ -136,17 +136,6 @@ module Spree
 
     end
 
-    #def related
-      #related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i)
-      #@related_products = related.map{|c| Spree::Product.find(c)}
-
-      #if @related_products.any?
-        #render template: 'spree/products/related', layout: false
-      #else
-        #head :no_content
-      #end
-    #end
-
     private
 
     def accurate_title
@@ -156,6 +145,7 @@ module Spree
         super
       end
     end
+
 
     def load_product
       #@products = if try_spree_current_user.try(:has_spree_role?, 'admin')

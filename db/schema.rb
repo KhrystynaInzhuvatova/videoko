@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_172819) do
+ActiveRecord::Schema.define(version: 2020_06_02_152011) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -477,6 +477,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_172819) do
     t.datetime "updated_at", null: false
     t.integer "role_id", default: 3
     t.integer "product_id"
+    t.decimal "amount_usd", precision: 10, scale: 2
     t.index ["deleted_at"], name: "index_spree_prices_on_deleted_at"
     t.index ["variant_id", "currency"], name: "index_spree_prices_on_variant_id_and_currency"
     t.index ["variant_id"], name: "index_spree_prices_on_variant_id"

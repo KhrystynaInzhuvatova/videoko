@@ -16,6 +16,8 @@ module Spree
       greater_than_or_equal_to: 0,
       less_than_or_equal_to: MAXIMUM_AMOUNT
     }
+    before_save :set_amount
+    #before_update :update_amount
 
     extend DisplayMoney
     money_methods :amount, :price
@@ -47,6 +49,23 @@ module Spree
     end
 
     private
+
+    def set_amount
+      rate = Spree::Config[:rate]
+      ::Money.add_rate("USD", "UAH", rate)
+      amount =  ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount*100
+      self.amount = amount
+    end
+
+    def update_amount
+      if self.amount_usd_changed?
+        rate = Spree::Config[:rate]
+        ::Money.add_rate("USD", "UAH", rate)
+        amount =  ::Money.us_dollar(self.amount_usd).exchange_to("UAH")
+        self.amount = amount
+      end
+    end
+
 
     def ensure_currency
       self.currency ||= Spree::Config[:currency]

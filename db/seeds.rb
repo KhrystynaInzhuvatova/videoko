@@ -2,7 +2,7 @@ require 'csv'
 
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
-Spree::Store.last.update_attributes(default_currency: Spree::Config[:currency])
+Spree::Store.last.update_attributes(default_currency: "UAH")
 Spree::Role.create(name: "rozdrib")
 Spree::Role.create(name: "opt")
 Spree::Role.create(name: "gold")
@@ -26,7 +26,7 @@ end
 p "Taxons"
 Spree::Product.search_index.clean_indices
 #Spree::Product.search_index.delete
-CSV.foreach("db/db.csv", headers: true) do |product|
+CSV.foreach("db/products_test.csv", headers: true) do |product|
 if !product["post_title"].nil?
   Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
 else

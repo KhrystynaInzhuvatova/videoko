@@ -1,3 +1,4 @@
+require 'net/http'
 module Spree
   module Admin
     class ProductsController < ResourceController
@@ -54,6 +55,7 @@ module Spree
         if !params[:product][:video].nil?
           @product.video.attach(params[:product][:video])
         end
+
       end
 
       def destroy_video
@@ -71,7 +73,6 @@ module Spree
           format.html {}
           format.js
       end
-
       end
 
       def destroy

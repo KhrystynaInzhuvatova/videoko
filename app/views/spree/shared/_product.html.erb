@@ -1,4 +1,5 @@
 <% url = spree.product_path(product, taxon_id: @taxon&.id) %>
+<% role = spree_current_user.nil? ? :rozdrib : spree_current_user.role%>
 <%= link_to url, class: 'h-100 d-flex flex-column justify-content-between' do %>
   <% cache [common_product_cache_keys, product] do %>
     <%= plp_and_carousel_image(product, image_class) %>
@@ -6,7 +7,7 @@
       <div class="product-component-name" title="<%= product.name %>">
         <%= product.name %>
       </div>
-      <div class="product-component-price"><%= number_to_currency(product.price_for_index, unit: "₴", separator: ".", delimiter: "") %></div>
+      <div class="product-component-price"><%= number_to_currency(product.price_for_index(role_id: Spree::Role.find_by(name: role)), unit: "₴", separator: ".", delimiter: "") %></div>
     </div>
   <% end %>
 <% end %>

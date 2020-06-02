@@ -60,3 +60,5 @@ gem 'spree_globalize', github: 'spree-contrib/spree_globalize', branch: 'master'
 gem "mina"
 gem "skylight"
 gem 'searchkick'
+gem 'whenever', require: false 
+gem 'mina-whenever'
