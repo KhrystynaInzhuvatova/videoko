@@ -51,7 +51,8 @@ module Spree
     private
 
     def set_amount
-      rate = Spree::Config[:rate]
+      #rate = Spree::Config[:rate]
+      rate = 26.8
       ::Money.add_rate("USD", "UAH", rate)
       amount =  ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount*100
       self.amount = amount
