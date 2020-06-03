@@ -1,7 +1,8 @@
 require 'mina/rails'
 require 'mina/git'
+require 'mina/bundler'
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
-#require 'mina/whenever'
+require 'mina/whenever'
  project_name = 'videoko-test'
 
  set :project_name, project_name
