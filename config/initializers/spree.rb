@@ -19,7 +19,7 @@ Spree.config do |config|
   Spree::Config[:currency] = "UAH"
   config.currency = 'UAH'
   config.default_country_id = 230
-  config.rate = nil
+  config.rate 
 
   Money::Currency.register({
     :priority        => 1,
