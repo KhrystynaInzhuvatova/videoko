@@ -1,4 +1,4 @@
-
+set :output, "log/cron_log.log"
 every 1.day, at: '4:30 am' do
   rake "rate_for_price:get_rate"
 end
