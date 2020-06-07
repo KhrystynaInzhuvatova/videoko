@@ -7,8 +7,11 @@
 <% end if can?(:create, Spree::Product) %>
 <div >
 <p>Курс долара</p>
-<h1 id="rate"><%= @rate %></h1>
-  <%= button_link_to "Оновити курс", admin_rate_url, { remote: true, class: "btn-success", icon: 'add' } %>
+<div >
+  <h1 id="rate"><%= @rate %></h1>
+  <h2 id="rate_message"><%= @message%></h2>
+</div>
+  <%= button_link_to "Оновити курс", admin_rate_url, { remote: true, class: "btn-success", icon: 'add', data: { disable_with: "Зачекайте..." } } %>
 </div>
 <p>&nbsp;</p>
 <% content_for :table_filter do %>

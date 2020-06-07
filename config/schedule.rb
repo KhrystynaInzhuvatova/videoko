@@ -3,9 +3,6 @@ every 1.day, at: '4:30 am' do
   rake "rate_for_price:get_rate"
 end
 
-every 1.day, at: '4:31 am' do
-  rake "rate_for_price:get_rate"
-end
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.

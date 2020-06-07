@@ -1438,7 +1438,10 @@ uk:
     pdp:
       you_may_also_like: Супутні товари
     homepage:
-      shop_now: До товарів
+      znak: Знак якості
+      main_page: Головна
+      shop_now: Каталог
+      contact: Контакти
     icon: Іконка
     id:
     identifier: Ідентифікатор

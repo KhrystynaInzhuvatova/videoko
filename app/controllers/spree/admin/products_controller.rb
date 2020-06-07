@@ -7,11 +7,12 @@ module Spree
     class ProductsController < ResourceController
       helper 'spree/products'
 
-      before_action :load_data, except: :index
+      before_action :load_data, except: [:index, :rate, :destroy_video, :search_taxonomy]
       create.before :create_before
       update.before :update_before
       helper_method :clone_object_url
       before_action :related, only: [:create, :update]
+      after_action :update_prices, only: :rate
 
 
       def edit
@@ -80,19 +81,14 @@ module Spree
       end
 
       def rate
-        uri = URI.parse("https://bank.gov.ua/NBU_Exchange/exchange?json")
-        Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-          request = Net::HTTP::Get.new uri
-          response = http.request request
-          response_http =JSON.parse(response.body)
-          rate = response_http.select{|c|c["CurrencyCodeL"] == "USD"}.first["Amount"]
-          Spree::Config[:rate] = rate
-          end
+        Spree::GetSetRate.rate_import
           @rate = Spree::Config[:rate]
+          @message = "Ціни оновлені"
           respond_to do |format|
             format.js
         end
     end
+
 
       def destroy
         @product = Product.friendly.find(params[:id])
@@ -211,6 +207,10 @@ module Spree
 
 
       private
+
+      def update_prices
+        PriceUpdateJob.perform_later
+      end
 
       def variant_stock_includes
         [:images, stock_items: :stock_location, option_values: :option_type]

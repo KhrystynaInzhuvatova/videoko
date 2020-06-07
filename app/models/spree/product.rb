@@ -22,6 +22,7 @@ module Spree
       updated_at: updated_at,
       currency: Spree::Config[:currency],
       taxon_ids: taxon_and_ancestors.map(&:id),
+      taxon_count: taxon_count,
       taxonomy_ids: taxonomy_ids
     }
     if self.variants.count > 0 && self.option_types.count > 0
@@ -51,7 +52,9 @@ module Spree
     taxons.map{|tax|tax.taxonomy_id}.flatten.uniq
   end
 
-
+  def taxon_count
+    self.taxons.count
+  end
 
     friendly_id :slug_candidates, use: :history
 
@@ -186,7 +189,7 @@ module Spree
       variants.any?
     end
 
-    def price_for_index(role_id: Spree::Role.find_by(name: :rozdrib).id)
+    def price_for_index(role_id: role_id)
       if self.prices.count > 0
       if self.default_variant.prices.blank?
         self.prices.find_by(role_id: role_id).amount
@@ -335,7 +338,10 @@ module Spree
     end
 
     def self.collection
-      Spree::Taxonomy.all.map{|t|t.taxons.map{|c|c.products.reject{|s|s.taxons.count > 1}}.reject{|b|b.blank?}.flatten}
+      #Spree::Taxonomy.all.map{|t|t.taxons.map{|c|c.products.reject{|s|s.taxons.count > 1}}.reject{|b|b.blank?}.flatten}
+      Spree::Taxonomy.pluck(:id).map do |tax|
+        Spree::Product.search("*",where:{taxonomy_ids: tax, taxon_count: 1})
+      end
     end
 
     def self.to_csv

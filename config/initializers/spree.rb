@@ -19,7 +19,9 @@ Spree.config do |config|
   Spree::Config[:currency] = "UAH"
   config.currency = 'UAH'
   config.default_country_id = 230
-  config.rate 
+  config.rate
+  config.last_rate
+  Spree::Config.logo = "homepage/logo.png"
 
   Money::Currency.register({
     :priority        => 1,
