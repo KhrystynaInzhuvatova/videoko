@@ -321,11 +321,20 @@ module Spree
 
     def set_prices
       product = Spree::Product.find(self.product_id)
-      product.prices.where(variant_id: self.product_id).each do |price|
+      
+      if product.variants.count > 1
+      product.default_variant.prices.each do |price|
         Spree::Price.create!(role_id: price.role_id, variant_id: self.id, product_id: price.product_id, amount_usd: price.amount_usd)
       end
       nil_price = self.prices.find_by(product_id: nil)
       nil_price.delete if !nil_price.nil?
+    else
+      product.prices.each do |price|
+        Spree::Price.create!(role_id: price.role_id, variant_id: self.id, product_id: price.product_id, amount_usd: price.amount_usd)
+      end
+      nil_price = self.prices.find_by(product_id: nil)
+      nil_price.delete if !nil_price.nil?
+      end
     end
 
     def clear_in_stock_cache
