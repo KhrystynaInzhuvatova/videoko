@@ -1,50 +1,33 @@
-<% cache spree_nav_cache_key('header') do %>
-  <ul class="nav h-100 main-nav-bar">
+<% #cache spree_nav_cache_key('header') do %>
+
+<ul class="nav h-100 main-nav-bar child">
+    <li class="navbar main-nav-bar-dropdown main-nav-bar-category"><%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "white main-nav-bar-item main-nav-bar-button header_title_category" %></li>
     <% spree_navigation_data.each do |root| %>
       <li class="navbar main-nav-bar-dropdown main-nav-bar-category">
-      <%= link_to root[:title], spree.nested_taxons_path(root[:url]), class: "p-2 main-nav-bar-item main-nav-bar-category-button" %>
-        <% if root[:items].present? || root[:promo_banners].present? %>
+      <%= link_to root[:title], spree.nested_taxons_path(root[:url]), class: "white main-nav-bar-item main-nav-bar-button header_title_category" %>
+        <% if root[:items].present? %>
           <div class="w-100 shadow main-nav-bar-category-dropdown">
             <div class="container p-0 d-flex justify-content-xl-around mx-auto">
               <% if root[:items].present? %>
                 <div class="row">
                   <div class="category-links">
-                    <% if root[:subtitle].present? %>
-                      <div class="category-links-header text-uppercase">
-                        <%= root[:subtitle] %>
-                      </div>
-                    <% end %>
                     <ul class="pl-0">
                       <% root[:items].each do |item| %>
                         <li>
                           <%= link_to item[:title], spree.nested_taxons_path(item[:url]), class: "text-uppercase main-nav-bar-category-links" %>
                         </li>
                       <% end %>
-                    </ul>
+                      </ul>
                   </div>
                 <% end %>
-                <% if root[:promo_banners].present? %>
-                  <% root[:promo_banners].each do |promo_banner| %>
-                    <%= link_to promo_banner[:url] do %>
-                      <div class="category-image text-center mx-3">
-                        <%= main_nav_image(promo_banner[:image], promo_banner[:title]) %>
-                        <div class="category-box">
-                          <div class="category-box-small-text">
-                            <%= promo_banner[:subtitle] %>
-                          </div>
-                          <div class="category-box-big-text">
-                            <%= promo_banner[:title] %>
-                          </div>
-                        </div>
-                      </div>
-                    <% end %>
-                  <% end %>
-                <% end %>
+
               </div>
             </div>
           </div>
         <%end %>
+
       </li>
     <% end %>
+<li class="navbar main-nav-bar-dropdown main-nav-bar-category"><%= link_to Spree.t('homepage.contact'), spree.root_path, class: "white main-nav-bar-item main-nav-bar-button header_title_category" %></li>
   </ul>
-<% end %>
+<% #end %>

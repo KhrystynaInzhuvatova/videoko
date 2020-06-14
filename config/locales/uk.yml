@@ -825,6 +825,7 @@ uk:
     checkout_page:
       back_to_cart: Повернутися до кошика
     plp:
+      results_for: Результат пошуку
       price: Ціна
       filter_by: Фільтрувати
       sort_by: Сортувати
