@@ -2,7 +2,9 @@ require 'csv'
 
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
+
 Spree::Store.last.update_attributes(default_currency: "UAH")
+Spree::Store.last.update_attributes(name: "Знак якості")
 Spree::Role.create(name: "rozdrib")
 Spree::Role.create(name: "opt")
 Spree::Role.create(name: "gold")
@@ -24,6 +26,7 @@ tax = Spree::Taxon.new(taxon.to_h)
 end
 end
 p "Taxons"
+Spree::Config.rate = 26.8
 Spree::Product.search_index.clean_indices
 #Spree::Product.search_index.delete
 CSV.foreach("db/products_test.csv", headers: true) do |product|
@@ -34,12 +37,12 @@ else
 end
 end
 Spree::Product.all.each do |pr|
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:3)
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:4)
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:5)
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:6)
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:7)
-  Spree::Price.create(product_id: pr.id, amount: "d", variant_id: pr.id, role_id:8)
+  Spree::Price.create!(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:3)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:4)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:5)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:6)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:7)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:8)
 end
 Spree::Product.reindex
 p "products"
