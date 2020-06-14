@@ -11,8 +11,10 @@ module Spree
     def index
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
+      if params[:keywords].present?
+        @products = Spree::Product.search(params[:keywords],fields:[:name],misspellings: {edit_distance: 2, below: 1},where:{show:true}, page: curr_page, per_page: 9)
 
-      if  params[:price].present?
+      elsif params[:price].present?
         first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
         if !first_query.blank?
         price_query = first_query.reject{|key,value| key > "price"}.values.pop

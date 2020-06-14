@@ -6,10 +6,11 @@ namespace :rate_for_price do
   desc 'Get rate of USD from NBU'
   task get_rate: :environment do
   Spree::GetSetRate.rate_import
-  rate = Spree::Config[:rate]
-  Spree::Price.all.each do |price|
-    price.run_callbacks(:update)
+  Spree::Product.all.each do |product|
+    product.prices.each do |price|
+    price.update!(updated_at: Time.now)
   end
+end
   puts "all prices updated"
   end
 end

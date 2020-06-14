@@ -51,16 +51,22 @@ module Spree
 
     def set_amount
       rate = Spree::Config[:rate]
-      ::Money.add_rate("USD", "UAH", rate)
-      amount = ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount*100
-      self.amount = amount
+      #::Money.add_rate("USD", "UAH", rate)
+      if self.amount_usd.nil?
+        self.amount = 0
+      else
+        amount = (self.amount_usd*rate).round(2)
+        self.amount = amount
+      #amount = ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount.round(2)
+      end
     end
 
     def update_amount
+      rate = Spree::Config[:rate]
       if self.attribute_changed?(:amount_usd) || (Spree::Config[:rate] != Spree::Config[:last_rate])
-        rate = Spree::Config[:rate]
-        ::Money.add_rate("USD", "UAH", rate)
-        amount = ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount*100
+         #::Money.add_rate("USD", "UAH", rate)
+        #amount = ::Money.us_dollar(self.amount_usd).exchange_to("UAH").amount*100
+        amount = (self.amount_usd*rate).round(2)
         self.amount = amount
       end
     end

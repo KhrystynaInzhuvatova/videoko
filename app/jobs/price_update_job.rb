@@ -2,9 +2,10 @@ class PriceUpdateJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    rate = Spree::Config[:rate]
-    Spree::Price.all.each do |price|
-      price.run_callbacks(:update)
+    Spree::Product.all.each do |product|
+      product.prices.each do |price|
+      price.update!(updated_at: Time.now)
+    end
   end
-  end
+end
 end

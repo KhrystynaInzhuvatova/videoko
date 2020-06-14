@@ -321,7 +321,7 @@ module Spree
 
     def set_prices
       product = Spree::Product.find(self.product_id)
-      
+
       if product.variants.count > 1
       product.default_variant.prices.each do |price|
         Spree::Price.create!(role_id: price.role_id, variant_id: self.id, product_id: price.product_id, amount_usd: price.amount_usd)
