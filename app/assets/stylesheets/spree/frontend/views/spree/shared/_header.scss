@@ -1,6 +1,7 @@
 .header-spree {
   background: #00336E;
 }
+
 #sidenav{
   overflow-x: hidden;
   height: 100%;
@@ -113,12 +114,13 @@ ul.header_ul li{
   text-decoration: none;
 }
 .logo_head{
-  margin-top: 1.5rem;
+  //margin-top: 1.5rem;
 }
 .float{
   float: left;
 }
 .margin_header{
+  margin-top: 1%;
   margin-bottom: 1%;
   margin-left: 2%;
   margin-right: 2%;
@@ -281,7 +283,7 @@ ul.header_ul li{
 
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1230px) {
   .margin_header{
     margin-top: 1%;
   }

@@ -818,6 +818,7 @@ uk:
         one:
         other:
   spree:
+    address: Адреса
     order_success: Замовлення сформовано
     order_success_explain: Деталі замовлення
     added_to_cart: Додано до кошика
