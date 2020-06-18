@@ -3,8 +3,8 @@ require 'digest'
 module Spree
   module NavigationHelper
     def spree_navigation_data
-      Spree::Taxon.where(depth:0, hide_from_nav: false).includes(:translations).first(3).map do |t|
-        {title: t.name, url: t.permalink, items: t.children.includes(:translations).map{|tax| {title: tax.name, url: tax.permalink}}}
+      Spree::Taxon.where(depth:0, hide_from_nav: false).includes(:translations).map do |t|
+        {id: t.id, title: t.name, url: t.permalink, items: t.children.includes(:translations).map{|tax| {title: tax.name, url: tax.permalink}}}
       end
     rescue
       []

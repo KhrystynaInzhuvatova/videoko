@@ -8,7 +8,7 @@ $(document).ready(function(){
      elem2.style.width = "0";
      });
    $("#openNav").click(function(){
-     elem.style.width = "25rem";
+     elem.style.width = "35%";
      elem2.style.width = "100%";
      });
      $(".blue").click(function(){
@@ -23,5 +23,23 @@ $(document).ready(function(){
        search.style.width = "0";
 
            });
+
+           $(document).on('click', '.dropdown-menu', function (e) {
+             e.stopPropagation();
+           });
+
+           // make it as accordion for smaller screens
+           if ($(window).width() < 992) {
+             $('.dropdown-menu a').click(function(e){
+               e.preventDefault();
+                 if($(this).next('.submenu').length){
+                   $(this).next('.submenu').toggle();
+                 }
+                 $('.dropdown').on('hide.bs.dropdown', function () {
+                $(this).find('.submenu').hide();
+             })
+             });
+           }
+  $('.index_img').last().addClass('last');
 
 });

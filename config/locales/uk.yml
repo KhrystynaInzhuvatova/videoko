@@ -818,6 +818,8 @@ uk:
         one:
         other:
   spree:
+    call_us: Телефонуйте
+    contact_us: Наші контакти
     address: Адреса
     order_success: Замовлення сформовано
     order_success_explain: Деталі замовлення
@@ -1449,10 +1451,13 @@ uk:
       checkout: Оформити
       you_may_also_like: Супутні товари
     homepage:
+      news: Новини
       znak: Знак якості
       main_page: Головна
       shop_now: Каталог
       contact: Контакти
+      main_title_first: Ви контролюєте все,
+      main_title_second: залишаючись непоміченим
     icon: Іконка
     id:
     identifier: Ідентифікатор

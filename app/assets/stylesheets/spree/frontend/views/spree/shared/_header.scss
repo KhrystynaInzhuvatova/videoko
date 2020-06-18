@@ -7,7 +7,7 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   top: 0;
   left: 0;
   background-color:white;
@@ -21,13 +21,19 @@
   text-transform: capitalize;
   border-bottom: 0.1rem solid transparent;
 }
+.blue_for_cat{
+  font-size: 20px;
+  color: #00336E;
+  text-transform: capitalize;
+  border-bottom: 0.1rem solid transparent;
+}
 #sidenav_blue{
-  margin-left: 25rem;
+  margin-left: 35%;
   overflow-x: hidden;
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   top: 0;
   left: 0;
   background-color:#00336E;
@@ -42,7 +48,7 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   top: 0;
   left: 0;
   background-color:#00336E;
@@ -52,6 +58,13 @@
 }
 .margin_left{
   margin-left: 4.5rem;
+}
+.padding_main{
+  margin-right: 2.5rem;
+}
+.title_main{
+  display: flex;
+  justify-content: center;
 }
 .closebtn, .closebtn:visited, .closebtn:link, .closebtn:hover, .closebtn:active{
   color: #00336E;
@@ -65,6 +78,12 @@
 }
 
 .blue:hover {
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 0.1rem solid #E1BE64;
+
+}
+.blue_for_cat:hover {
   text-decoration: none;
   padding-bottom: 0.2rem;
   border-bottom: 0.1rem solid #E1BE64;
@@ -211,6 +230,14 @@ ul.header_ul li{
 }
 .btn_lang{
   color: white;
+  &:hover{
+    color: white;
+  }
+}
+.language{
+  .btn:focus{
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 1600px) {
@@ -382,5 +409,37 @@ ul.header_ul li{
   }
   .header_ul{
     padding-inline-start: 0px;
+  }
+}
+@media (min-width: 992px){
+
+	.dropdown-menu .dropdown-menu{
+		margin-left:0; margin-right: 0;
+	}
+	.dropdown-menu li{
+		position: relative;
+	}
+	.nav-item .submenu{
+		display: none;
+		position: absolute;
+		left:100%; top:-7px;
+	}
+	.nav-item .submenu-left{
+		right:100%; left:auto;
+	}
+
+	.dropdown-menu > li:hover > .submenu{
+		display: block;
+	}
+  .list_catalog{
+    font-size: 18px;
+    color: white;
+  }
+  .catalog_inside{
+    background: #00336E;
+    border-color: #00336E;
+  }
+  .burger_drop{
+    transform: translate3d(0px, 50px, 0px) !important;
   }
 }

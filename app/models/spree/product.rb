@@ -7,9 +7,45 @@ module Spree
 
     mappings: {
       properties:{
-        taxonomy_ids: {type: "keyword"}
-                        }},
-     word_start: [:name]
+        taxonomy_ids: {type: "keyword"},
+        name:{
+          type: "keyword",
+          fields:{
+            analyzed:{
+              type: "text",
+              analyzer:"a"
+            }
+          }
+        }
+                        }
+
+      },
+    settings: {
+      analysis:{
+        analyzer:{
+          a:{
+            filter:[
+              "lowercase",
+              "asciifolding"
+            ],
+          tokenizer: "d",
+          type: "custom"
+        }
+      },
+      tokenizer:{
+        d:{
+          type: "ngram",
+          min_gram: 2,
+          max_gram: 20,
+          token_chars:[
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+    },
+     word_middle: [:name]
 
      scope :search_import, ->{includes(:translations).includes(:prices).includes(:taxons).includes(:variants)}
     def search_data
