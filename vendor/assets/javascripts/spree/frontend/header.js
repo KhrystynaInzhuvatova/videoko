@@ -40,6 +40,6 @@ $(document).ready(function(){
              })
              });
            }
-  $('.index_img').last().addClass('last');
+  $('.index_img').last().addClass('last_img_index');
 
 });

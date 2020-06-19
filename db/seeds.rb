@@ -2213,3 +2213,11 @@ Spree::Product.all.each do |prod|
   prod.classifications.create!(taxon_id: Spree::Taxon.find(1).id, product_id: prod.id)
     end
 p "product"
+Spree::Taxonomy.find_by(name: "Відеоспостереження").update!(position: 1)
+Spree::Taxonomy.find_by(name: "Охоронна сигналізація").update!(position:2)
+Spree::Taxonomy.find_by(name: "Домофони").update!(position:3)
+Spree::Taxonomy.find_by(name: "Контроль доступу").update!(position:4)
+Spree::Taxonomy.find_by(name: "Мережеве обладнання").update!(position:5)
+Spree::Taxonomy.find_by(name: "Додаткове обладнання").update!(position:6)
+Spree::Taxonomy.all.each{|c|c.root.update!(position: c.position)}
+p "position"
