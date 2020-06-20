@@ -12,12 +12,14 @@ module Spree
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       if params[:keywords].present?
+        query = params[:keywords].gsub("'", '')
         if params[:price].present?
         price = get_price_range(params[:price])
         price.merge!(show: true, active: true)
-        @products = Spree::Product.search(params[:keywords],fields:[:name],misspellings:false, where:price, page: curr_page, per_page: 9)
+
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:price, page: curr_page, per_page: 9)
           else
-        @products = Spree::Product.search(params[:keywords],fields:[:name],misspellings:false, where:{show:true, active:true}, page: curr_page, per_page: 9)
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:{show:true, active:true}, page: curr_page, per_page: 9)
 
       end
       elsif params[:price].present?
