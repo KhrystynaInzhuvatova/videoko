@@ -833,7 +833,9 @@ uk:
       product: Товар
       header: Корзина
     plp:
+      no_results: Товарів не знайдено
       results_for: Результат пошуку
+      no_results_found: Товарів не знайдено
       price: Ціна
       filter_by: Фільтрувати
       sort_by: Сортувати
