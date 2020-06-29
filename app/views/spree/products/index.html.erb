@@ -39,7 +39,8 @@
 
 <%= render 'spree/products/filters_mobile', permitted_params: permitted_params, id: @taxon_id %>
 
-
-<% cache cache_key_for_products(@products, 'json-ld') do %>
-  <%= products_structured_data(@products, Spree::Role.find_by(name: :rozdrib).id) %>
+<% unless @products.empty? %>
+  <% cache cache_key_for_products(@products, 'json-ld') do %>
+    <%= products_structured_data(@products, Spree::Role.find_by(name: :rozdrib).id) %>
+  <% end %>
 <% end %>

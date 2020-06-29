@@ -171,3 +171,9 @@ color: #000000;
   line-height: 30px;
   color: #00336E;
 }
+.pagination{
+  .page-item.active .page-link{
+    background-color: #E1BE64 !important;
+  }
+
+}
