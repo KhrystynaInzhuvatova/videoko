@@ -41,7 +41,7 @@
   <% end %>
   <%else%>
   <div data-hook="taxon_products">
-<%= render template: 'spree/products/index', id: @taxon.id %>
+<%= render template: 'spree/products/index', products: @products, id: @taxon.id %>
 </div>
 <%end%>
 <% end %>

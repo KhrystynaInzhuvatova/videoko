@@ -56,7 +56,7 @@ module Spree
       curr_page = params[:page] || 1
       clean_query.merge!(show: true, active: true, taxon_ids: @taxon.id).delete("page")
       @products = Spree::Product.search("*",where: clean_query, page: curr_page, per_page: 9)
-
+      Rails.logger.info @products
     end
 
 
