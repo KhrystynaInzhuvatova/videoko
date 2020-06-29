@@ -3,7 +3,7 @@
     <%= spree_breadcrumbs(@taxon, @taxon.id) %>
     <%= render 'header', taxon: @taxon %>
   </div>
-  <% cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
+  <%# cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
     <% subcategories = [@taxon] %>
     <% unless @taxon.children.any? %>
       <% subcategories.unshift(@taxon.parent) %>
@@ -44,5 +44,5 @@
 <%= render template: 'spree/products/index', products: @products, id: @taxon.id %>
 </div>
 <%end%>
-<% end %>
+<%# end %>
 </div>
