@@ -830,6 +830,7 @@ uk:
     checkout_page:
       back_to_cart: Повернутися до кошика
     cart_page:
+      empty_info: Корзина порожня
       quantity: Кількість
       checkout: Купити
       product: Товар
