@@ -29,13 +29,14 @@ module Spree
           ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: seo_url(ancestor, params: permitted_product_params(id))), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
         end
 
+        if !taxon.parent.nil?
         # breadcrumbs for current taxon
         crumbs << content_tag(:li, content_tag(
           :a, content_tag(
-            :span, taxon.name, itemprop: 'name'
-          ) << content_tag(:meta, nil, itemprop: 'position', content: ancestors.size + 1), itemprop: 'url', href: seo_url(taxon, params: permitted_product_params(id))
-        ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: seo_url(taxon, params: permitted_product_params(id))), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
-
+            :span, taxon.parent.name, itemprop: 'name'
+          ) << content_tag(:meta, nil, itemprop: 'position', content: ancestors.size + 1), itemprop: 'url', href: seo_url(taxon.parent, params: permitted_product_params(taxon.parent.id))
+        ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: seo_url(taxon.parent, params: permitted_product_params(taxon.parent.id))), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
+      end
         # breadcrumbs for product
         if product
           crumbs << content_tag(:li, content_tag(

@@ -43,7 +43,7 @@ function CartForm($, $cartForm) {
 
   this.bindEventHandlers = function() {
     $cartForm.on('click', OPTION_VALUE_SELECTOR, this.handleOptionValueClick)
-  }
+}
 
   this.handleOptionValueClick = function(event) {
     this.applyCheckedOptionValue($(event.currentTarget))
@@ -85,8 +85,8 @@ function CartForm($, $cartForm) {
         .each(function(_index, ov) {
           var $ov = $(ov)
           var id = parseInt($ov.val())
-
-          $ov.prop('checked', false)
+          console.log($ov);
+          $ov.prop('checked', false);
           $ov.prop('disabled', !availableOptionValueIds.includes(id))
         })
     })
@@ -117,6 +117,7 @@ function CartForm($, $cartForm) {
   }
 
   this.firstCheckedOptionValue = function() {
+    //return $cartForm.find(OPTION_VALUE_SELECTOR + '[data-option-type-index]' + ':checked')
     return $cartForm.find(OPTION_VALUE_SELECTOR + '[data-option-type-index=0]' + ':checked')
   }
 

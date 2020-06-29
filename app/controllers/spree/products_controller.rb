@@ -204,6 +204,7 @@ module Spree
         Spree::Config[:rate],
         store_etag,
         @product,
+        @product.prices.map{|c|c.amount},
         @product.variants,
         @taxon,
         @product.possible_promotion_ids,

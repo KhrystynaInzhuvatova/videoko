@@ -175,7 +175,7 @@ uk:
         promotionable: Акційний
         related: Супутні товари
         shipping_category: Категорія доставки
-        short_description: Короткий опис
+        short_description: Характеристики
         slug: Посилання
         tax_category: Податкова категорія
         weight: Вага
@@ -818,9 +818,11 @@ uk:
         one:
         other:
   spree:
+    already_have_account: Вже є акаунт
     call_us: Телефонуйте
     contact_us: Наші контакти
     address: Адреса
+    short_description: Характеристики
     order_success: Замовлення сформовано
     order_success_explain: Деталі замовлення
     added_to_cart: Додано до кошика
@@ -829,7 +831,7 @@ uk:
       back_to_cart: Повернутися до кошика
     cart_page:
       quantity: Кількість
-      checkout: Оформити
+      checkout: Купити
       product: Товар
       header: Корзина
     plp:

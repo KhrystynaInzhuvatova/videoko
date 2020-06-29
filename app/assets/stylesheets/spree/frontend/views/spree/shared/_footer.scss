@@ -29,7 +29,11 @@
   color: white;
 }
 .im{
+  background: white;
   object-fit: fill;
+  &:active{
+    box-shadow: none;
+  }
 }
 .btn_catalog{
   border-radius: 5px;
@@ -37,6 +41,21 @@
   background: #E1BE64;
   &:hover{
     color: white;
+  }
+  &:focus{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+  }
+  &:active{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+  }
+  &:visited{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
   }
 }
 .card_index{
@@ -57,7 +76,33 @@
   &:hover{
     color:white;
   }
+
+  &:focus{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+  }
+  &:active{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+  }
+  &:visited{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+  }
 }
+.img_from_blob{
+  height: 17vw;
+  min-height: 1px;
+}
+
+.default_choose{
+  background: white;
+    border: 1px solid black;
+}
+
 @media (max-width: 1200px) {
   #footer{
     background: linear-gradient(#FAF9F8 50%, #00336E 50%);

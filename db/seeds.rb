@@ -29,7 +29,7 @@ p "Taxons"
 Spree::Config.rate = 26.8
 Spree::Product.search_index.clean_indices
 #Spree::Product.search_index.delete
-CSV.foreach("db/db.csv", headers: true) do |product|
+CSV.foreach("db/products_test.csv", headers: true) do |product|
 if !product["post_title"].nil?
   Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
 else

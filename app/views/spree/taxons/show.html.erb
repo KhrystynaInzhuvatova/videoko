@@ -3,8 +3,46 @@
     <%= spree_breadcrumbs(@taxon, @taxon.id) %>
     <%= render 'header', taxon: @taxon %>
   </div>
-  <%= render 'subcategories', taxon: @taxon, id: @taxon.id %>
+  <% cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
+    <% subcategories = [@taxon] %>
+    <% unless @taxon.children.any? %>
+      <% subcategories.unshift(@taxon.parent) %>
+    <% end %>
+    <%if @taxon.depth == 0%>
+    <% subcategories.compact.each do |current_taxon| %>
+      <% child_taxons = [ *current_taxon.children.where(hide_from_nav: false)] %>
+
+      <% if child_taxons.size > 1 %>
+      <div class="container">
+        <div class="row">
+
+            <% child_taxons.each_with_index.map do |subcategory, index| %>
+            <div class="col-4">
+              <div class="homepage-taxon mb-3">
+                <div class="card card_index">
+                    <%if !subcategory.icon.nil?%>
+                    <%= image_tag(main_app.url_for(subcategory.icon.try(:attachment)),class: "d-block w-100 im default_choose img_from_blob") %>
+                    <%elsif File.exist?("app/assets/images/#{subcategory.parent.name}/#{subcategory.name}.png")%>
+                  <%= image_tag("#{subcategory.parent.name}/#{subcategory.name}.png", class: "d-block w-100 img_from_blob index_img") %>
+                  <%else%>
+                  <%=image_tag("no_img.png", class: "d-block w-100  default_choose img_from_blob")%>
+                  <%end%>
+                  <div class="card-body">
+                    <%= link_to subcategory.name, spree.nested_taxons_path(subcategory, params: permitted_product_params(@taxon.id)), class: "btn btn-block index_btn" %>
+                  </div>
+                </div>
+                </div>
+              </div>
+            <% end %>
+
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <%else%>
   <div data-hook="taxon_products">
-    <%= render template: 'spree/products/index', id: @taxon.id %>
-  </div>
+<%= render template: 'spree/products/index', id: @taxon.id %>
+</div>
+<%end%>
+<% end %>
 </div>
