@@ -14,34 +14,3 @@
     <%= sanitize @product.short_description if @product.short_description%>
   </div>
 </div>
-<script>
-
-$( document ).on('turbolinks:load', function() {
-
-  $(document).ready(function(){
-    setTimeout(function() {
-            document.getElementById("des").click();
-        },1);
-
-
-  let l=document.getElementById("London");
-  let p=document.getElementById("Paris");
-
-  $(document).on("click", "#des",function(){
-    l.style.display = "block";
-    p.style.display = "none";
-    $("#des").addClass("active");
-    $("#short_des").removeClass("active");
-  });
-
-  $(document).on("click","#short_des", function(){
-    p.style.display = "block";
-    l.style.display = "none";
-    $("#short_des").addClass("active");
-    $("#des").removeClass("active");
-  });
-  });
-})
-
-
-</script>
