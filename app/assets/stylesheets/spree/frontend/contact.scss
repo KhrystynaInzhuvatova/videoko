@@ -156,13 +156,16 @@ color: #000000;
       border-top: none;
       background-color: rgba(196, 196, 196, 0.19);
       font-family: Roboto Condensed;
-font-style: normal;
-font-weight: normal;
-font-size: 18px;
-line-height: 19px;
-align-items: center;
-color: #000000;
   }
+.product-description{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 19px;
+  align-items: center;
+  color: #000000;
+}
+
 .product_d{
   font-family: Roboto Condensed;
   font-style: normal;
@@ -176,4 +179,55 @@ color: #000000;
     background-color: #E1BE64 !important;
   }
 
+}
+.carousel-icon-control-rounded{
+  background: #00336E;
+  mix-blend-mode: normal;
+  box-shadow: -6px 0px 6px #070707;
+  width: 4rem;
+  height: 4rem;
+}
+.arrow{
+  overflow: hidden;
+  vertical-align: middle;
+}
+.related_text{
+  text-transform: capitalize;
+font-family: Roboto Condensed;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 28px;
+color: #000000;
+}
+.right{
+  float: right !important;
+}
+.left{
+  float: left;
+}
+.white{
+  color: white;
+  &:hover{
+    text-decoration: none;
+    border-bottom: none !important;
+  }
+}
+.checkout-content-summary-header {
+    font-size: 1.625rem;
+    line-height: 1;
+    letter-spacing: 3px;
+    margin-bottom: 35px;
+}
+.checkout-content-summary-table-order-total{
+  border-top: none !important;
+}
+
+.order-show-line-items-line-item-desc-name {
+      font-size: 1.5rem;
+  }
+@media (max-width: 800px){
+  .desk{
+  display: none;
+}
 }

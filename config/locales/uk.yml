@@ -103,7 +103,7 @@ uk:
         approver:
         canceled_at:
         canceler:
-        checkout_complete: Оформлення замовлення завершено
+        checkout_complete: Формування замовлення завершено
         completed_at: Завершено в
         considered_risky: Вважається ризикованим
         coupon_code: Код купона
@@ -818,6 +818,7 @@ uk:
         one:
         other:
   spree:
+    all_rights_reserved: Всі права захищені
     already_have_account: Вже є акаунт
     call_us: Телефонуйте
     contact_us: Наші контакти
@@ -828,8 +829,10 @@ uk:
     added_to_cart: Додано до кошика
     required: "*"
     checkout_page:
+      header: Формування замовлення
       back_to_cart: Повернутися до кошика
     cart_page:
+      title: Знак якості
       empty_info: Корзина порожня
       quantity: Кількість
       checkout: Купити
@@ -1178,7 +1181,7 @@ uk:
     check:
     check_for_spree_alerts: Перевіряти сповіщення Spree
     check_stock_on_transfer:
-    checkout: Оформлення замовлення
+    checkout: Сформувати замовлення
     choose_a_customer: Виберіть клієнта
     choose_a_taxon_to_sort_products_for: Виберіть таксон для сортування товарів
     choose_currency: Виберіть валюту
@@ -1453,7 +1456,7 @@ uk:
     home: Додому
     pdp:
       view_cart: Корзина
-      checkout: Оформити
+      checkout: Сформувати
       you_may_also_like: Супутні товари
     contact:
       our_contact: Наші контакти
@@ -1610,7 +1613,7 @@ uk:
     new_image: Нове зображення
     new_option_type: Нова характеристика
     new_order: Нове замовлення
-    new_order_completed: Оформлення замовлення завершено
+    new_order_completed: Формування замовлення завершено
     new_payment: Новий платіж
     new_payment_method: Новий спосіб оплати
     new_product: Новий товар

@@ -161,7 +161,7 @@ module Spree
         if image_path.present?
           create_product_image_tag image_path, product, options, style
         else
-          image_tag "noimage/#{style}.png", options
+          image_tag "no_img.png", options
         end
       end
     end
