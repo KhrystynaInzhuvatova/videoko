@@ -1,5 +1,11 @@
 ---
 uk:
+  devise:
+    failure:
+      already_authenticated: Вже увійшли в систему
+    user_sessions:
+      spree_user:
+        already_signed_out: Покинули систему
   number:
     currency:
       format:
@@ -1586,10 +1592,7 @@ uk:
     no_available_date_set: Не встановлена дата
     available: Доступно
     sign_up: Зареєструватись
-    devise:
-      user_sessions:
-        spree_user:
-          already_signed_out: Покинули систему
+
     nav_bar:
       log_out: Вийти
       log_in: Увійти

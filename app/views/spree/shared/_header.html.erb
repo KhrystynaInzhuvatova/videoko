@@ -34,12 +34,10 @@
 <%end%>
 
   <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.contact'), spree.contact_path, class: "blue" %></li>
-
-
-  <% if spree_current_user.nil? %>
+  <% if !spree_user_signed_in? %>
     <%= link_to Spree.t('nav_bar.log_in'), spree_login_path, class: "blue"  %>
         <%else%>
-    <%= link_to Spree.t('nav_bar.log_out'), spree_logout_path, class: "blue"  %>
+    <%= link_to Spree.t('nav_bar.log_out'), spree_logout_path, class: "blue", method: :get  %>
   <% end %>
   </ul>
   </div>
