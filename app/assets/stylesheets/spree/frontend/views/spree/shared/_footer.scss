@@ -1,13 +1,22 @@
 #footer{
   background: linear-gradient(#FAF9F8 60%, #00336E 40%);
 }
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 3rem;    /* Footer height */
+}
+
 .footer-spree-copyright{
   background: #00336E;
   color: white;
+  position: absolute;
   bottom: 0;
-  right: 0;
-  left: 0;
-  position: fixed;
+  width: 100%;
 }
 .tax_footer{
   color: black;
