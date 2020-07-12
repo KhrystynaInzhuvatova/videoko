@@ -54,6 +54,7 @@ module Spree
       end
       price = clean_query[:price]
       variant_price ={price_variant: price}
+      variant_price.merge!(clean_query)
       variant_price.merge!(show: true, active: true, taxon_ids: @taxon.id).delete("page")
       curr_page = params[:page] || 1
       clean_query.merge!(show: true, active: true, taxon_ids: @taxon.id).delete("page")

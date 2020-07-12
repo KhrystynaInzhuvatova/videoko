@@ -75,7 +75,7 @@ module Spree
     if self.variants.count > 0 && self.option_types.count > 0
       array =  self.variants.map do |variant|
 
-    keys = variant.option_values.map{|c|c.option_type.presentation.downcase.gsub(/\s+/, "").gsub('-', '')}
+    keys = variant.option_values.map{|c|c.option_type.presentation.downcase!.gsub(/\s+/, "").gsub('-', '')}
     values = variant.option_values.map{|c|c.id}
     hash = Hash[keys.zip values]
   end
