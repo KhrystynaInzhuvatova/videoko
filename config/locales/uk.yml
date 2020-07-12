@@ -187,6 +187,7 @@ uk:
         weight: Вага
         width: Ширина
         less_than: Менше
+        more_than: Більше
       spree/product_property:
         value: Назва
       spree/promotion:

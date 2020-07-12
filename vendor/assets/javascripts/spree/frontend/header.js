@@ -24,9 +24,9 @@ $(document).ready(function(){
 
            });
 
-           $(document).on('click', '.dropdown-menu', function (e) {
-             e.stopPropagation();
-           });
+           //$(document).on('click', '.dropdown-menu', function (e) {
+             //e.stopPropagation();
+           //});
 
            // make it as accordion for smaller screens
            if ($(window).width() < 992) {

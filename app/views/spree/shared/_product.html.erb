@@ -11,7 +11,9 @@
   <%= product.name %>
 </div>
 <div class="card-footer money_product">
-<%= number_to_currency(product.price_for_index(role_id: id), unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
+  <%product.price_for_index(role_id: id).each do |price|%>
+  <%= number_to_currency(price, unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
+<%end%>
 </div>
 </div>
 <% end %>

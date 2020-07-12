@@ -27,14 +27,20 @@ module Spree
         if !first_query.blank?
         price_query = first_query.reject{|key,value| key > "price"}.values.pop
         price = get_price_range(price_query)
+        price_variant = price[:price]
         price.merge!(show: true, active: true).delete("page")
-        @products = Spree::Product.search("*",where: price, page: curr_page, per_page: 9)
+        variant_price ={price_variant: price_variant}
+        variant_price.merge!(show: true, active: true).delete("page")
+        p variant_price
+        p "fffffffffffffff"
+        @products = Spree::Product.search("*",where:{or:[ [ price,variant_price ]]}, page: curr_page, per_page: 9)
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
+      p @products.count
       etag = [
         Spree::Config[:rate],
         store_etag,

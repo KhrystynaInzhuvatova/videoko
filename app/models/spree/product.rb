@@ -7,7 +7,6 @@ module Spree
 
     mappings: {
       properties:{
-        taxonomy_ids: {type: "keyword"},
         name:{
           type: "keyword",
           fields:{
@@ -70,14 +69,18 @@ module Spree
       currency: Spree::Config[:currency],
       taxon_ids: taxon_and_ancestors.map(&:id),
       taxon_count: taxon_count,
-      taxonomy_ids: taxonomy_ids
+      taxonomy_ids: taxonomy_ids,
+      price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount}
     }
     if self.variants.count > 0 && self.option_types.count > 0
-    keys = self.variants.map{|var| var.option_values.map{|c|c.option_type.presentation.downcase!.gsub(/\s+/, "").gsub('-', '')}}.flatten!
-    values =  self.variants.map{|var| var.option_values.map{|c|c.id}}.flatten!
-    hash = Hash[keys.zip values]
+      array =  self.variants.map do |variant|
 
-    json.merge!(hash)
+    keys = variant.option_values.map{|c|c.option_type.presentation.downcase.gsub(/\s+/, "").gsub('-', '')}
+    values = variant.option_values.map{|c|c.id}
+    hash = Hash[keys.zip values]
+  end
+    a = array.reduce({}) {|h,pairs| pairs.each {|k,v| (h[k] ||= []) << v}; h}
+    json.merge!(a)
 
     end
     if  self.prices.count > 0
@@ -237,11 +240,17 @@ module Spree
     end
 
     def price_for_index(role_id: role_id)
+
       if self.prices.count > 0
+
       if self.default_variant.prices.blank?
         self.prices.find_by(role_id: role_id).amount
       else
-        self.default_variant.prices.find_by(role_id: role_id).amount
+        if self.variants.count > 0
+        self.variants.map{|c|c.prices.find_by(role_id: role_id).amount}
+      else
+        self.default_variant.prices.where(role_id: role_id).map{|c|c.amount}
+      end
       end
      end
     end

@@ -27,7 +27,8 @@
         <% used_variants_options(@variants, @product).each_with_index do |option_type, index| %>
           <li>
 
-            <%= render "option_type", option_type: option_type, index: index %>
+              <%= render "option_type", option_type: option_type, index: index %>
+            
           </li>
         <% end %>
       </ul>

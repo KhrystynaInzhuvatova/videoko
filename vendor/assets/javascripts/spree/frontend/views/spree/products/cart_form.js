@@ -23,11 +23,9 @@ function CartForm($, $cartForm) {
     this.selectedOptionValueIds = []
     this.variants = JSON.parse($cartForm.attr('data-variants'))
     this.withOptionValues = Boolean($cartForm.find(OPTION_VALUE_SELECTOR).length)
-
     this.$addToCart = $cartForm.find(ADD_TO_CART_SELECTOR)
     this.$price = $cartForm.find('.price.selling')
     this.$variantIdInput = $cartForm.find(VARIANT_ID_SELECTOR)
-
     this.initializeForm()
   }
 
@@ -85,7 +83,6 @@ function CartForm($, $cartForm) {
         .each(function(_index, ov) {
           var $ov = $(ov)
           var id = parseInt($ov.val())
-          console.log($ov);
           $ov.prop('checked', false);
           $ov.prop('disabled', !availableOptionValueIds.includes(id))
         })
@@ -117,7 +114,6 @@ function CartForm($, $cartForm) {
   }
 
   this.firstCheckedOptionValue = function() {
-    //return $cartForm.find(OPTION_VALUE_SELECTOR + '[data-option-type-index]' + ':checked')
     return $cartForm.find(OPTION_VALUE_SELECTOR + '[data-option-type-index=0]' + ':checked')
   }
 

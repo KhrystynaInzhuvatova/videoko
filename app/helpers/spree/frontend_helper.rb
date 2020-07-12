@@ -224,10 +224,11 @@ module Spree
     def price_filter_values
       [
         "#{I18n.t('activerecord.attributes.spree/product.less_than')} #{formatted_price(50)}",
-        "#{formatted_price(50)} - #{formatted_price(100)}",
-        "#{formatted_price(101)} - #{formatted_price(150)}",
-        "#{formatted_price(151)} - #{formatted_price(200)}",
-        "#{formatted_price(201)} - #{formatted_price(300)}"
+        "#{formatted_price(51)} - #{formatted_price(500)}",
+        "#{formatted_price(501)} - #{formatted_price(1500)}",
+        "#{formatted_price(1501)} - #{formatted_price(3000)}",
+        "#{formatted_price(3001)} - #{formatted_price(6000)}",
+        "#{I18n.t('activerecord.attributes.spree/product.more_than')} #{formatted_price(6001)}"
       ]
     end
 
@@ -235,14 +236,18 @@ module Spree
       return if price_param.blank?
 
       less_than_string = I18n.t('activerecord.attributes.spree/product.less_than')
+      more_than_string = I18n.t('activerecord.attributes.spree/product.more_than')
 
       if price_param.include? less_than_string
         low_price = 0
         high_price = Monetize.parse(price_param.remove("#{less_than_string} ")).to_i
+      elsif price_param.include? more_than_string
+        low_price = Monetize.parse(price_param.remove("#{more_than_string} ")).to_i
+        high_price = 2000000
       else
+
         low_price, high_price = Monetize.parse_collection(price_param).map(&:to_i)
       end
-
       {price: {gte:"#{low_price}",lte:"#{high_price}"}}
     end
 
@@ -280,7 +285,7 @@ module Spree
     private
 
     def formatted_price(value)
-      Spree::Money.new(value, currency: current_currency, no_cents_if_whole: true).to_s
+      Spree::Money.new(value, currency: current_currency, no_cents_if_whole: false,thousands_separator: "").to_s
     end
 
     def credit_card_icon(type)
