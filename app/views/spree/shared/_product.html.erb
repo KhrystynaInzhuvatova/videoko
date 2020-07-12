@@ -11,7 +11,7 @@
   <%= product.name %>
 </div>
 <div class="card-footer money_product">
-  <%if product.price_for_index(role_id: id).count >0%>
+  <%if !product.price_for_index(role_id: id).nil?%>
   <%product.price_for_index(role_id: id).each do |price|%>
   <%= number_to_currency(price, unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
 <%end%>
