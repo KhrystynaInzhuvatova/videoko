@@ -70,7 +70,7 @@ module Spree
       taxon_ids: taxon_and_ancestors.map(&:id),
       taxon_count: taxon_count,
       taxonomy_ids: taxonomy_ids,
-      price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount}
+      price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount if v.prices.count >0}
     }
     if self.variants.count > 0 && self.option_types.count > 0
       array =  self.variants.map do |variant|
