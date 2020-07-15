@@ -3,7 +3,7 @@
     <%= spree_breadcrumbs(@taxon, @taxon.id) %>
     <%= render 'header', taxon: @taxon %>
   </div>
-  <%# cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
+
     <% subcategories = [@taxon] %>
     <% unless @taxon.children.any? %>
       <% subcategories.unshift(@taxon.parent) %>
@@ -17,7 +17,9 @@
         <div class="row">
 
             <% child_taxons.each_with_index.map do |subcategory, index| %>
+
             <div class="col-4">
+              <%= link_to spree.nested_taxons_path(subcategory, params: permitted_product_params(@taxon.id)), class: "link_btn" do%>
               <div class="homepage-taxon mb-3">
                 <div class="card card_index">
                     <%if !subcategory.icon.nil?%>
@@ -28,18 +30,20 @@
                   <%=image_tag("no_img.png", class: "d-block w-100  default_choose img_from_blob")%>
                   <%end%>
                   <div class="card-body">
-                    <%= link_to subcategory.name, spree.nested_taxons_path(subcategory, params: permitted_product_params(@taxon.id)), class: "btn btn-block index_btn" %>
+                    <button class="btn btn-block index_btn"> <%=subcategory.name%></button>
                   </div>
                 </div>
                 </div>
+                <% end %>
               </div>
-            <% end %>
 
+            <%end%>
         </div>
       </div>
     <% end %>
   <% end %>
   <%else%>
+  <%# cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
   <div data-hook="taxon_products">
 <%= render template: 'spree/products/index', products: @products, id: @taxon.id %>
 </div>
