@@ -265,6 +265,10 @@ module Spree
       @available_option_types_cache_key = Spree::OptionType.where(taxon_id: id).maximum(:updated_at)&.utc&.to_i
     end
 
+    def cache_count(id)
+      Spree::OptionType.where(taxon_id: 10).map{|c|c.option_values.count}
+    end
+
     def available_option_types(id)
       #@available_option_types = Rails.cache.fetch("available-option-types/#{available_option_types_cache_key(id)}") do
         @available_option_types = Spree::OptionType.where(taxon_id: id).includes(:translations).includes(:option_values).to_a
