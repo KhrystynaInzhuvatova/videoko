@@ -266,7 +266,7 @@ module Spree
     end
 
     def cache_count(id)
-      Spree::OptionType.where(taxon_id: 10).map{|c|c.option_values.count}
+      Spree::OptionType.where(taxon_id: id).map{|c|c.option_values.pluck(:updated_at)}
     end
 
     def available_option_types(id)
