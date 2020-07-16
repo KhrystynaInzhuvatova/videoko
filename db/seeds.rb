@@ -5,6 +5,7 @@ Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
 
 Spree::Store.last.update_attributes(default_currency: "UAH")
 Spree::Store.last.update_attributes(name: "Знак якості")
+Spree::Country.find(230).translate.update(locale: "ru", name:"Украина")
 Spree::Role.create(name: "rozdrib")
 Spree::Role.create(name: "opt")
 Spree::Role.create(name: "gold")
