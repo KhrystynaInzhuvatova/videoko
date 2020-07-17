@@ -15,7 +15,7 @@
       <% if child_taxons.size > 1 %>
       <div class="container">
         <div class="row">
-
+          <% cache(base_cache_key) do %>
             <% child_taxons.each_with_index.map do |subcategory, index| %>
 
             <div class="col-4">
@@ -36,17 +36,16 @@
                 </div>
                 <% end %>
               </div>
-
+              <% end %>
             <%end%>
         </div>
       </div>
     <% end %>
   <% end %>
   <%else%>
-  <%# cache([base_cache_key, @taxon, 'subcategories', permitted_product_params(@taxon.id)]) do %>
+
   <div data-hook="taxon_products">
 <%= render template: 'spree/products/index', products: @products, id: @taxon.id %>
 </div>
 <%end%>
-<%# end %>
 </div>

@@ -46,6 +46,7 @@ module Spree
     preference :track_inventory_levels, :boolean, default: true # Determines whether to track on_hand values for variants / products.
     preference :rate, :decimal
     preference :last_rate, :decimal
+    preference :cache_option_type, :boolean, default: true
     # Store credits configurations
     preference :non_expiring_credit_types, :array, default: []
     preference :credit_to_new_allocation, :boolean, default: false
