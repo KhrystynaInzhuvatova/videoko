@@ -69,7 +69,6 @@ module Spree
         store_etag,
         @taxon,
         available_option_types_cache_key(@taxon_id),
-        cache_count(@taxon_id),
         filtering_params_cache_key(@taxon_id)
       ]
     end
