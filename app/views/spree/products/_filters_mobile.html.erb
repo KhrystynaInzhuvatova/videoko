@@ -56,7 +56,7 @@
   <% end %>
 
   <div class="container position-absolute text-center mb-2 plp-overlay-buttons pt-3">
-    <%= link_to Spree.t('plp.clear_all'), permitted_params.select { |key, value| key == "sort_by"}, class: 'btn spree-btn btn-outline-primary w-100 mb-4' %>
-    <%= link_to Spree.t('plp.done'), permitted_params, class: 'btn btn-primary spree-btn w-100' %>
+    <%= link_to Spree.t('plp.clear_all'), permitted_params.select { |key, value| key == "sort_by"}, class: 'btn spree-btn index_btn w-100 mb-4' %>
+    <%= link_to Spree.t('plp.done'), permitted_params, class: 'btn index_btn spree-btn w-100' %>
   </div>
 </div>

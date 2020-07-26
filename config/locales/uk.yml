@@ -825,6 +825,14 @@ uk:
         one:
         other:
   spree:
+    send: Відправити
+    spree_contact_us:
+      left_title: Зв'яжіться з нами
+      message_placeholder: Повідомлення
+      name: Ваше Ім'я
+      email: Ваш E-mail
+      notices:
+        success: Повідомлення відправлено
     all_rights_reserved: Всі права захищені
     already_have_account: Вже є акаунт
     call_us: Телефонуйте
@@ -854,6 +862,10 @@ uk:
       sort_by: Сортувати
       home: Головна
       title: сторінка
+      price_sort: По ціні
+      created_at: По даті
+      clear_all: Очистити
+      done: Пошук
     18n:
       available_locales: Доступні переклади
       fields: Поля

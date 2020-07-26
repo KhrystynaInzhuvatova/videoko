@@ -8,32 +8,10 @@
     <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %></li>
 
     <% spree_navigation_data.each do |root| %>
-    <nav class="navbar-expand-lg">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#<%=root[:id]%>">
+    <li class="header_ul_sidenav_li"><%= link_to Spree.t(root[:title]), spree.nested_taxons_path(root[:url]),class:"blue" %></li>
+    <%end%>
 
-  </button>
-  <div class="collapse navbar-collapse" id="<%=root[:id]%>">
-
-  <ul class="navbar-nav">
-  <li class="nav-item dropdown">
-      <span class="blue_for_cat" data-toggle="dropdown" >
-        <%= link_to Spree.t(root[:title]), spree.nested_taxons_path(root[:url]),class:"dropdown-item blue_for_cat" %>
-        </span>
-      <ul class="dropdown-menu burger_drop">
-       <% root[:items].each do |item| %>
-          <li> <%= link_to Spree.t(item[:title]), spree.nested_taxons_path(item[:url]),class:"dropdown-item blue_for_cat"%>
-          </li>
-          <%end%>
-
-      </ul>
-  </li>
-    </ul>
-
-  </div>
-  </nav>
-<%end%>
-
-  <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.contact'), spree.contact_path, class: "blue" %></li>
+  <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.contact'), spree.contact_us_path, class: "blue" %></li>
   <% if !spree_user_signed_in? %>
     <%= link_to Spree.t('nav_bar.log_in'), spree_login_path, class: "blue"  %>
         <%else%>

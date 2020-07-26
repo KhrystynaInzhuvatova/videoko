@@ -139,7 +139,7 @@ module Spree
     end
 
     def base_cache_key
-      [I18n.locale, current_currency,Spree::Config.cache_option_type]
+      [I18n.locale, Spree::Config.cache_option_type, Spree::Config[:rate]]
     end
 
     def maximum_quantity

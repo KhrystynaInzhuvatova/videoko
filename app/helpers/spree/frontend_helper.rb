@@ -55,6 +55,31 @@ module Spree
       content_tag(:nav, crumb_list, id: 'breadcrumbs', class: 'col-12 mt-1 mt-sm-3 mt-lg-4', aria: { label: 'breadcrumb' })
     end
 
+    def breadcrumbs(taxon, separator="&nbsp;&#8725;&nbsp;")
+      return "" if current_page?("/") || taxon.nil?
+
+      crumbs = [[Spree.t(:home), spree.root_path]]
+
+      if !taxon.parent.nil?
+        crumbs << [taxon.parent.name, spree.nested_taxons_path(taxon.parent.permalink)]
+      else
+        crumbs = [[Spree.t(:home), spree.root_path]]
+      end
+
+      separator="&nbsp;&#8725;&nbsp;"
+      crumbs.map! do |crumb|
+        content_tag(:li, itemscope:"itemscope", itemtype:"http://data-vocabulary.org/Breadcrumb") do
+          link_to(crumb.last, itemprop: "url") do
+            content_tag(:span, crumb.first, itemprop: "title", class: 'breadcrumb-item')
+          end + (crumb == crumbs.last ? '' : raw(separator))
+        end
+      end
+
+      crumb_list = content_tag(:ol, raw(crumbs.flatten.map(&:mb_chars).join), class: 'breadcrumb', itemscope: 'itemscope', itemtype: 'https://schema.org/BreadcrumbList')
+      content_tag(:nav, crumb_list, id: 'breadcrumbs', class: 'col-12 mt-1 mt-sm-3 mt-lg-4', aria: { label: 'breadcrumb' })
+    end
+
+
     def class_for(flash_type)
       {
         success: 'success',

@@ -1,7 +1,9 @@
 .header-spree {
   background: #00336E;
 }
-
+.spree-btn{
+  font-size: 0.9rem !important;
+}
 #sidenav{
   overflow-x: hidden;
   height: 100%;
@@ -28,7 +30,7 @@
   border-bottom: 0.1rem solid transparent;
 }
 #sidenav_blue{
-  margin-left: 35%;
+  margin-left: 45%;
   overflow-x: hidden;
   height: 100%;
   width: 0;
@@ -97,7 +99,9 @@
   margin-left: 2rem;
   list-style-type: none;
 }
-
+.header_ul_sidenav_li{
+  margin-bottom: 2%;
+}
 .blue:hover {
   text-decoration: none;
   padding-bottom: 0.2rem;
@@ -436,6 +440,15 @@ ul.header_ul li{
   .header_ul{
     padding-inline-start: 0px;
   }
+  .header_ul_sidenav{
+    margin-left: 0;
+  }
+  .closebtn{
+    font-size: 1rem;
+  }
+  .blue{
+    font-size: 1rem;
+  }
 }
 @media (min-width: 992px){
 
@@ -480,5 +493,23 @@ ul.header_ul li{
 }
   .burger_drop{
     transform: translate3d(0px, 50px, 0px) !important;
+  }
+}
+@media (max-width: 400px){
+  .spree-btn{
+    font-size: 0.6rem !important;
+  }
+  .account_title {
+    font-size: 0.6rem;
+  }
+  .tax_footer{
+    font-size: 0.6rem;
+  }
+  .address_footer{
+    font-size: 0.6rem;
+  }
+  .address_info{
+    font-size: 0.6rem;
+    text-transform: lowercase;
   }
 }

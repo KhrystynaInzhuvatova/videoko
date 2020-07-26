@@ -177,7 +177,7 @@ module Spree
     after_save :run_touch_callbacks, if: :anything_changed?
     after_save :reset_nested_changes
     after_touch :touch_taxons
-
+    after_save :reindex_product
     before_validation :normalize_slug, on: :update
     before_validation :validate_master
 
@@ -232,6 +232,10 @@ module Spree
 
     def find_or_build_master
       master || build_master
+    end
+
+    def reindex_product
+      self.reindex
     end
 
     # the master variant is not a member of the variants array

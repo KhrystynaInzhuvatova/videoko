@@ -92,7 +92,6 @@
 .index_btn{
   text-decoration: none !important;
   color:white;
-  font-size: 25px;
   background: #E1BE64;
   border-radius: 5px;
   &:hover{
@@ -117,7 +116,16 @@
 }
 .img_from_blob{
   background: white;
-  height: 17vw;
+  height: 20vw;
+  min-height: 1px;
+}
+.img_from_blob_tax{
+  background: white;
+  height: 18vw;
+  min-height: 1px;
+}
+.img_from_blob_index{
+  height: 15vw;
   min-height: 1px;
 }
 
@@ -127,7 +135,64 @@
 }
 
 @media (max-width: 1200px) {
+  .img_from_blob{
+    height: 25vw;
+  }
+  .img_from_blob_tax{
+    height: 25vw;
+  }
+  .img_from_blob_index{
+    height: 20vw;
+  }
   #footer{
     background: linear-gradient(#FAF9F8 50%, #00336E 50%);
   }
+}
+@media (max-width: 940px) {
+  .img_from_blob{
+    height: 25vw;
+  }
+  .img_from_blob_tax{
+    height: 25vw;
+  }
+}
+@media (max-width: 850px) {
+  .img_from_blob{
+    height: 45vw;
+  }
+  .img_from_blob_tax{
+    height: 60vw;
+  }
+  .img_from_blob_index{
+    height: 20vw;
+  }
+  .index_car_pointer{
+    display: none !important;
+  }
+  .carousel-icon-control-rounded{
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+@media (max-width: 576px) {
+  .img_from_blob_index{
+    height: 25vw;
+  }
+  .account_title {
+    font-size: 0.8rem;
+  }
+  .tax_footer{
+    font-size: 0.8rem;
+  }
+  .address_footer{
+    font-size: 0.8rem;
+  }
+  .address_info{
+    font-size: 0.8rem;
+    text-transform: lowercase;
+  }
+ .carousel-icon-control-rounded{
+   width: 2rem !important;
+   height: 2rem !important;
+ }
 }
