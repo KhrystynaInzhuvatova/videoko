@@ -65,7 +65,6 @@ module Spree
       else
       @products = Spree::Product.search("*",where:{or:[ [ clean_query, variant_price]]},page: curr_page, per_page: 9)
     end
-     
     end
 
 

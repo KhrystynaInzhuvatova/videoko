@@ -1,5 +1,5 @@
 #footer{
-  background: linear-gradient(#FAF9F8 60%, #00336E 40%);
+  background: linear-gradient(#FAF9F8 45%, #00336E 45%);
 }
 
 #page-container {
@@ -10,7 +10,9 @@
 #content-wrap {
   padding-bottom: 3rem;    /* Footer height */
 }
-
+.footer_icon{
+  padding-right: 2%;
+}
 .footer-spree-copyright{
   background: #00336E;
   color: white;
@@ -175,6 +177,9 @@
   }
 }
 @media (max-width: 576px) {
+  .footer_icon{
+    width: 1.5rem;
+  }
   .img_from_blob_index{
     height: 25vw;
   }
@@ -190,6 +195,7 @@
   .address_info{
     font-size: 0.8rem;
     text-transform: lowercase;
+    white-space: nowrap;
   }
  .carousel-icon-control-rounded{
    width: 2rem !important;

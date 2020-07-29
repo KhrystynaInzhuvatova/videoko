@@ -4,6 +4,11 @@
 .spree-btn{
   font-size: 0.9rem !important;
 }
+.header_icon{
+  font-size: 16px;
+  line-height: 20px;
+  color: #6F6354;
+}
 #sidenav{
   overflow-x: hidden;
   height: 100%;
@@ -442,12 +447,18 @@ ul.header_ul li{
   }
   .header_ul_sidenav{
     margin-left: 0;
+    padding-left: 0.5rem;
+  }
+  .header_icon{
+    font-size: 0.8rem;
+    line-height: normal;
+    white-space: nowrap;
   }
   .closebtn{
     font-size: 1rem;
   }
   .blue{
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 @media (min-width: 992px){

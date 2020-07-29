@@ -17,7 +17,7 @@ class Spree::ContactUs::ContactsController < Spree::StoreController
     @tel = "(032)295-1-295"
     @email = "videoko@ukr.net"
     @contact = Spree::ContactUs::Contact.new
-    @taxonomies = Spree::Taxonomy.includes(root: :children)
+    #@taxonomies = Spree::Taxonomy.includes(root: :children)
   end
 
   def meta_data_tags; end

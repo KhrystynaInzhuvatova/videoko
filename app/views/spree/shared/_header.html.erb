@@ -18,6 +18,22 @@
     <%= link_to Spree.t('nav_bar.log_out'), spree_logout_path, class: "blue", method: :get  %>
   <% end %>
   </ul>
+  <div class="col-12 text-center">
+  <%=link_to image_tag("facebook_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
+  <%=link_to image_tag("twit_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
+  <%=link_to image_tag("inst_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
+  </div>
+  <div>&nbsp;</div>
+  <div class="col-12 text-center">
+  <%= image_tag("phone_header.png" , class: "footer_icon")%>
+  <span class="header_icon"><%=@tel%></span>
+</div>
+  <span>&nbsp;</span>
+  <div class="col-12 text-center">
+  <%= image_tag("mail_header.png", class: "footer_icon")%>
+  <span class="header_icon"><%=@email%></span>
+</div>
+
   </div>
   <div id="sidenav_blue"></div>
 
