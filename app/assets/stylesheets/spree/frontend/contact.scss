@@ -126,12 +126,12 @@ padding-left: 20%;
   text-align: center;
 }
 .address_inside{
-  text-transform: uppercase;
+  //text-transform: uppercase;
   display: grid;
   padding-top: 15%;
 }
 .address_contact{
-  padding-top: 25%;
+  padding-top: 50%;
   align-items: center;
   text-align: center;
   display: grid;
@@ -307,13 +307,35 @@ color: #000000;
       font-size: 1.5rem;
   }
 
+@media (max-width: 1000px){
+  .im_big{
+    display: none !important;
+  }
+  #map{
+    overflow: scroll !important;
+    height: 60vw !important;
+  }
+  .address_contact{
+    padding-top: 15%;
+  }
+  .map{
+    padding-top: 2%;
+  }
+}
 @media (max-width: 800px){
+  #map{
+    overflow: scroll !important;
+    height: 60vw !important;
+  }
+  .address_contact{
+    padding-top: 15%;
+  }
+  .map{
+    padding-top: 2%;
+  }
   .desk{
   display: none;
 }
-
-}
-@media (max-width: 800px){
   .go_us_first{
     font-size: 2rem;
   }
@@ -321,9 +343,7 @@ color: #000000;
     font-size: 1.3rem;
   }
 
-  .im_big{
-    display: none !important;
-  }
+
   .name_product{
     font-size: 0.8rem;
   }
@@ -342,10 +362,20 @@ color: #000000;
 
 }
 @media (max-width: 576px) {
+  #map{
+    overflow: scroll !important;
+    height: 60vw !important;
+  }
+  .map{
+    padding-top: 2%;
+  }
+  .address_contact{
+    padding-top: 20%;
+  }
   .im_big{
     display: none !important;
   }
-  
+
   .go_us_first{
     font-size: 1.5rem;
     line-height: normal;
