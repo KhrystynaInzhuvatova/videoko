@@ -3,8 +3,11 @@ require 'csv'
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
 
-Spree::Store.last.update_attributes(default_currency: "UAH")
-Spree::Store.last.update_attributes(name: "Знак якості")
+Spree::Store.current.update_attributes(default_currency: "UAH")
+Spree::Store.current.update_attributes(name: "Знак якості")
+Spree::Store.current.update(mail_from_address: "kinzhuvatova@gmail.com")
+Spree::Store.current.update(url: "videoko-test.devarena.lviv.ua")
+Spree::Store.current.update(name: "Знак якості")
 Spree::Country.find(230).translate.update(locale: "ru", name:"Украина")
 Spree::Role.create(name: "rozdrib")
 Spree::Role.create(name: "opt")

@@ -66,10 +66,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'videoko-test.devarena.lviv.ua' }
 
   config.action_mailer.smtp_settings = {
-  :address => "",
+  :address => Rails.application.credentials[:aws][:address],
   :port => 25,
-  :user_name => "", #Your SMTP user
-  :password => "", #Your SMTP password
+  :user_name => Rails.application.credentials[:aws][:user_name],
+  :password => Rails.application.credentials[:aws][:password], 
   :authentication => :login,
   :enable_starttls_auto => true
 }

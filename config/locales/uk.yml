@@ -825,6 +825,7 @@ uk:
         one:
         other:
   spree:
+    subject: Знак якості
     send: Відправити
     spree_contact_us:
       left_title: Зв'яжіться з нами
@@ -1737,15 +1738,17 @@ uk:
     order_email_resent: Лист з описом замовлення надіслано повторно
     order_information: Інформація стосовно замовлення
     order_mailer:
+      subtotal: Проміжний підсумок
+      total: Разом
       cancel_email:
-        dear_customer: Шановний покупцю,\n
+        dear_customer: Шановний покупцю,
         instructions: Ваше замовлення СКАСОВАНО. Збережіть цю інформацію в історії.
         order_summary_canceled: Коротко про замовлення [СКАСОВАНО]
         subject: Скасування замовлення
         subtotal: Проміжний підсумок
         total: Разом
       confirm_email:
-        dear_customer: Шановний покупцю,\n
+        dear_customer: Шановний покупцю,
         instructions: Перегляньте інформацію про ваше замовлення.
         order_summary: Коротко про замовлення
         subject: Підтвердження замовлення

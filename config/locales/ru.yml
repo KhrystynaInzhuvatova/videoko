@@ -738,6 +738,7 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    subject: Знак качества
     send: Отправить
     spree_contact_us:
       left_title: Свяжитесь с нами
