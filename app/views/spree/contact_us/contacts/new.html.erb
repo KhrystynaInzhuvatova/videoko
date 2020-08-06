@@ -27,13 +27,20 @@
 <div class="big_address">
 <p><span>ПН-ПТ: </span><span>09.00-18.00</span></p>
 <p><span>СБ: </span><span>09.00-15.00</span></p>
-<p><span><%= Spree.t("contact.nd")%>:</span><span>&nbsp</span><span><%= Spree.t("contact.vuhidnuy")%></span></p>
+<p><span><%= Spree.t("contact.nd")%>:</span><span>&nbsp;</span><span><%= Spree.t("contact.vuhidnuy")%></span></p>
 </div>
 </div>
 </div>
 <div class="row address_contact">
 <p class="our_contact"><%= Spree.t("contact.our_contact")%></p>
-<div class="tel"><%= Spree.t("contact.tel_to_us")%>: <span>&nbsp</span><%= @tel%></div>
+<div class="tel">
+
+  <div class="row"><div class="col-1">&nbsp;</div><div class="col-11"><%= @mob_tel%></div></div>
+  <p><div class="row"><div class="col-2"><%=image_tag "vibe.png"%></div><div class="col-9"><%= @viber%></div></div></p>
+  <p><div class="row"><div class="col-2"><%=image_tag "teleg.png"%></div><div class="col-9"><%= @telegram%></div></div></p>
+  <p><div class="row"><div class="col-1">&nbsp;</div><div class="col-11"><%= @tel%></div></div></p>
+  <p><div class="row"><div class="col-1">&nbsp;</div><div class="col-11"><%= @tel_second%></div></div></p>
+  </div>
 <div class="tel"><%= Spree.t("contact.mail_us")%>: <span>&nbsp</span><%= @email%></div>
 </div>
 </div>

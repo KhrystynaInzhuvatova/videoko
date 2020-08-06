@@ -23,12 +23,13 @@
   <%=link_to image_tag("twit_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
   <%=link_to image_tag("inst_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
   </div>
-  <div>&nbsp;</div>
   <div class="col-12 text-center">
-  <%= image_tag("phone_header.png" , class: "footer_icon")%>
-  <span class="header_icon"><%=@tel%></span>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @mob_tel%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%=image_tag "viber_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= @viber%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%=image_tag "teleg_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= @telegram%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @tel%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @tel_second%></span></div></div></p>
 </div>
-  <span>&nbsp;</span>
   <div class="col-12 text-center">
   <%= image_tag("mail_header.png", class: "footer_icon")%>
   <span class="header_icon"><%=@email%></span>

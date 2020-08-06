@@ -96,7 +96,7 @@
 }
 .closebtn, .closebtn:visited, .closebtn:link, .closebtn:hover, .closebtn:active{
   color: #00336E;
-  font-size: 3rem;
+  font-size: 2rem;
   margin-left: 1rem;
   text-decoration: none;
 }
@@ -105,7 +105,10 @@
   list-style-type: none;
 }
 .header_ul_sidenav_li{
-  margin-bottom: 2%;
+  margin-bottom: 1%;
+}
+.header_icon_img{
+  filter: grayscale(100%);
 }
 .blue:hover {
   text-decoration: none;
@@ -507,6 +510,9 @@ ul.header_ul li{
   }
 }
 @media (max-width: 400px){
+  .header_icon_img{
+    width: 6vw;
+  }
   .spree-btn{
     font-size: 0.6rem !important;
   }
