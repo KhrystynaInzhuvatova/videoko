@@ -10,7 +10,7 @@ module Spree
 
     def inform_admin(order)
        @order = order.respond_to?(:id) ? order : Spree::Order.find(order)
-       mail(to: "kinzhuvatova@gmail.com", from: from_address, subject: "new")
+       mail(to: "kinzhuvatova@gmail.com", from: from_address, subject: "Нове замовлення")
     end
 
     def cancel_email(order, resend = false)
