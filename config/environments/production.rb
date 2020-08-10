@@ -65,8 +65,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => 'videoko-test.devarena.lviv.ua', protocol: 'http' }
   config.action_mailer.asset_host = 'http://videoko-test.devarena.lviv.ua:3000'
-  config.action_controller.asset_host = 'http://videoko-test.devarena.lviv.ua:3000'
-
+  
   config.action_mailer.smtp_settings = {
   :address => Rails.application.credentials[:aws][:address],
   :port => 25,
