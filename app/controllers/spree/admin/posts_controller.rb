@@ -23,6 +23,9 @@ module Spree
 
         respond_to do |format|
           if @post.save
+            if !params[:video].nil?
+              @post.video.attach(params[:video])
+            end
             format.html { redirect_to spree.admin_post_path(@post.id) }
             format.js
           else
@@ -57,6 +60,9 @@ module Spree
 
         respond_to do |format|
           if @post.update(post_params)
+            if !params[:video].nil?
+              @post.video.attach(params[:video])
+            end
             format.html { redirect_to spree.admin_post_path(@post.id) }
             format.js
           else
