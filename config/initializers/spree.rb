@@ -1,4 +1,9 @@
-# Configure Spree Preferences
+SpreeEditor::Config.tap do |config|
+  config.ids = 'product_description product_short_description post_body page_body event_body'
+
+  # change the editor to CKEditor
+  config.current_editor = 'CKEditor'
+end# Configure Spree Preferences
 #
 # Note: Initializing preferences available within the Admin will overwrite any changes that were made through the user interface when you restart.
 #       If you would like users to be able to update a setting with the Admin it should NOT be set here.

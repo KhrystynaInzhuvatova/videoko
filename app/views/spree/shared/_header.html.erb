@@ -12,6 +12,7 @@
     <%end%>
 
   <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.contact'), spree.contact_us_path, class: "blue" %></li>
+  <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.news'), spree.posts_path, class: "blue" %></li>
   <% if !spree_user_signed_in? %>
     <%= link_to Spree.t('nav_bar.log_in'), spree_login_path, class: "blue"  %>
         <%else%>
@@ -24,16 +25,16 @@
   <%=link_to image_tag("inst_header.png" , class: "footer_icon"), "https://uk-ua.facebook.com/login/", target: :_blank %>
   </div>
   <div class="col-12 text-center">
-  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @viber%></span></div></div></p>
-  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @telegram%></span></div></div></p>
-  <p><div class="row"><div class="col-2"><%=image_tag "viber_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= @mob_tel%></span></div></div></p>
-  <p><div class="row"><div class="col-2"><%=image_tag "teleg_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= @mob_tel%></span></div></div></p>
-  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @tel%></span></div></div></p>
-  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= @tel_second%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= "(099) 295-2-295"%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= "(063) 295-2-295"%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%=image_tag "viber_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= "(097) 295-2-295"%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%=image_tag "teleg_header.png", class: "header_icon_img"%></div><div class="col-9"><span class="header_icon"><%= "(097) 295-2-295"%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= "(032)295-1-295"%></span></div></div></p>
+  <p><div class="row"><div class="col-2"><%= image_tag("phone_header.png" , class: "header_icon_img")%></div><div class="col-9"><span class="header_icon"><%= "(032)295-2-295"%></span></div></div></p>
 </div>
   <div class="col-12 text-center">
   <%= image_tag("mail_header.png", class: "footer_icon")%>
-  <span class="header_icon"><%=@email%></span>
+  <span class="header_icon"><%="videoko@ukr.net"%></span>
 </div>
 
   </div>

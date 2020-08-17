@@ -5,12 +5,12 @@
 
 <div id="London" class="tabcontent">
   <div  class="m-0 text-break product-description " data-hook="description">
-  <%= sanitize product_description(@product) %>
+  <%= raw product_description(@product) %>
 </div>
 </div>
 
 <div id="Paris" class="tabcontent">
   <div id="product-description-long" class="m-0 text-break product-description" data-hook="description">
-    <%= sanitize @product.short_description if @product.short_description%>
+    <%= raw @product.short_description if @product.short_description%>
   </div>
 </div>

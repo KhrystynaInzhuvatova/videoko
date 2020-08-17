@@ -738,6 +738,7 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    read: Читать дальше
     subject: Знак качества
     send: Отправить
     spree_contact_us:

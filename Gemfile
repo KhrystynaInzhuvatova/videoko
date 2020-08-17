@@ -63,3 +63,7 @@ gem 'searchkick'
 gem 'whenever', require: false
 gem 'mina-whenever', require: false
 gem 'spree_contact_us', github: 'spree-contrib/spree_contact_us'
+gem "coffee-rails"
+gem 'spree_editor', github: 'spree-contrib/spree_editor'
+gem 'mini_magick'
+gem 'tinymce-rails-langs'

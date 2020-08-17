@@ -1,0 +1,17 @@
+<div class="container space">
+<%@posts.each do |post|%>
+<div class="text-center">
+  <h5 class="text-center"><%= post.title%></h5>
+  <span><%= raw(truncate(post.body.gsub(/<img[^>]+\/>/, ""), length: 500, escape: false))%></span>
+    <p><%= link_to Spree.t("read"), spree.post_path(post.id)%></p>
+</div>
+<p></p>
+<%end%>
+<div class="row pl-md-4 pl-sm-4">
+  <div class="col-12">
+    <div class="plp-pagination d-none d-lg-flex">
+      <%= paginate @posts, window: 2, theme: 'twitter-bootstrap-4' %>
+    </div>
+  </div>
+</div>
+</div>

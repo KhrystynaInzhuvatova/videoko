@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_122855) do
+ActiveRecord::Schema.define(version: 2020_08_13_162655) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 2020_07_15_122855) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "data_fingerprint"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -468,6 +479,24 @@ ActiveRecord::Schema.define(version: 2020_07_15_122855) do
     t.index ["order_id"], name: "index_spree_payments_on_order_id"
     t.index ["payment_method_id"], name: "index_spree_payments_on_payment_method_id"
     t.index ["source_id", "source_type"], name: "index_spree_payments_on_source_id_and_source_type"
+  end
+
+  create_table "spree_post_translations", force: :cascade do |t|
+    t.integer "spree_post_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "body"
+    t.index ["locale"], name: "index_spree_post_translations_on_locale"
+    t.index ["spree_post_id"], name: "index_spree_post_translations_on_spree_post_id"
+  end
+
+  create_table "spree_posts", force: :cascade do |t|
+    t.string "title"
+    t.string "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spree_preferences", force: :cascade do |t|

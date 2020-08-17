@@ -825,6 +825,9 @@ uk:
         one:
         other:
   spree:
+    i18n:
+      translations: Переклад
+    read: Читати далі
     subject: Знак якості
     send: Відправити
     spree_contact_us:
