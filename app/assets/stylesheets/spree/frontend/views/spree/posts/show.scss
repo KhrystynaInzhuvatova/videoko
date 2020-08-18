@@ -16,5 +16,10 @@ blockquote {
 }
 .video_news{
   width:100%;
-  height:30vw;
+  height:25vw;
+}
+@media (max-width: 400px){
+  .video_news{
+    height:30vw;
+  }
 }

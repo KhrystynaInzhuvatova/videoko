@@ -20,6 +20,7 @@
       </div>
     </div>
     <div>&nbsp;</div>
+    <div class="text-center"><%=video_tag(main_app.url_for(@product.video),class: "video_news",controls: true, autobuffer: true) if @product.video.present?%></div>
     <div class="pb-4 pt-md-5 row" data-hook="product_description">
       <div class="col-12 col-md-12 col-lg-12">
         <%= render partial: 'description' %>
