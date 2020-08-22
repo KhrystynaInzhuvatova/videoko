@@ -1,7 +1,7 @@
 module Spree
   class PostsController < Spree::StoreController
     def index
-      @posts = Spree::Post.all.page(params[:page])
+      @posts = Spree::Post.all.order("updated_at DESC").page(params[:page])
     end
 
     def show

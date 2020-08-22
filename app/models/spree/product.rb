@@ -172,7 +172,7 @@ module Spree
     after_restore :update_slug_history
 
     after_initialize :ensure_master
-
+    after_save :check_count_translate
     after_save :save_master
     after_save :run_touch_callbacks, if: :anything_changed?
     after_save :reset_nested_changes
@@ -286,6 +286,31 @@ module Spree
 
     def tax_category
       super || TaxCategory.find_by(is_default: true)
+    end
+
+    def check_count_translate
+      if self.translations.where(locale: :ru).count > 1
+        last = self.translations.where(locale: :ru).sort_by { |m| [m.created_at, m.updated_at].max }.reverse!.first
+        self.translations.where(locale: :ru).map do |n|
+           if n != last
+             n.delete
+            Spree::Product::Translation.unscoped do
+               Spree::Product::Translation.where(id: n.id).delete_all
+             end
+           end
+         end
+      end
+      if self.translations.where(locale: :uk).count > 1
+        last = self.translations.where(locale: :uk).sort_by { |m| [m.created_at, m.updated_at].max }.reverse!.first
+        self.translations.where(locale: :uk).each do |n|
+          if n != last
+            n.delete
+           Spree::Product::Translation.unscoped do
+              Spree::Product::Translation.where(id: n.id).delete_all
+            end
+          end
+        end
+      end
     end
 
     # Adding properties and option types on creation based on a chosen prototype

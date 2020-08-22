@@ -3,17 +3,7 @@ SpreeEditor::Config.tap do |config|
 
   # change the editor to CKEditor
   config.current_editor = 'CKEditor'
-end# Configure Spree Preferences
-#
-# Note: Initializing preferences available within the Admin will overwrite any changes that were made through the user interface when you restart.
-#       If you would like users to be able to update a setting with the Admin it should NOT be set here.
-#
-# Note: If a preference is set here it will be stored within the cache & database upon initialization.
-#       Just removing an entry from this initializer will not make the preference value go away.
-#       Instead you must either set a new value or remove entry, clear cache, and remove database entry.
-#
-# In order to initialize a setting do:
-# config.setting_name = 'new value'
+end
 Spree.config do |config|
   Spree::PermittedAttributes.product_attributes << [:short_description,:related]
   Spree::PermittedAttributes.line_item_attributes << [:role_id_price]

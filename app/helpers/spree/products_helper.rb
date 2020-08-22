@@ -61,7 +61,8 @@ module Spree
       count = @products.count
       hash = Digest::SHA1.hexdigest(params.to_json)
       max_updated_at = @products.map(&:updated_at).max || Date.today
-      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{hash}-#{count}-#{max_updated_at.to_s(:number)}"
+      transaction = @products.map{|prod|prod.translations.map{|tr|tr.name}}
+      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{hash}-#{count}-#{max_updated_at.to_s(:number)}-#{transaction}"
     end
 
     def cache_key_for_product(product = @product)

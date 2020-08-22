@@ -64,10 +64,11 @@ module Spree
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
-      
+
       etag = [
         Spree::Config[:rate],
-        store_etag,
+        @products.map{|pr|pr.translations.map{|c|c.name}},
+        @products.map{|pr|pr.prices.map{|c|c.amount}},
         available_option_types_cache_key(@taxon_id),
         filtering_params_cache_key(@taxon_id)
       ]
@@ -82,10 +83,9 @@ module Spree
 
       if !@product.related.nil?
       related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i).reject { |c| c == 0 }
-      @related_products = related.map{|c| Spree::Product.find(c) }
+      @related_products = related.map{|c| Spree::Product.where(id: c) }.flatten!
       end
       load_variants
-
       if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
 
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
@@ -232,13 +232,16 @@ module Spree
     def product_etag
       [
         Spree::Config[:rate],
-        store_etag,
+        I18n.locale,
         @product,
+        Spree::Product.find(@product.id).translations.map{|c|c.name},
+        Spree::Product.find(@product.id).translations.map{|c|c.description},
+        Spree::Product.find(@product.id).translations.map{|c|c.short_description},
         @product.prices.map{|c|c.amount},
-        @product.variants,
-        @taxon,
-        @product.possible_promotion_ids,
-        @product.possible_promotions.maximum(:updated_at),
+        @product.variants.map{|v|v.updated_at},
+        @taxon
+        #@product.possible_promotion_ids,
+        #@product.possible_promotions.maximum(:updated_at),
       ]
     end
   end
