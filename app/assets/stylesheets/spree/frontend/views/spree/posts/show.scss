@@ -47,4 +47,10 @@ font-style: normal;
   .video_news{
     height:30vw;
   }
+  #rich_editor{
+    img{
+    height: auto;
+    max-width: 100%;
+    }
+  }
 }
