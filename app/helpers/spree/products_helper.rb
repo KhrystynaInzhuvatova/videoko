@@ -59,10 +59,10 @@ module Spree
 
     def cache_key_for_products(products = @products, additional_cache_key = nil)
       count = @products.count
-      hash = Digest::SHA1.hexdigest(params.to_json)
-      max_updated_at = @products.map(&:updated_at).max || Date.today
+      max_updated_at = @products.map(&:updated_at)
+      prices = @products.map{|prod|prod.prices.find_by(role_id: additional_cache_key).amount}
       transaction = @products.map{|prod|prod.translations.map{|tr|tr.name}}
-      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{hash}-#{count}-#{max_updated_at.to_s(:number)}-#{transaction}"
+      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{count}-#{max_updated_at.to_s(:number)}-#{transaction}-#{additional_cache_key}-#{prices}"
     end
 
     def cache_key_for_product(product = @product)

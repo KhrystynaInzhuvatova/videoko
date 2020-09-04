@@ -67,6 +67,7 @@ module Spree
 
       etag = [
         Spree::Config[:rate],
+        spree_current_user,
         @products.map{|pr|pr.translations.map{|c|c.name}},
         @products.map{|pr|pr.prices.map{|c|c.amount}},
         available_option_types_cache_key(@taxon_id),
@@ -234,6 +235,7 @@ module Spree
         Spree::Config[:rate],
         I18n.locale,
         @product,
+        spree_current_user,
         Spree::Product.find(@product.id).translations.map{|c|c.name},
         Spree::Product.find(@product.id).translations.map{|c|c.description},
         Spree::Product.find(@product.id).translations.map{|c|c.short_description},

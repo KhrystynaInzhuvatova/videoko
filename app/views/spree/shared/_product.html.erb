@@ -1,9 +1,6 @@
 <% url = spree.product_path(product, taxon_id: @taxon&.id) %>
-<% role = (!spree_current_user.nil? && spree_current_user.spree_roles.last.name == :admin)  ? spree_current_user.spree_roles.last.name : :rozdrib%>
-<% id = Spree::Role.find_by(name: role).id%>
 
-
-<% cache [common_product_cache_keys, product] do %>
+<% cache [common_product_cache_keys, id,product] do %>
 <div class="card card_index product_card" >
   <%= link_to url, class: 'h-100 flex-column justify-content-between' do %>
   <%= plp_and_carousel_image(product, image_class="default_choose img_from_blob_index") %>
