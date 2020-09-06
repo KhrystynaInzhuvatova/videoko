@@ -7,7 +7,7 @@
   <% if country = Spree::Country.find_by(id: Spree::Config[:default_country_id]) || Spree::Country.first %>
     <%= configurations_sidebar_menu_item(Spree.t(:states), spree.admin_country_states_path(country)) if can? :manage, Spree::Country %>
   <% end %>
-
+  <%= configurations_sidebar_menu_item("Контакти", spree.admin_settings_path) %>
   <%= configurations_sidebar_menu_item(Spree.t(:roles), spree.admin_roles_path) if can? :manage, Spree::Role %>
   <%= configurations_sidebar_menu_item("Новини", spree.admin_posts_path) if can? :manage, Spree::Post%>
 </ul>

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     get "posts", controller: "posts", action: "index"
     get "post/:id", controller: "posts", action: "show", as: :post
   namespace :admin do
+      post "import", controller: "products", action: "import",  as: :import 
+      get "settings/index", controller: "settings", action: "index",  as: :settings
+      post "settings/change", controller: "settings", action: "change",  as: :change
       get "destroy_video/:id", controller: "products", action: "destroy_video",  as: :destroy_video
       get "search_taxonomy/:id", controller: "products", action: "search_taxonomy",  as: :search_taxonomy
       post "rate", controller: "products", action: "rate", as: :rate

@@ -2,6 +2,7 @@ require 'uri'
 require 'net/http'
 require 'net/https'
 require 'json'
+require 'csv'
 module Spree
   module Admin
     class ProductsController < ResourceController
@@ -92,6 +93,11 @@ module Spree
         end
     end
 
+      def import
+        CSV.foreach(params[:file].path, headers: true)do |t|
+        p t
+      end
+      end
 
       def destroy
         @product = Product.friendly.find(params[:id])

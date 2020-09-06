@@ -47,6 +47,17 @@ module Spree
     preference :rate, :decimal
     preference :last_rate, :decimal
     preference :cache_option_type, :integer, default: 0
+    preference :first_mob, :string, default: '(099) 295-2-295'
+    preference :second_mob, :string, default: '(063) 295-2-295'
+    preference :viber, :string, default: '(097) 295-2-295'
+    preference :telegram, :string, default: '(097) 295-2-295'
+    preference :first_phone, :string, default: '(032) 295-1-295'
+    preference :second_phone, :string, default: '(032) 295-2-295'
+    preference :email, :string, default: 'videoko@ukr.net'
+    preference :street_uk, :string, default: 'Шевченка, 120'
+    preference :street_ru, :string, default: 'Шевченка, 120'
+    preference :hours_week, :string, default: '09.00-18.00'
+    preference :hours_weekend, :string, default: '09.00-15.00'
     # Store credits configurations
     preference :non_expiring_credit_types, :array, default: []
     preference :credit_to_new_allocation, :boolean, default: false
