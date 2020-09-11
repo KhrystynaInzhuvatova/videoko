@@ -57,7 +57,7 @@ module Spree
     },
      word_middle: [:name]
 
-     scope :search_import, ->{includes(:translations).includes(:prices).includes(:taxons).includes(:option_types).includes(:variants)}
+     scope :search_import, ->{includes(:prices).includes(:taxons).includes(:option_types).includes(:variants)}
     def search_data
     json = {
       name: name,
@@ -70,7 +70,7 @@ module Spree
       taxon_ids: taxon_and_ancestors.map(&:id),
       taxon_count: taxon_count,
       taxonomy_ids: taxonomy_ids,
-      price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount if v.prices.count >0}
+      price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).amount if v.prices.count >0}
     }
     if self.variants.count > 0 && self.option_types.count > 0
       array =  self.variants.map do |variant|
@@ -85,9 +85,9 @@ module Spree
     end
     if  self.prices.count > 0
     if self.default_variant.prices.blank?
-    price_hash = Hash[price: self.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
+    price_hash = Hash[price: self.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).amount]
   else
-      price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: :rozdrib).id).amount]
+      price_hash = Hash[price: self.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).amount]
     end
     json.merge!(price_hash)
   end
@@ -151,7 +151,7 @@ module Spree
              class_name: 'Spree::Variant',
              dependent: :destroy
 
-    has_many :prices#, -> { order('spree_variants.position, spree_variants.id, currency') }, through: :variants
+    has_many :prices, dependent: :destroy#, -> { order('spree_variants.position, spree_variants.id, currency') }, through: :variants
 
     accepts_nested_attributes_for :prices
 
@@ -174,10 +174,10 @@ module Spree
     after_initialize :ensure_master
     after_save :check_count_translate
     after_save :save_master
+    after_save :check_default_variant_sku
     after_save :run_touch_callbacks, if: :anything_changed?
     after_save :reset_nested_changes
     after_touch :touch_taxons
-    #after_save :reindex_product
     before_validation :normalize_slug, on: :update
     before_validation :validate_master
 
@@ -234,10 +234,6 @@ module Spree
       master || build_master
     end
 
-    def reindex_product
-      self.reindex
-    end
-
     # the master variant is not a member of the variants array
     def has_variants?
       variants.any?
@@ -286,6 +282,12 @@ module Spree
 
     def tax_category
       super || TaxCategory.find_by(is_default: true)
+    end
+
+    def check_default_variant_sku
+      if self.has_variants? && !self.sku.blank?
+          self.variants.first.update(sku: self.sku)
+      end
     end
 
     def check_count_translate
