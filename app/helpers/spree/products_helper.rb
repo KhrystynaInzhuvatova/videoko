@@ -57,7 +57,7 @@ module Spree
       end
     end
 
-    def cache_key_for_products(products = @products, additional_cache_key = nil)
+    def cache_key_for_products(products = @products, additional_cache_key)
       count = @products.count
       max_updated_at = @products.map(&:updated_at)
       prices = @products.map{|prod|prod.prices.find_by(role_id: additional_cache_key).amount}

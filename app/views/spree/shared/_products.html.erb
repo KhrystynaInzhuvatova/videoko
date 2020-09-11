@@ -1,6 +1,6 @@
 
 <%if spree_current_user.nil? || spree_current_user.spree_roles.last.name == "admin"%>
-<%role = :rozdrib%>
+<%role = "rozdrib"%>
 <%else%>
 <%role = spree_current_user.spree_roles.last.name%>
 <%end%>
