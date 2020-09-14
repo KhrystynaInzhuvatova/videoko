@@ -12,7 +12,7 @@ module Spree
       create.before :create_before
       update.before :update_before
       helper_method :clone_object_url
-      before_action :related, only: [:create, :update]
+      before_action :related, only: [:update]
       after_action :update_prices, only: :rate
 
 
@@ -37,6 +37,9 @@ module Spree
       end
 
       def update
+        if params[:product][:related].empty?
+          permitted_resource_params.extract!(:related)
+        end
         if params[:product][:taxon_ids].present?
           params[:product][:taxon_ids] = params[:product][:taxon_ids].split(',')
         end
@@ -210,7 +213,10 @@ module Spree
       end
 
       def related
-        params.require(:product).permit(:show, :video, related:[],prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
+        params.require(:product).permit(:show, :video, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
+         if params[:product][:related].present?
+           params[:product][:related].reject! { |c| c.empty? }
+         end
       end
 
 
