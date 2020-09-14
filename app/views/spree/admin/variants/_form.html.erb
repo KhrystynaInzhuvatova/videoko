@@ -4,20 +4,17 @@
       <% @product.option_types.each do |option_type| %>
         <div class="form-group" data-hook="presentation">
           <%= label :new_variant, option_type.presentation %>
-          <% if option_type.name == 'color' %>
-            <%= f.collection_select 'option_value_ids', option_type.option_values, :id, :name,
-              { include_blank: true }, { name: 'variant[option_value_ids][]', class: 'select2' } %>
-          <% else %>
             <%= f.collection_select 'option_value_ids', option_type.option_values, :id, :presentation,
               { include_blank: true }, { name: 'variant[option_value_ids][]', class: 'select2' } %>
-          <% end %>
         </div>
       <% end %>
 
+      <%if f.object.product.variants.count >= 1%>
       <div class="form-group" data-hook="sku">
         <%= f.label :sku, Spree.t(:sku) %>
         <%= f.text_field :sku, class: 'form-control' %>
       </div>
+      <%end%>
       <%if f.object.prices.count > 1%>
       <div class="form-group">
         <%= f.fields_for :prices, @variant.prices do |pr| %>

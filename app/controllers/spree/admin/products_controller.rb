@@ -61,7 +61,6 @@ module Spree
         if !params[:product][:video].nil?
           @product.video.attach(params[:product][:video])
         end
-
       end
 
       def destroy_video
@@ -94,9 +93,9 @@ module Spree
     end
 
       def import
-        CSV.foreach(params[:file].path, headers: true)do |t|
-        p t
-      end
+        file = params[:file].path
+        PriceFromCsvJob.perform_later(file)
+        redirect_to admin_products_url, notice: "Ціни оновлюються.Зачекайте"
       end
 
       def destroy
