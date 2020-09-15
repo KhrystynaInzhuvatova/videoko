@@ -57,7 +57,7 @@ module Spree
     },
      word_middle: [:name]
 
-     scope :search_import, ->{includes(:prices).includes(:taxons).includes(:option_types).includes(:variants)}
+     #scope :search_import, ->{includes(:prices).includes(:taxons).includes(:option_types).includes(:variants)}
     def search_data
     json = {
       name: name,
