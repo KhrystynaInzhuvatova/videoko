@@ -348,6 +348,9 @@ GEM
     routing-filter (0.6.3)
       actionpack (>= 4.2)
       activesupport (>= 4.2)
+    rspec-activejob (0.6.1)
+      activejob (>= 4.2)
+      rspec-mocks
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -539,6 +542,7 @@ DEPENDENCIES
   mini_magick
   puma (~> 4.1)
   rails (~> 6.0.1)
+  rspec-activejob
   rspec-rails
   sass-rails (>= 6)
   searchkick
