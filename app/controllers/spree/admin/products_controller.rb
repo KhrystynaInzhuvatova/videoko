@@ -37,7 +37,7 @@ module Spree
       end
 
       def update
-        if params[:product][:related].empty?
+        if !params[:product][:related].nil? && params[:product][:related].empty?
           permitted_resource_params.extract!(:related)
         end
         if params[:product][:taxon_ids].present?
