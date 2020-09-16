@@ -3,7 +3,7 @@ module Spree
     extend FriendlyId
     include Spree::ProductScopes
 
-    searchkick index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
+    searchkick callbacks: :async, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
 
     mappings: {
       properties:{
@@ -214,7 +214,6 @@ module Spree
              :images, to: :find_or_build_master
 
     alias master_images images
-
     # Cant use short form block syntax due to https://github.com/Netflix/fast_jsonapi/issues/259
     def purchasable?
       variants_including_master.any?(&:purchasable?)
