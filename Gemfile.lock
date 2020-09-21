@@ -540,7 +540,7 @@ DEPENDENCIES
   mina
   mina-whenever
   mini_magick
-  pg
+  pg (~> 1.2)
   puma (~> 4.1)
   rails (~> 6.0.1)
   rspec-activejob
