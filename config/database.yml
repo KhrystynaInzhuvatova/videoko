@@ -84,6 +84,5 @@ production:
   pool: 5
   host: localhost
   database: videoko_production
-  #host: <%= Rails.application.credentials[:host] %>
   username: videoko
   password: <%= Rails.application.credentials[:password_pg] %>
