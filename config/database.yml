@@ -82,6 +82,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: <%= Rails.application.credentials[:host] %>
+  host: localhost
+  #host: <%= Rails.application.credentials[:host] %>
   username: videoko
   password: <%= Rails.application.credentials[:password_pg] %>
