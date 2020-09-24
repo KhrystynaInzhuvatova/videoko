@@ -82,4 +82,4 @@ production:
   <<: *default
   database: videoko_production
   username: videoko
-  #password: <%= ENV['VIDEOKO_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials[:password_pg] %>
