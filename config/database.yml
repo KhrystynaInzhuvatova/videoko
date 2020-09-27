@@ -85,5 +85,5 @@ production:
   #host: localhost
   #host: <%= Rails.application.credentials[:host] %>
   database: videoko_production
-  username: postgres
+  #username: postgres
   #password: <%= Rails.application.credentials[:password_pg] %>
