@@ -82,7 +82,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: localhost
+  #host: localhost
   #host: <%= Rails.application.credentials[:host] %>
   database: videoko_production
   username: videoko
