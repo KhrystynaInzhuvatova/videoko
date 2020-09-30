@@ -3,7 +3,7 @@ module Spree
     extend FriendlyId
     include Spree::ProductScopes
 
-    searchkick callbacks: :async, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
+    searchkick callbacks: false, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
 
     mappings: {
       properties:{
