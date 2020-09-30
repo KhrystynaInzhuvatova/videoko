@@ -95,6 +95,11 @@ module Spree
         end
     end
 
+    def reindex_force
+      ReindexProductJob.perform_later()
+      redirect_to admin_products_url, notice: "Товари оновлюються.Зачекайте"
+    end
+
       def import
         file = params[:file].path
         PriceFromCsvJob.perform_later(file)
