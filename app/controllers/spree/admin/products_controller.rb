@@ -48,7 +48,6 @@ module Spree
         end
         invoke_callbacks(:update, :before)
         if @object.update(permitted_resource_params)
-          Spree::Product.reindex
           invoke_callbacks(:update, :after)
           flash[:success] = flash_message_for(@object, :successfully_updated)
           respond_with(@object) do |format|
@@ -94,6 +93,11 @@ module Spree
           respond_to do |format|
             format.js
         end
+    end
+
+    def reindex_force
+      ReindexProductJob.perform_later()
+      redirect_to admin_products_url, notice: "Товари оновлюються.Зачекайте"
     end
 
       def import
