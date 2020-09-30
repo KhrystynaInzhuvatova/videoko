@@ -96,7 +96,7 @@ module Spree
     end
 
     def reindex_force
-      ReindexProductJob.perform_later()
+      ReindexProductJob.perform_now()
       redirect_to admin_products_url, notice: "Товари оновлюються.Зачекайте"
     end
 
