@@ -83,5 +83,5 @@ production:
   encoding: unicode
   pool: 5
   database: videoko_production
-  username: ubuntu
+  username: postgres
   password: <%= Rails.application.credentials[:password_pg] %>

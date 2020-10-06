@@ -7,10 +7,10 @@ require 'mina/whenever'
  project_name = 'videoko'
 
  set :project_name, project_name
- set :domain, "3.15.156.42"
- set :deploy_to, "/var/www/html/#{project_name}"
+ set :domain, "3.14.86.8"
+ set :deploy_to, "/home/ubuntu/#{project_name}"
  set :repository, "git@github.com:KhrystynaInzhuvatova/videoko.git"
- set :bundle_path, "/var/www/html/#{project_name}/shared/bundle"
+ set :bundle_path, "/home/ubuntu/#{project_name}/shared/bundle"
  set :branch, ENV['branch'] || 'master'
 
  set :shared_dirs, fetch(:shared_dirs, []).push('storage')
@@ -43,7 +43,7 @@ task setup: :remote_environment do
   deploy_to   = fetch(:deploy_to)
   shared_path = fetch(:shared_path)
   command %(sudo mkdir -p "#{deploy_to}")
-  command %(sudo chown -R deploy:deploy "#{deploy_to}")
+  command %(sudo chown -R ubuntu:ubuntu "#{deploy_to}")
 
   command %(mkdir -p "#{shared_path}/log")
   command %(chmod g+rx,u+rwx "#{shared_path}/log")
@@ -79,6 +79,7 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
+    invoke :'rails:db_create'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
