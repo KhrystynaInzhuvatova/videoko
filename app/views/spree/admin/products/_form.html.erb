@@ -4,7 +4,7 @@
 <script>
 
 $(document).ready(function () {
-  var categories =JSON.parse('<%= (Spree::Taxonomy.pluck(:id, :name)).to_json.html_safe%>');
+  var categories =JSON.parse('<%= (Spree::Taxonomy.all.map{|c|[c.id, c.name]}).to_json.html_safe%>');
   categories.forEach(function(element){
         $(`#${JSON.stringify(element[0])}`).selectpicker({
           title: JSON.stringify(element[1]),
