@@ -7,7 +7,7 @@ require 'mina/whenever'
  project_name = 'videoko'
 
  set :project_name, project_name
- set :domain, "3.14.86.8"
+ set :domain, "3.21.75.209"
  set :deploy_to, "/home/ubuntu/#{project_name}"
  set :repository, "git@github.com:KhrystynaInzhuvatova/videoko.git"
  set :bundle_path, "/home/ubuntu/#{project_name}/shared/bundle"
@@ -16,8 +16,7 @@ require 'mina/whenever'
  set :shared_dirs, fetch(:shared_dirs, []).push('storage')
  set :shared_files, fetch(:shared_files, []).push(
    'config/master.key',
-   '.env',
-   'videoko_production'
+   '.env'
  )
 
 set :user, 'ubuntu' # Username in the server to SSH to.
@@ -79,7 +78,7 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    #invoke :'rails:db_create'
+    invoke :'rails:db_create'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
@@ -87,7 +86,8 @@ task :deploy do
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
-        command %{touch tmp/restart.txt}
+        command %{sudo systemctl restart elasticsearch}
+        #command %{touch tmp/restart.txt}
       end
       #invoke :'whenever:update'
     end
