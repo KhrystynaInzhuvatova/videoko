@@ -1,46 +1,46 @@
 require 'csv'
 
-Spree::Core::Engine.load_seed if defined?(Spree::Core)
-Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
+#Spree::Core::Engine.load_seed if defined?(Spree::Core)
+#Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
 
-Spree::Store.current.update_attributes(default_currency: "UAH")
-Spree::Store.current.update_attributes(name: "Знак якості")
-Spree::Store.current.update(mail_from_address: "kinzhuvatova@gmail.com")
-Spree::Store.current.update(url: "videoko-test.devarena.lviv.ua")
-Spree::Store.current.update(name: "Знак якості")
-Spree::Country.find(230).translation.update(locale: "ru", name:"Украина")
-Spree::Role.create(name: "rozdrib")
-Spree::Role.create(name: "opt")
-Spree::Role.create(name: "gold")
-Spree::Role.create(name: "vip")
-Spree::Role.create(name: "vip2")
-Spree::Role.create(name: "vip1")
-Spree::Role.find_by(name: "user").destroy
+#Spree::Store.current.update_attributes(default_currency: "UAH")
+#Spree::Store.current.update_attributes(name: "Знак якості")
+#Spree::Store.current.update(mail_from_address: "kinzhuvatova@gmail.com")
+#Spree::Store.current.update(url: "videoko-test.devarena.lviv.ua")
+#Spree::Store.current.update(name: "Знак якості")
+#Spree::Country.find(230).translation.update(locale: "ru", name:"Украина")
+#Spree::Role.create(name: "rozdrib")
+#Spree::Role.create(name: "opt")
+#Spree::Role.create(name: "gold")
+#Spree::Role.create(name: "vip")
+#Spree::Role.create(name: "vip2")
+#Spree::Role.create(name: "vip1")
+#Spree::Role.find_by(name: "user").destroy
 
-CSV.foreach("db/taxonomy.csv", headers: true)do |property|
-Spree::Taxonomy.create! property.to_h
-end
+#CSV.foreach("db/taxonomy.csv", headers: true)do |property|
+#Spree::Taxonomy.create! property.to_h
+#end
 p "Taxonomy"
 
-6.times do |t|
-CSV.foreach("db/taxon_#{t+1}.csv", headers: true)do |taxon|
-tax = Spree::Taxon.new(taxon.to_h)
-  tax.update(taxonomy_id:Spree::Taxonomy.find("#{t+1}").id, parent_id: Spree::Taxonomy.find("#{t+1}").id)
-    tax.save!
-end
-end
-p "Taxons"
+#6.times do |t|
+#CSV.foreach("db/taxon_#{t+1}.csv", headers: true)do |taxon|
+#tax = Spree::Taxon.new(taxon.to_h)
+#  tax.update(taxonomy_id:Spree::Taxonomy.find("#{t+1}").id, parent_id: Spree::Taxonomy.find("#{t+1}").id)
+#    tax.save!
+#end
+#end
+#p "Taxons"
 
-Spree::Config.rate = 26.8
-Spree::Product.search_index.clean_indices
-Spree::Product.search_index.delete
-CSV.foreach("db/products_test.csv", headers: true) do |product|
-if !product["post_title"].nil?
-  Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
-else
-  Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
-end
-end
+#Spree::Config.rate = 26.8
+#Spree::Product.search_index.clean_indices
+#Spree::Product.search_index.delete
+#CSV.foreach("db/products_test.csv", headers: true) do |product|
+#if !product["post_title"].nil?
+#  Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+#else
+#  Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+#end
+#end
 Spree::Product.all.each do |pr|
   Spree::Price.create!(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:3)
   Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:4)
