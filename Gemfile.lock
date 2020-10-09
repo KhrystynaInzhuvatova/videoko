@@ -279,7 +279,7 @@ GEM
     orm_adapter (0.5.0)
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
-    pg (0.21.0)
+    pg (1.2.3)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     polyglot (0.3.5)
@@ -540,7 +540,7 @@ DEPENDENCIES
   mina
   mina-whenever
   mini_magick
-  pg (= 0.21.0)
+  pg (> 0.21.0)
   puma (~> 4.1)
   rails (~> 6.0.1)
   rspec-activejob
