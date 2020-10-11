@@ -32,23 +32,23 @@ end
 p "Taxons"
 
 Spree::Config.rate = 26.8
-#Spree::Product.search_index.clean_indices
-#Spree::Product.search_index.delete
-#CSV.foreach("db/products_test.csv", headers: true) do |product|
-#if !product["post_title"].nil?
-#  Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
-#else
-#  Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
-#end
-#end
-#Spree::Product.all.each do |pr|
-#  Spree::Price.create!(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:3)
-#  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:4)
-#  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:5)
-#  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:6)
-#  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:7)
-#  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:8)
-#end
+Spree::Product.search_index.clean_indices
+Spree::Product.search_index.delete
+CSV.foreach("db/products_test.csv", headers: true) do |product|
+if !product["post_title"].nil?
+  Spree::Product.create!(name: ActionController::Base.helpers.sanitize(product["post_title"]), description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+else
+  Spree::Product.create!(name: "назва", description: ActionController::Base.helpers.sanitize(product["post_content"]), short_description: ActionController::Base.helpers.sanitize(product["post_excerpt"]), available_on: Time.current)
+end
+end
+Spree::Product.all.each do |pr|
+  Spree::Price.create!(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:3)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:4)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:5)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:6)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:7)
+  Spree::Price.create(product_id: pr.id, amount_usd: 1, variant_id: pr.id, role_id:8)
+end
 
 p "products"
 
