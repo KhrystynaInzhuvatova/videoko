@@ -3,64 +3,12 @@ module Spree
     extend FriendlyId
     include Spree::ProductScopes
 
-    searchkick callbacks: false, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products", merge_mappings: true,
-
-    mappings: {
-      properties:{
-        name:{
-          type: "keyword",
-          fields:{
-            analyzed:{
-              type: "text",
-              analyzer:"custom_analyzer"
-            }
-          }
-        }
-                        }
-
-      },
-    settings: {
-      analysis:{
-        analyzer:{
-          custom_analyzer:{
-            filter:[
-              "lowercase",
-              "asciifolding"
-            ],
-            char_filter: [
-              "my_char_filter"
-            ],
-          tokenizer: "custom_tokenizer",
-          type: "custom"
-        }
-      },
-      tokenizer:{
-        custom_tokenizer:{
-          type: "ngram",
-          min_gram: 2,
-          max_gram: 50,
-          token_chars:[
-            "letter",
-            "digit"
-          ]
-        }
-      },
-      char_filter: {
-      my_char_filter: {
-        type: "mapping",
-        mappings: [
-          "' => "
-        ]
-       }
-      }
-    }
-    },
+    searchkick callbacks: false, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products",
      word_middle: [:name]
 
-     #scope :search_import, ->{includes(:prices).includes(:taxons).includes(:option_types).includes(:variants)}
     def search_data
     json = {
-      name: name,
+      name: name.gsub('’', '').gsub("'", ''),
       slug: slug,
       active: available?,
       show: show,
