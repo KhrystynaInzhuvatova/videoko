@@ -4,11 +4,52 @@ module Spree
     include Spree::ProductScopes
 
     searchkick callbacks: false, index_name: "#{Rails.application.class.parent_name.parameterize.underscore}_spree_products",
-     word_middle: [:name]
+     word_middle: [:name], merge_mappings: true,
+
+    mappings: {
+      properties:{
+        name:{
+          type: "keyword",
+          fields:{
+            analyzed:{
+              type: "text",
+              analyzer:"custom_analyzer"
+            }
+          }
+        }
+                        }
+
+      },
+    settings: {
+      analysis:{
+        analyzer:{
+          custom_analyzer:{
+            filter:[
+              "lowercase",
+              "asciifolding"
+            ],
+          tokenizer: "custom_tokenizer",
+          type: "custom"
+        }
+      },
+      tokenizer:{
+        custom_tokenizer:{
+          type: "ngram",
+          min_gram: 2,
+          max_gram: 50,
+          token_chars:[
+            "letter",
+            "digit"
+          ]
+        }
+      }
+
+    }
+    }
 
     def search_data
     json = {
-      name: name.gsub('’', '').gsub("'", ''),
+      name: name.gsub('’', '').gsub("'", '').downcase.gsub(/\s+/, "").gsub('-', ''),
       slug: slug,
       active: available?,
       show: show,
