@@ -8,7 +8,7 @@ test:
 staging:
   <<: *default
 production:
-  host: <%= Rails.application.credentials[:host] %>
+  host: <%= Rails.application.credentials[:host_search] %>
   transport_options:
     request:
       timeout: !!integer 300
