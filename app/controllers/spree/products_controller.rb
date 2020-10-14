@@ -12,7 +12,7 @@ module Spree
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       if params[:keywords].present?
-        query = params[:keywords].gsub("'", '')
+        query = params[:keywords]
         if params[:price].present? && !params[:sort_by].present?
         price = get_price_range(params[:price])
         price.merge!(show: true, active: true)

@@ -50,12 +50,10 @@ module Spree
     def search_data
     json = {
       name: name.gsub('’', '').gsub("'", '').downcase.gsub(/\s+/, "").gsub('-', ''),
-      slug: slug,
       active: available?,
       show: show,
       created_at: created_at,
       updated_at: updated_at,
-      currency: Spree::Config[:currency],
       taxon_ids: taxon_and_ancestors.map(&:id),
       taxon_count: taxon_count,
       taxonomy_ids: taxonomy_ids,
@@ -64,7 +62,7 @@ module Spree
     if self.variants.count > 0 && self.option_types.count > 0
       array =  self.variants.map do |variant|
 
-    keys = variant.option_values.map{|c|c.option_type.presentation.downcase.gsub(/\s+/, "").gsub('-', '')}
+    keys = variant.option_values.map{|c|c.option_type.presentation.downcase.gsub(/\s+/, "").gsub('-', '').gsub('’', '').gsub("'", '')}
     values = variant.option_values.map{|c|c.id}
     hash = Hash[keys.zip values]
   end
