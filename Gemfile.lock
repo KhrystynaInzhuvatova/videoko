@@ -523,6 +523,9 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yaml_db (0.7.0)
+      rails (>= 3.0)
+      rake (>= 0.8.7)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -565,6 +568,7 @@ DEPENDENCIES
   webdrivers
   webpacker (~> 4.0)
   whenever
+  yaml_db
 
 RUBY VERSION
    ruby 2.6.3p62

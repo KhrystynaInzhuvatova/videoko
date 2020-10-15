@@ -71,3 +71,4 @@ gem "coffee-rails"
 gem 'spree_editor', github: 'spree-contrib/spree_editor'
 gem 'mini_magick'
 gem 'tinymce-rails-langs'
+gem 'yaml_db'
