@@ -1,4 +1,4 @@
-class AddUkTranslationToState <  SpreeExtension::Migration[4.2]
+class UkTranslateState < SpreeExtension::Migration[4.2]
   def change
     Spree::State.find(2774).update!(locale: "uk",name: "Вінницька")
     Spree::State.find(2775).update!(locale: "uk",name: "Волинська")
