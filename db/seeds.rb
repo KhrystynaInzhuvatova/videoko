@@ -5,7 +5,7 @@ Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
 
 Spree::Store.current.update_attributes(default_currency: "UAH")
 Spree::Store.current.update_attributes(name: "Знак якості")
-Spree::Store.current.update(mail_from_address: "kinzhuvatova@gmail.com")
+Spree::Store.current.update(mail_from_address: "videoko2016@gmail.com")
 Spree::Store.current.update(url: "videoko-test.devarena.lviv.ua")
 Spree::Store.current.update(name: "Знак якості")
 Spree::Country.find(230).translation.update(locale: "ru", name:"Украина")

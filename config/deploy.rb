@@ -86,7 +86,6 @@ task :deploy do
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
-        #command %{sudo systemctl restart elasticsearch}
         command %{touch tmp/restart.txt}
       end
       #invoke :'whenever:update'
