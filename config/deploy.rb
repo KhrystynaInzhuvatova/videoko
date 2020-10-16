@@ -16,7 +16,8 @@ require 'mina/whenever'
  set :shared_dirs, fetch(:shared_dirs, []).push('storage')
  set :shared_files, fetch(:shared_files, []).push(
    'config/master.key',
-   '.env'
+   '.env',
+   'db/production.sqlite3'
  )
 
 set :user, 'ubuntu' # Username in the server to SSH to.
