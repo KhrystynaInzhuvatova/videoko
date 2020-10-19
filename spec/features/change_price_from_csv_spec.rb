@@ -6,6 +6,7 @@ it 'admin changes rate and amount of all products also changes',:perform_enqueue
   Spree::Config.rate = 1.00
   Spree::Product.first.default_variant.update(sku: 2806013)
   Spree::Product.last.default_variant.update(sku: 4826019)
+  Spree::Product.create(name:"test", sku: "123")
 
   visit "/"
   within('#top-nav-bar') do
@@ -24,6 +25,7 @@ click_button("Завантажити CSV")
 sleep 25
 end
 expect(Spree::Product.first.default_variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip1").id).amount).to eql 80.00
+expect(Spree::Product.find_by(name: "test").default_variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip1").id).amount).to eql 10.00
 end
 
 end
