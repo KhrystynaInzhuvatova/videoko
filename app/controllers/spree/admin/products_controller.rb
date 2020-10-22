@@ -102,7 +102,7 @@ module Spree
 
       def import
         user_file = params[:file]
-          File.open(Rails.root.join('tmp', 'storage',user_file.original_filename), 'wb') do |file|
+          File.open(Rails.root.join('upload',user_file.original_filename), 'wb') do |file|
             file.write(user_file.read)
         end
         file = user_file.original_filename

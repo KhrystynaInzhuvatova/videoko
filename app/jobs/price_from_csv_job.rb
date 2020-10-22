@@ -4,7 +4,7 @@ class PriceFromCsvJob < ApplicationJob
   queue_as :default
 
   def perform(csv_path)
-    csv_file = Rails.root.join('tmp', 'storage',csv_path)
+    csv_file = Rails.root.join("upload",csv_path)
 
     CSV.foreach(csv_file, headers: true, skip_blanks: true)do |t|
     if !Spree::Variant.find_by(sku: t['id']).nil?
