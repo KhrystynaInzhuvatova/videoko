@@ -4,12 +4,13 @@ class PriceFromCsvJob < ApplicationJob
   queue_as :default
 
   def perform(csv_path)
-    csv_file = open(csv_path,'rb:UTF-8')
+    csv_file = Rails.root.join('tmp', 'storage',csv_path)
+
     CSV.foreach(csv_file, headers: true, skip_blanks: true)do |t|
     if !Spree::Variant.find_by(sku: t['id']).nil?
       if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).nil?}).select{|c| c == true}.empty?
        price_rozdrib = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id)}
-       price_rozdrib.each{|price| price.update!(amount_usd: t["6"])}
+       price_rozdrib.map{|price| price.update!(amount_usd: t["6"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "rozdrib").id, product_id: variant.product.id, amount_usd: t["6"])
@@ -17,7 +18,7 @@ class PriceFromCsvJob < ApplicationJob
    end
    if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "opt").id).nil?}).select{|c| c == true}.empty?
        price_opt = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "opt").id)}
-       price_opt.each{|price| price.update!(amount_usd: t["5"])}
+       price_opt.map{|price| price.update!(amount_usd: t["5"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "opt").id, product_id: variant.product.id, amount_usd: t["5"])
@@ -26,7 +27,7 @@ class PriceFromCsvJob < ApplicationJob
 
    if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "gold").id).nil?}).select{|c| c == true}.empty?
        price_gold = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "gold").id)}
-       price_gold.each{|price| price.update!(amount_usd: t["4"])}
+       price_gold.map{|price| price.update!(amount_usd: t["4"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "gold").id, product_id: variant.product.id, amount_usd: t["4"])
@@ -35,7 +36,7 @@ class PriceFromCsvJob < ApplicationJob
 
    if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip").id).nil?}).select{|c| c == true}.empty?
        price_vip = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip").id)}
-       price_vip.each{|price| price.update!(amount_usd: t["3"])}
+       price_vip.map{|price| price.update!(amount_usd: t["3"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "vip").id, product_id: variant.product.id, amount_usd: t["3"])
@@ -44,7 +45,7 @@ class PriceFromCsvJob < ApplicationJob
 
     if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip2").id).nil?}).select{|c| c == true}.empty?
        price_vip2 = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip2").id)}
-       price_vip2.each{|price| price.update!(amount_usd: t["2"])}
+       price_vip2.map{|price| price.update!(amount_usd: t["2"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "vip2").id, product_id: variant.product.id, amount_usd: t["2"])
@@ -53,7 +54,7 @@ class PriceFromCsvJob < ApplicationJob
 
 if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip1").id).nil?}).select{|c| c == true}.empty?
        price_vip1 = Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "vip1").id)}
-       price_vip1.each{|price| price.update!(amount_usd: t["1"])}
+       price_vip1.map{|price| price.update!(amount_usd: t["1"])}
      else
        Spree::Variant.where(sku: t['id']).map do |variant|
        Spree::Price.create!(variant_id: variant.id, currency: Spree::Config[:currency], role_id: Spree::Role.find_by(name: "vip1").id, product_id: variant.product.id, amount_usd: t["1"])
@@ -61,5 +62,7 @@ if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spre
    end
      end
     end
+    File.delete(csv_file)
 end
+
 end
