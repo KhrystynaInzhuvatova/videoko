@@ -1,7 +1,25 @@
 <%product = !@product.translations.find_by(locale: I18n.locale).nil? ? @product.translations.find_by(locale: I18n.locale) : @product%>
 <div class="tab">
-  <button class="tablinks col-6 col-md-6 col-lg-6"  id="des" ><h3 class="product_d product-details-subtitle"><%= Spree.t(:description) %></h3></button>
-  <button class="tablinks col-6 col-md-6 col-lg-6"  id="short_des"><h3 class="product_d product-details-subtitle"><%= Spree.t(:short_description) %></h3></button>
+  <button class="tablinks col-4 col-md-4 col-lg-4 first_button"  id="iframe"><h3 class="product_d product-details-subtitle"><%= "3D фото" %></h3></button>
+  <button class="tablinks col-4 col-md-4 col-lg-4"  id="des" ><h3 class="product_d product-details-subtitle"><%= Spree.t(:description) %></h3></button>
+  <button class="tablinks col-4 col-md-4 col-lg-4"  id="short_des"><h3 class="product_d product-details-subtitle"><%= Spree.t(:short_description) %></h3></button>
+</div>
+
+<div id="Lviv" class="tabcontent">
+  <div  class="m-0 text-break product-description " data-hook="description">
+  <% if !@product.iframe.nil? %>
+    <iframe
+        id="iframeName"
+        height="500vh"
+        width="100%"
+        frameborder="0"
+        style="background-color: transparent; border: 0;"
+        frameborder="0"
+        scrolling="no"
+        src="<%=@product.iframe%>?fullscreen=false&instruction_language=<%=I18n.locale%>&instruction_background=a" >
+    </iframe>
+  <%end%>
+</div>
 </div>
 
 <div id="London" class="tabcontent">

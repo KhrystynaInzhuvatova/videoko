@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_125743) do
+ActiveRecord::Schema.define(version: 2020_10_27_140303) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -598,6 +598,7 @@ ActiveRecord::Schema.define(version: 2020_08_21_125743) do
     t.text "short_description"
     t.boolean "show", default: true
     t.text "related"
+    t.string "iframe"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["discontinue_on"], name: "index_spree_products_on_discontinue_on"

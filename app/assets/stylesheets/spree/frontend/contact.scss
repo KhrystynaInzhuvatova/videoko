@@ -217,6 +217,12 @@ color: #000000;
   border-right: 1px solid #00336E;
 
 }
+.first_button{
+  border-right: none;
+  border-left: 0.1rem solid;
+  border-bottom: 0.1rem solid;
+  border-top: 0.1 solid;
+}
 .tab button.active{
   border-bottom: none !important;
   border-top: 20px solid #00336E!important;

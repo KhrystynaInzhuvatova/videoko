@@ -222,7 +222,7 @@ module Spree
       end
 
       def related
-        params.require(:product).permit(:show, :video, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
+        params.require(:product).permit(:show, :video, :iframe, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
          if params[:product][:related].present?
            params[:product][:related].reject! { |c| c.empty? }
          end
