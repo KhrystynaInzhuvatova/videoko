@@ -9,6 +9,7 @@ module Spree
     respond_to :html
 
     def index
+      if Spree::Product.searchkick_index.exists?
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       if params[:keywords].present?
@@ -75,6 +76,13 @@ module Spree
       ]
 
       fresh_when etag: etag, public: true
+    else
+      @taxon_id = params[:taxon_id]
+      curr_page = params[:page] || 1
+      @products = Spree::Product.page(curr_page).per(9)
+      InformDeveloperMailer.problem_email.deliver_later
+      ReindexProductJob.perform_later()
+    end
     end
 
     def show

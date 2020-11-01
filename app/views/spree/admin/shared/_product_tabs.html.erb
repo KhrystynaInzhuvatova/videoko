@@ -30,6 +30,13 @@
     <% end if can?(:admin, Spree::Variant) && !@product.deleted? %>
 
     <%= content_tag :li do %>
+      <%= link_to_with_icon 'home',
+        "Супутні товари",
+        related_first_admin_product_path(@product),
+        class: "nav-link" %>
+<%end%>
+
+    <%= content_tag :li do %>
       <%= link_to_with_icon 'list-alt',
         Spree.t(:properties),
         spree.admin_product_product_properties_url(@product),

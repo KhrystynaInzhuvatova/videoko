@@ -12,7 +12,8 @@ module Spree
       create.before :create_before
       update.before :update_before
       helper_method :clone_object_url
-      before_action :related, only: [:update]
+      before_action :permit_params, only: [:update]
+      before_action :permit_related, only: [:related]
       after_action :update_prices, only: :rate
 
 
@@ -37,9 +38,6 @@ module Spree
       end
 
       def update
-        if !params[:product][:related].nil? && params[:product][:related].empty?
-          permitted_resource_params.extract!(:related)
-        end
         if params[:product][:taxon_ids].present?
           params[:product][:taxon_ids] = params[:product][:taxon_ids].split(',')
         end
@@ -108,6 +106,28 @@ module Spree
         file = user_file.original_filename
         PriceFromCsvJob.perform_later(file)
         redirect_to admin_products_url, notice: "Ціни оновлюються.Зачекайте"
+      end
+
+      def related
+        if !params[:related].nil? && !params[:related].empty?
+        related_product = params[:related].reject { |c| c.empty? }
+        @product.update!(related: related_product)
+      end
+      end
+
+      def related_first
+        if !Spree::Product.searchkick_index.exists?
+        InformDeveloperMailer.problem_email.deliver_later
+        ReindexProductJob.perform_later()
+        redirect_to admin_products_url, notice: "Товари оновлюються.Зачекайте"
+      end
+      end
+
+      def remove_related
+        @product = Product.find(params[:id_product].to_i)
+        related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i).reject { |c| c == 0 }.delete_if{|c| c == params[:id_related].to_i}
+        @product.update(related: related)
+        redirect_back fallback_location: related_admin_product_path(@product)
       end
 
       def destroy
@@ -221,11 +241,14 @@ module Spree
         clone_admin_product_url resource
       end
 
-      def related
+      def permit_params
         params.require(:product).permit(:show, :video, :iframe, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
-         if params[:product][:related].present?
-           params[:product][:related].reject! { |c| c.empty? }
-         end
+      end
+
+      def permit_related
+        if params[:related].present?
+          params[:related].reject! { |c| c.empty? }
+        end
       end
 
 

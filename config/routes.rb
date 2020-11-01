@@ -6,6 +6,15 @@ Rails.application.routes.draw do
     get "posts", controller: "posts", action: "index"
     get "post/:id", controller: "posts", action: "show", as: :post
   namespace :admin do
+    resources :products do
+        member do
+          post "related"
+          get "related"
+          get "related_first"
+
+        end
+      end
+      get "remove_related/:id_product/:id_related", controller: "products", action: "remove_related",  as: :remove_related
       get "reindex_force", controller: "products", action: "reindex_force",  as: :reindex_force
       post "import", controller: "products", action: "import",  as: :import
       get "settings/index", controller: "settings", action: "index",  as: :settings

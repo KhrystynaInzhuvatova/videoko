@@ -57,12 +57,14 @@
   <h1 id="rate"><%= @rate %></h1>
   <h2 id="rate_message"><%= @message%></h2>
 </div>
+<div id="fill_rate">
 <div class="form-group mb-6">
 <%= form_tag(admin_rate_path, method: 'post', remote: true) do %>
 <%= number_field_tag :rate, nil, step: :any %>
 </div>
 <%= submit_tag("Оновити курс", class: "btn-success", icon: 'add', data: { disable_with: "Зачекайте..." })%>
 <%end%>
+</div>
 </div>
 
 <p>&nbsp;</p>
