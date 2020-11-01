@@ -2,6 +2,9 @@ require 'csv'
 require 'open-uri'
 class PriceFromCsvJob < ApplicationJob
   queue_as :default
+  retry_on SQLite3::BusyException, wait: 5.seconds, attempts: 3
+  retry_on ActiveRecord::Deadlocked, wait: 5.seconds, attempts: 3
+  retry_on Net::OpenTimeout, wait: 5.seconds, attempts: 10
 
   def perform(csv_path)
     csv_file = Rails.root.join("upload",csv_path)

@@ -86,6 +86,7 @@ module Spree
     end
 
     def show
+      begin
       redirect_if_legacy_path
 
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
@@ -182,6 +183,10 @@ module Spree
 
         @product_images = product_images(@product, @variants)
 
+      end
+    rescue Exception
+        sleep 0.1
+        retry
       end
 
     end
