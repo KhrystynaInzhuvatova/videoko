@@ -9,6 +9,8 @@ module Spree
     respond_to :html
 
     def index
+      begin
+        retries ||= 0
       if Spree::Product.searchkick_index.exists?
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
@@ -80,9 +82,15 @@ module Spree
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       @products = Spree::Product.page(curr_page).per(9)
-      InformDeveloperMailer.problem_email.deliver_later
+      #InformDeveloperMailer.problem_email.deliver_later
       ReindexProductJob.perform_later()
     end
+  rescue Exception
+    if (retries += 1) < 3
+        sleep 1
+        retry
+      end
+      end
     end
 
     def show

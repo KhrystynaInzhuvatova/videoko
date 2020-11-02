@@ -2,14 +2,13 @@ require 'csv'
 require 'open-uri'
 class PriceFromCsvJob < ApplicationJob
   queue_as :default
-  retry_on SQLite3::BusyException, wait: 5.seconds, attempts: 3
-  retry_on ActiveRecord::Deadlocked, wait: 5.seconds, attempts: 3
-  retry_on Net::OpenTimeout, wait: 5.seconds, attempts: 10
 
   def perform(csv_path)
     csv_file = Rails.root.join("upload",csv_path)
 
     CSV.foreach(csv_file, headers: true, skip_blanks: true)do |t|
+    begin
+      retries ||= 0
     if !Spree::Variant.find_by(sku: t['id']).nil?
       if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).nil?}).select{|c| c == true}.empty?
        Spree::Variant.where(sku: t['id']).map do |variant|
@@ -76,6 +75,12 @@ if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spre
      end
    end
      end
+   rescue Exception
+     if (retries += 1) < 3
+         sleep 1
+         retry
+       end
+       end
     end
     File.delete(csv_file)
 end
