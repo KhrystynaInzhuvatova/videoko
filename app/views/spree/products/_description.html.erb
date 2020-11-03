@@ -7,7 +7,7 @@
 
 <div id="Lviv" class="tabcontent">
   <div  class="m-0 text-break product-description " data-hook="description">
-  <% if !@product.iframe.nil? %>
+  <% if !@product.iframe.nil? && !@product.iframe.empty? %>
     <iframe
         id="iframeName"
         height="500vh"
