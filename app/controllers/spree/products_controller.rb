@@ -82,7 +82,7 @@ module Spree
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       @products = Spree::Product.page(curr_page).per(9)
-      #InformDeveloperMailer.problem_email.deliver_later
+      InformDeveloperMailer.problem_email.deliver_later
       ReindexProductJob.perform_later()
     end
   rescue Exception

@@ -5,5 +5,11 @@ module Spree
     def index
       fresh_when etag: store_etag, last_modified: store_last_modified, public: true
     end
+
+    def test
+      
+    end
+
+
   end
 end
