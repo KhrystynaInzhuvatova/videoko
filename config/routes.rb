@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
     get "posts", controller: "posts", action: "index"
     get "post/:id", controller: "posts", action: "show", as: :post
-    get "test", controller: "home", action: "test"
   namespace :admin do
     resources :products do
         member do

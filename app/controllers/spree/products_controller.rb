@@ -96,7 +96,7 @@ module Spree
     def show
       begin
       redirect_if_legacy_path
-
+      @explanation = I18n.locale == :uk ? "Пообертайте картинку" : "повращайте картинку"
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
 
       if !@product.related.nil?
