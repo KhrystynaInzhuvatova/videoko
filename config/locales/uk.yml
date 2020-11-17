@@ -847,6 +847,8 @@ uk:
     order_success_explain: Деталі замовлення
     added_to_cart: Додано до кошика
     required: "*"
+    volume_image: Об'ємна світлина
+    explanation: Пообертайте картинку
     checkout_page:
       header: Формування замовлення
       back_to_cart: Повернутися до кошика
@@ -1487,7 +1489,7 @@ uk:
       go_to_us_second: Чи не можете приїхати до нас? Тоді ми приїдемо до вас.
       go_to_us_three: Доставка по всій країні!
       shop_address: Адреса магазину
-      street: вулиця 
+      street: вулиця
       city: Львів, Львівська область
       hours_work: Години роботи
       nd: НД

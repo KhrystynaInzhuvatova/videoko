@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_140303) do
+ActiveRecord::Schema.define(version: 2020_11_12_122656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -601,7 +601,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_140303) do
     t.text "short_description"
     t.boolean "show", default: true
     t.text "related"
-    t.string "iframe"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["discontinue_on"], name: "index_spree_products_on_discontinue_on"
@@ -1286,6 +1285,14 @@ ActiveRecord::Schema.define(version: 2020_10_27_140303) do
     t.index ["sku"], name: "index_spree_variants_on_sku"
     t.index ["tax_category_id"], name: "index_spree_variants_on_tax_category_id"
     t.index ["track_inventory"], name: "index_spree_variants_on_track_inventory"
+  end
+
+  create_table "spree_volumes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_spree_volumes_on_product_id"
   end
 
   create_table "spree_zone_members", id: :serial, force: :cascade do |t|

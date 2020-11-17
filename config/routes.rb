@@ -11,7 +11,7 @@ Rails.application.routes.draw do
           post "related"
           get "related"
           get "related_first"
-
+          resources :volumes
         end
       end
       get "remove_related/:id_product/:id_related", controller: "products", action: "remove_related",  as: :remove_related

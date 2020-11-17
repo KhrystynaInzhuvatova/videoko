@@ -1,9 +1,11 @@
-
+$( document ).ready(function() {
+    $("#rotation").image360();
+});
 document.addEventListener('turbolinks:load', function () {
 
   setTimeout(function() {
-            document.getElementById("iframe").click();
-          },1);
+              document.getElementById("iframe").click();
+        },1);
 
   let lv=document.getElementById("Lviv");
   let l=document.getElementById("London");
@@ -27,12 +29,11 @@ document.getElementById("des").addEventListener("click", function(){
     $("#iframe").removeClass("active");
   });
 
-  $(document).on("click","#iframe", function(){
+  $("#iframe").click( function(){
     lv.style.display = "block";
     l.style.display = "none";
     p.style.display = "none";
     $("#iframe").addClass("active");
-    $("#rotation").image360();
     $("#des").removeClass("active");
     $("#short_des").removeClass("active");
 

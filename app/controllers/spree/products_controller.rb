@@ -9,8 +9,6 @@ module Spree
     respond_to :html
 
     def index
-      begin
-        retries ||= 0
       if Spree::Product.searchkick_index.exists?
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
@@ -85,18 +83,11 @@ module Spree
       InformDeveloperMailer.problem_email.deliver_later
       ReindexProductJob.perform_later()
     end
-  rescue Exception
-    if (retries += 1) < 3
-        sleep 1
-        retry
-      end
-      end
-    end
+  end
 
     def show
-      begin
       redirect_if_legacy_path
-      @explanation = I18n.locale == :uk ? "Пообертайте картинку" : "повращайте картинку"
+      
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
 
       if !@product.related.nil?
@@ -190,14 +181,9 @@ module Spree
           end
 
         @product_images = product_images(@product, @variants)
-
+        @product_3D = @product.volume.images.includes(:blob).references(:blob).order('active_storage_blobs.filename ASC') if !@product.volume.nil?
       end
-    rescue Exception
-        sleep 0.1
-        retry
-      end
-
-    end
+  end
 
     private
 

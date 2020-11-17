@@ -36,6 +36,13 @@
         class: "nav-link" %>
 <%end%>
 
+<%= content_tag :li do %>
+  <%= link_to_with_icon 'home',
+    "3D",
+    admin_volumes_path(@product),
+    class: "nav-link" %>
+<%end%>
+
     <%= content_tag :li do %>
       <%= link_to_with_icon 'list-alt',
         Spree.t(:properties),

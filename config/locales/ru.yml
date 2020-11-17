@@ -764,6 +764,8 @@ ru:
     contact_us: Наши контакты
     address: Адрес
     short_description: Характеристики
+    volume_image: Oбъемная фотография
+    explanation: Повращайте картинку
     order_success: заказ сформирован
     order_success_explain: детали заказа
     added_to_cart: Добавлен в корзину
