@@ -31,7 +31,7 @@ document.getElementById("des").addEventListener("click", function(){
     lv.style.display = "block";
     l.style.display = "none";
     p.style.display = "none";
-    $("#iframe").show( 1, function(event) {
+    $("#iframe").show( function(event) {
       $("#rotation").image360();
       event.preventDefault();
     });
