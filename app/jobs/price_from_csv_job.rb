@@ -1,7 +1,16 @@
 require 'csv'
-require 'open-uri'
+#require 'open-uri'
 class PriceFromCsvJob < ApplicationJob
   queue_as :default
+
+  after_perform do |job|
+    double_prices = Spree::Variant.all.select{|c| c.prices.count > 6}
+    if !double_prices.empty?
+    double_prices.each do |variant|
+      variant.prices.order("created_at DESC")[6..-1].each{|c|c.delete}
+    end
+  end
+  end
 
   def perform(csv_path)
     csv_file = Rails.root.join("upload",csv_path)
