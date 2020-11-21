@@ -27,16 +27,18 @@ document.getElementById("des").addEventListener("click", function(){
     $("#iframe").removeClass("active");
   });
 
-  $("#iframe").click( function(){
+  $("#iframe").on( "click", function() {
     lv.style.display = "block";
     l.style.display = "none";
     p.style.display = "none";
-    $("#iframe").show( function(event) {
+    $("#iframe").addClass("active");
+    $("#des").removeClass("active");
+    $("#short_des").removeClass("active");
+    $(this).show( function(event) {
       $("#rotation").image360();
       event.preventDefault();
     });
-    $("#des").removeClass("active");
-    $("#short_des").removeClass("active");
+
   });
 
 });

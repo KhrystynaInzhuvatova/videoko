@@ -87,7 +87,7 @@ module Spree
 
     def show
       redirect_if_legacy_path
-      
+
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
 
       if !@product.related.nil?

@@ -104,7 +104,7 @@ module Spree
             file.write(user_file.read)
         end
         file = user_file.original_filename
-        PriceFromCsvJob.perform_later(file)
+        UpdatePriceCsvJob.perform_later(file)
         redirect_to admin_products_url, notice: "Ціни оновлюються.Зачекайте"
       end
 
