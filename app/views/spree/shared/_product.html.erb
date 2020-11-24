@@ -6,15 +6,15 @@
   <div class="default_choose  products_image">
   <%if default_image_for_product_or_variant(product)%>
   <%= image_tag main_app.url_for(default_image_for_product_or_variant(product).attachment.variant(combine_options: {
-    resize: "245x219^",
+    resize: "1260x900^",
     gravity: "center",
-    crop: "245x219+0+0",
+    crop: "1260x900+0+0",
     strip: true,
     quality: "100%"
   })),
   class: "product-component-image d-block mw-100" %>
   <%else%>
-  <%=image_tag("no_img.png", class: "product-component-image d-block mw-100")%>
+  <%=image_tag("default_prod.png", class: "product-component-image d-block mw-100")%>
   <%end%>
 </div>
 <div class="card-body-prod name_product" title="<%= product.name %>">
