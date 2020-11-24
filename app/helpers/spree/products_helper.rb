@@ -77,6 +77,10 @@ module Spree
       cache_key_elements.compact.join('/')
     end
 
+    def product_cache(product,id)
+      [id, I18n.locale, product.name, product.prices.map{|pr| pr.amount}.split(",")]
+    end
+
     def limit_descritpion(string)
       return string if string.length <= 450
 

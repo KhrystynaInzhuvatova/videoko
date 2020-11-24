@@ -1,10 +1,23 @@
 <% url = spree.product_path(product, taxon_id: @taxon&.id) %>
 
-<%# cache [common_product_cache_keys, id,product] do %>
+<%cache product_cache(product,id) do %>
 <div class="card card_index product_card" >
-  <%= link_to url, class: 'h-100 flex-column justify-content-between' do %>
-  <%= plp_and_carousel_image(product, image_class="default_choose img_from_blob_index") %>
-<div class="card-body name_product" title="<%= product.name %>">
+  <%= link_to url, class: 'h-100 flex-column justify-content-between display_flex' do %>
+  <div class="default_choose  products_image">
+  <%if default_image_for_product_or_variant(product)%>
+  <%= image_tag main_app.url_for(default_image_for_product_or_variant(product).attachment.variant(combine_options: {
+    resize: "245x219^",
+    gravity: "center",
+    crop: "245x219+0+0",
+    strip: true,
+    quality: "100%"
+  })),
+  class: "product-component-image d-block mw-100" %>
+  <%else%>
+  <%=image_tag("no_img.png", class: "product-component-image d-block mw-100")%>
+  <%end%>
+</div>
+<div class="card-body-prod name_product" title="<%= product.name %>">
   <%= product.name %>
 </div>
 <div class="card-footer money_product">
@@ -18,4 +31,4 @@
 </div>
 </div>
 <% end %>
-<%#end %>
+<%end %>
