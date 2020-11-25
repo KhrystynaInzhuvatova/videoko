@@ -13,7 +13,7 @@ module Spree
         params[:images].each do |im|
         @volume.images.attach(im)
       end
-        render "index" 
+        render "index"
       end
 
 

@@ -181,7 +181,7 @@ module Spree
           end
 
         @product_images = product_images(@product, @variants)
-        @product_3D = @product.volume.images.includes(:blob).references(:blob).order('active_storage_blobs.filename ASC') if !@product.volume.nil?
+        @product_3D = @product.volume.images.sort_by{|c|c.filename.base.to_i} if !@product.volume.nil?
       end
   end
 

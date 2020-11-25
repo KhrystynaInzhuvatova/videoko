@@ -48,7 +48,7 @@ $.fn.image360 = function(options) {
 
 		// настройки
 		var settings = $.extend( {
-			'count_loop': 7, // количество оборотов на ширину блока
+			'count_loop': 5, // количество оборотов на ширину блока
 		}, options);
 
 		var $main_div = this, // блок с картинками
@@ -82,7 +82,7 @@ $.fn.image360 = function(options) {
 				if( Math.abs(percent_div - last_perc) > percent_img){
 					last_perc = percent_div;
 					if(direction){
-						index_img++;
+            index_img++;
 					}else{
 						index_img--;
 					}
