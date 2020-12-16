@@ -4,9 +4,8 @@ describe 'admin changes rate', type: :system do
 
 it 'admin changes rate and amount of all products also changes',:perform_enqueued do
   Spree::Config.rate = 1.00
-  Spree::Product.reindex
   Spree::Product.last.default_variant.update(sku: 4826019)
-
+  Spree::Product.first.default_variant.update(sku: 123)
   visit "/"
   within('#top-nav-bar') do
   find(class: "login_out").click
