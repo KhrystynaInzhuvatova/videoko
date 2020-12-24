@@ -70,8 +70,9 @@ gem 'mina-whenever', require: false
 gem 'spree_contact_us', github: 'spree-contrib/spree_contact_us'
 gem "coffee-rails"
 gem 'spree_editor', github: 'spree-contrib/spree_editor'
-gem 'mini_magick'
+gem 'mini_magick', '>= 4.9.5'
 gem 'tinymce-rails-langs'
 gem 'yaml_db'
 gem 'aws-sdk-s3', '~> 1'
 gem 'aws-sdk-ec2', '~> 1'
+gem 'active_storage_validations'
