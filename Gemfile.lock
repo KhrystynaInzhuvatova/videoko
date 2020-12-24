@@ -86,8 +86,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_storage_validations (0.9.0)
-      rails (>= 5.2.0)
     activejob (6.0.3.2)
       activesupport (= 6.0.3.2)
       globalid (>= 0.3.6)
@@ -235,6 +233,7 @@ GEM
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     i18n_data (0.11.0)
+    image_optimizer (1.8.0)
     image_processing (1.11.0)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
@@ -554,7 +553,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_storage_validations
   aws-sdk-ec2 (~> 1)
   aws-sdk-s3 (~> 1)
   bootsnap (>= 1.4.2)
@@ -563,6 +561,7 @@ DEPENDENCIES
   coffee-rails
   factory_bot_rails
   faker
+  image_optimizer
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   mina

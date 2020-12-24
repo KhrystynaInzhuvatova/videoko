@@ -9,19 +9,13 @@ module Spree
 
       def create
         @product = Product.friendly.find(params[:id])
-        @volume = Spree::Volume.new(product_id: params[:product_id],  name: params[:name])
-        params[:images].each do |im|
-        @volume.images.attach(im)
-      end
-      respond_to do |format|
-        if @volume.save
-          format.html { render "index" }
-        else
-          flash.now[:notice] = "Розмір фото занадто великий. максимум -- 1700 на 1100.оптимально -- 800 на 600"
-          format.html { render "index" }
-        end
-      end
 
+        params[:images].each do |im|
+        MiniMagick::Image.new(im.tempfile.path).resize "900x700"
+        ImageOptimizer.new(im.tempfile.path,  quality: 65).optimize
+      end
+      @volume = Spree::Volume.create!(product_id: params[:product_id],  name: params[:name], images: params[:images])
+      render "index"
       end
 
 
