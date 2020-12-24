@@ -12,22 +12,61 @@ module Spree
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
       if params[:keywords].present?
-        @products = Spree::Product.search(params[:keywords],fields:[:name],misspellings: {edit_distance: 2, below: 1},where:{show:true}, page: curr_page, per_page: 9)
+        query = params[:keywords].gsub("'", '')
+        if params[:price].present? && !params[:sort_by].present?
+        price = get_price_range(params[:price])
+        price.merge!(show: true, active: true)
 
-      elsif params[:price].present?
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:price, page: curr_page, per_page: 9)
+      elsif  params[:price].present? && params[:sort_by].present?
+        price = get_price_range(params[:price])
+        price.merge!(show: true, active: true)
+        params[:sort_by] == "price"? sort = :asc : sort = :desc
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:price, order:{params[:sort_by]=> sort}, page: curr_page, per_page: 9)
+      elsif !params[:price].present? && params[:sort_by].present?
+        params[:sort_by] == "price"? sort = :asc : sort = :desc
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:{show:true, active:true}, order:{params[:sort_by]=> sort},page: curr_page, per_page: 9)
+      else
+        @products = Spree::Product.search(query,fields:[:name],misspellings:false, where:{show:true, active:true}, page: curr_page, per_page: 9)
+      end
+    elsif params[:price].present? && !params[:sort_by].present?
         first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
         if !first_query.blank?
         price_query = first_query.reject{|key,value| key > "price"}.values.pop
         price = get_price_range(price_query)
+        price_variant = price[:price]
         price.merge!(show: true, active: true).delete("page")
-        @products = Spree::Product.search("*",where: price, page: curr_page, per_page: 9)
+        variant_price ={price_variant: price_variant}
+        variant_price.merge!(show: true, active: true).delete("page")
+
+        @products = Spree::Product.search("*",where:{or:[ [ price,variant_price ]]}, page: curr_page, per_page: 9)
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
+    elsif params[:price].present? && params[:sort_by].present?
+      first_query = params.permit!.to_h.reject{|key,value| key < "price"}.reject{|key,value| value.blank?}
+      if !first_query.blank?
+      price_query = first_query.reject{|key,value| key > "price"}.values.pop
+      price = get_price_range(price_query)
+      price_variant = price[:price]
+      price.merge!(show: true, active: true).delete("page")
+      variant_price ={price_variant: price_variant}
+      variant_price.merge!(show: true, active: true).delete("page")
+      params[:sort_by] == "price"? sort = :asc : sort = :desc
+      @products = Spree::Product.search("*",where:{or:[ [ price,variant_price ]]}, order:{params[:sort_by]=> sort}, page: curr_page, per_page: 9)
+    else
+      @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
+    end
+  elsif !params[:price].present? && params[:sort_by].present?
+     params[:sort_by] == "price"? sort = :asc : sort = :desc
+    @products = Spree::Product.search("*",where:{show: true, active: true}, order:{params[:sort_by]=> sort},page: curr_page, per_page: 9)
+
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
+      
       etag = [
+        Spree::Config[:rate],
         store_etag,
         available_option_types_cache_key(@taxon_id),
         filtering_params_cache_key(@taxon_id)
@@ -192,8 +231,10 @@ module Spree
 
     def product_etag
       [
+        Spree::Config[:rate],
         store_etag,
         @product,
+        @product.prices.map{|c|c.amount},
         @product.variants,
         @taxon,
         @product.possible_promotion_ids,

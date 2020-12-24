@@ -73,7 +73,7 @@ module Spree
         curr_page = params[:page] || 1
         per_page = params[:per_page] || 25
 
-        @collection_category = Spree::Product.search("*",where:{taxonomy_ids: params[:taxonomy_id][:id]}, page: curr_page, per_page: per_page )
+        @collection_category = Spree::Product.search("*",where:{taxon_ids: params[:id]}, page: curr_page, per_page: per_page )
         respond_to do |format|
           format.html {}
           format.js
@@ -81,7 +81,10 @@ module Spree
       end
 
       def rate
-        Spree::GetSetRate.rate_import
+        last_rate = Spree::Config[:rate]
+        Spree::Config[:last_rate] = last_rate
+        @rate = Spree::Config[:rate]
+        Spree::Config[:rate] = params[:rate]
           @rate = Spree::Config[:rate]
           @message = "Ціни оновлені"
           respond_to do |format|

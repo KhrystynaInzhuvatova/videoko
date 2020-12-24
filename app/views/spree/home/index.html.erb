@@ -1,57 +1,85 @@
-<%= link_to "admin", admin_url%>
 <% @body_id = 'home' %>
 
-<div class="homepage-hero-image mb-3 position-relative">
-  <img class="lazyload hero-image position-absolute"
-    data-src="<%= asset_path('homepage/main_banner.jpg') %>"
-    data-srcset="<%= image_source_set('homepage/main_banner') %>"
-    alt="<%= Spree.t('homepage.summer_collection')%>" />
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
-  <div class="hero-content">
-    <div class="homepage-hero-image-text mb-2 mx-auto pb-3 pb-md-4">
-      <%= Spree.t('homepage.summer_collection') %>
-    </div>
-    <div>
-      <%= link_to Spree.t('homepage.shop_now'), spree.products_path, class: 'btn btn-primary spree-btn px-5' %>
-    </div>
+    <a class="index_car_pointer" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="d-flex justify-content-center align-items-center carousel-icon-control-rounded index_car" aria-hidden="true">
+      <%=image_tag("index_left.png")%>
+    </span>
+    </a>
+    <a class="right index_car_pointer" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="d-flex justify-content-center align-items-center carousel-icon-control-rounded index_car" aria-hidden="true">
+      <%=image_tag("index_right.png")%>
+    </span>
+    </a>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+
+          <%= image_tag('homepage/carousel_first.png', class: "d-block w-100 im") %>
+        <div class="carousel-caption d-none d-md-block">
+          <div class="col-6"><%= link_to Spree.t('homepage.shop_now'), spree.products_path, class: 'btn btn_catalog spree-btn px-5' %></div>
+          <p></p>
+          <h1><%= Spree.t("homepage.main_title_first") %></h1>
+          <h1><%= Spree.t("homepage.main_title_second") %></h1>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag('homepage/carousel_second.png', class: "d-block w-100 im") %>
+        <div class="carousel-caption d-none d-md-block">
+          <div class="col-6"><%= link_to Spree.t('homepage.shop_now'), spree.products_path, class: 'btn btn_catalog spree-btn px-5' %></div>
+          <p></p>
+          <h1><%= Spree.t("homepage.main_title_first") %></h1>
+          <h1><%= Spree.t("homepage.main_title_second") %></h1>
+        </div>
+      </div>
+      </div>
+
   </div>
-</div>
 
+<div>&nbsp;</div>
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <%Spree::Taxon.where(depth:0).first(3).each do |tax|%>
-      <div class="homepage-taxon-box mb-3">
-        <%= link_to spree.nested_taxons_path(tax.permalink) do %>
-        <img class="w-100 lazyload"
-            data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
-            data-srcset="<%= image_source_set('homepage/category_banner_upper') %>"
-            alt="<%= Spree.t('homepage.men')%>" />
-
-          <div class="homepage-taxon-box-text">
-            <h3><%= Spree.t("#{tax.name}") %></h3>
-          </div>
-          <%end%>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+      <%for_index_first.each do |tax|%>
+      <%= link_to spree.nested_taxons_path(tax.permalink), class:"link_btn" do %>
+      <div class="homepage-taxon mb-3">
+        <div class="card card_index" >
+          <%if !tax.icon.nil?%>
+          <%= image_tag(main_app.url_for(tax.icon.try(:attachment)),class: "d-block w-100 im default_choose img_from_blob") %>
+          <%elsif File.exist?("app/assets/images/homepage/#{tax.name}.png")%>
+        <%= image_tag("homepage/#{tax.name}.png", class: "d-block w-100 img_from_blob last_img_index") %>
+        <%else%>
+        <%=image_tag("no_img.png", class: "d-block w-100 default_choose img_from_blob")%>
+        <%end%>
+        <div class="card-body">
+          <button class="btn btn-block spree-btn index_btn"><%= Spree.t(tax.name)%></button>
+        </div>
+      </div>
       </div>
       <%end%>
-
+      <%end%>
     </div>
 
-    <div class="col-6">
-      <%Spree::Taxon.where(depth:0).last(3).each do |tax|%>
-      <div class="homepage-taxon-box mb-3">
-        <%= link_to spree.nested_taxons_path(tax.permalink) do%>
-        <img class="w-100 lazyload"
-            data-src="<%= asset_path('homepage/category_banner_upper.jpg') %>"
-            data-srcset="<%= image_source_set('homepage/category_banner_upper') %>"
-            alt="<%= Spree.t('homepage.men')%>" />
-
-          <div class="homepage-taxon-box-text">
-            <h3><%= Spree.t("#{tax.name}") %></h3>
-          </div>
-          <%end%>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+      <%for_index_last.each do |tax|%>
+      <%= link_to spree.nested_taxons_path(tax.permalink), class:"link_btn" do %>
+      <div class="homepage-taxon mb-3">
+        <div class="card card_index" >
+          <%if !tax.icon.nil?%>
+          <%= image_tag(main_app.url_for(tax.icon.try(:attachment)),class: "d-block w-100 im default_choose img_from_blob") %>
+          <%elsif File.exist?("app/assets/images/homepage/#{tax.name}.png")%>
+        <%= image_tag("homepage/#{tax.name}.png", class: "d-block w-100 img_from_blob last_img_index") %>
+        <%else%>
+        <%=image_tag("no_img.png", class: "d-block w-100  default_choose img_from_blob")%>
+        <%end%>
+        <div class="card-body">
+          <button class="btn btn-block spree-btn index_btn"><%= Spree.t(tax.name)%></button>
+        </div>
       </div>
-<%end%>
+      </div>
+      <%end%>
+      <%end%>
     </div>
   </div>
 </div>
