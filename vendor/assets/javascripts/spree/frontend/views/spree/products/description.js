@@ -1,8 +1,9 @@
 
 document.addEventListener('turbolinks:load', function () {
 
-  setTimeout(function() {
+  const timeot = window.setTimeout(function() {
               document.getElementById("iframe").click();
+              window.clearTimeout(timeout);
         },1);
 
   let lv=document.getElementById("Lviv");

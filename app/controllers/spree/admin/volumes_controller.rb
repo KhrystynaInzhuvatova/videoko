@@ -11,10 +11,10 @@ module Spree
         @product = Product.friendly.find(params[:id])
 
         params[:images].each do |im|
+        ImageOptimizer.new(im.tempfile.path).optimize
         MiniMagick::Image.new(im.tempfile.path).resize "900x700"
-        ImageOptimizer.new(im.tempfile.path,  quality: 65).optimize
       end
-      @volume = Spree::Volume.create!(product_id: params[:product_id],  name: params[:name], images: params[:images])
+      @volume = Spree::Volume.create(product_id: params[:product_id],  name: params[:name], images: params[:images])
       render "index"
       end
 
