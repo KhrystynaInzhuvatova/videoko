@@ -27,7 +27,7 @@ module Spree
       has_many :stock_locations
       has_many :stock_movements
     end
-
+    has_many :offer_items
     has_many :option_value_variants, class_name: 'Spree::OptionValueVariant'
     has_many :option_values, through: :option_value_variants, class_name: 'Spree::OptionValue'
 

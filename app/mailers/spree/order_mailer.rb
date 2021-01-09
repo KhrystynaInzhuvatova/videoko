@@ -14,6 +14,17 @@ module Spree
        mail(to: "videoko2016@gmail.com", from: from_address, subject: "Нове замовлення")
     end
 
+    def confirm_email_offer(offer)
+      @offer = Spree::Offer.find(offer)
+      subject = Spree::Store.last.name
+      mail(to: @offer.user.email, from: from_address, subject: subject)
+    end
+
+    def inform_admin_offer(offer)
+       @offer = Spree::Offer.find(offer)
+       mail(to: "videoko2016@gmail.com", from: from_address, subject: "Нове замовлення")
+    end
+
     def cancel_email(order, resend = false)
       @order = order.respond_to?(:id) ? order : Spree::Order.find(order)
       current_store = @order.store

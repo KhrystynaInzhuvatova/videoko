@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+<h5>Замовлення</h5>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Назва</th>
+      <th scope="col">Ціна</th>
+      <th scope="col">Кількість</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@offer.offer_items.each do |product|%>
+    <tr>
+      <td><%=product.variant.product.name%></td>
+      <td><%=product.price%></td>
+      <td><%=product.quantity%></td>
+    </tr>
+    <%end%>
+  </tbody>
+  <tfoot>
+        <tr>
+            <th colspan="2">Загальна вартість</th>
+            <td><%=@offer.total_price%></td>
+        </tr>
+        <tr>
+            <th colspan="2">Валюта</th>
+            <td><%=@offer.currency%></td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+<div class="container-fluid">
+  <h5>Адреса доставки</h5>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Користувач</th>
+      <th scope="col">Імя</th>
+      <th scope="col">Прізвище</th>
+      <th scope="col">Країна</th>
+      <th scope="col">Область</th>
+      <th scope="col">Місто</th>
+      <th scope="col">Адреса</th>
+      <th scope="col">Телефон</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%=@offer.user.login%></td>
+      <td><%=@offer.address.firstname%></td>
+      <td><%=@offer.address.lastname%></td>
+      <td><%=@offer.address.country.name%></td>
+      <td><%=@offer.address.state.name%></td>
+      <td><%=@offer.address.city%></td>
+      <td><%=@offer.address.address1%></td>
+      <td><%=@offer.address.phone%></td>
+    </tr>
+  </tbody>
+</table>
+</div>

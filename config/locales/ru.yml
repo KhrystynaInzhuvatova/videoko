@@ -738,6 +738,19 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    feel_all_fields: Заполните, пожалуйста, все поля
+    name: имя
+    firstname: имя
+    lastname: Фамилия
+    price: Цена
+    quantity: количество
+    total_price: Общая стоимость
+    currency: Валюта
+    print: Распечатать
+    offer: предложение
+    my_offer: Мои предложения
+    my_orders_from_offer: Мои заказы из предложений
+    add_address: Добавить адрес
     read: Читать дальше
     subject: Знак качества
     send: Отправить
@@ -1366,6 +1379,8 @@ ru:
     log_in_to_continue: Войти для продолжения
     sign_up: Регистрация
     log_in: Войти
+    price_offer: Доступна градация цен
+    comment: комментарий
     i18n:
       available_locales: Доступные языки
       fields: Поля

@@ -300,11 +300,17 @@ GEM
     orm_adapter (0.5.0)
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
+    pdf-core (0.9.0)
     pg (1.2.3)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     polyglot (0.3.5)
     popper_js (1.16.0)
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     premailer (1.13.1)
       addressable
       css_parser (>= 1.6.0)
@@ -513,6 +519,7 @@ GEM
       railties (>= 3.1.1)
     tinymce-rails-langs (4.20190124)
       tinymce-rails (~> 4.1, >= 4.1.10)
+    ttfunk (1.7.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -568,6 +575,8 @@ DEPENDENCIES
   mina-whenever
   mini_magick (>= 4.9.5)
   pg (> 0.18, < 2.0)
+  prawn
+  prawn-table
   puma (~> 4.1)
   rails (~> 6.0.1)
   rspec-activejob

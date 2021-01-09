@@ -1,0 +1,69 @@
+<div class="container">
+      <%= form_with(model: @address, url: offer_address_path, local: true) do |f| %>
+
+    <div class="form-group">
+      <%= f.label :firstname, Spree.t(:firstname) %>
+      <%= f.text_field :firstname, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :lastname, Spree.t(:lastname) %>
+      <%= f.text_field :lastname, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :city, Spree.t(:city) %>
+      <%= f.text_field :city, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address1, Spree.t(:address1) %>
+      <%= f.text_field :address1, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone, Spree.t(:phone) %>
+      <%= f.telephone_field :phone, class: 'form-control' %>
+    </div>
+    <div class="form-group" id="country">
+      <%= f.label :country, Spree.t(:country) %>
+      <%= f.collection_select :country_id, available_countries, :id, :name,
+                                         { prompt: Spree.t(:country).upcase },
+                                         { class: 'required form-control spree-flat-select'} %>
+
+    </div>
+    <div class="form-group" id="state">
+      <%= f.label :state, Spree.t(:state) %>
+      <%= f.collection_select :state_id, {},:id, :name, { prompt: Spree.t(:country).upcase },{ class: 'form-control spree-flat-select'}%>
+
+    </div>
+
+    <div class="form-group">
+      <%= hidden_field_tag "id", @offer.id %>
+      <%=f.hidden_field "user_id", value: @offer.user.id%>
+      <%=f.submit Spree.t(:add_address), class: 'btn btn-block btn-lg index_btn text-uppercase font-weight-bold'%>
+  </div>
+    <%end%>
+</div>
+<script>
+document.addEventListener('turbolinks:load', function () {
+$("#state").hide();
+$("#country").change(function(event) {
+
+var countryId  =  $('#country').find(":selected").val();
+$('#address_state_id').empty();
+$.ajax({
+              async: false,
+              method: 'GET',
+              url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
+              dataType: 'json'
+            }).done(function(data) {
+            var json = data.included;
+            for (var i = 0; i < json.length; i++) {
+              var obj = json[i];
+              $('#address_state_id').append(new Option(obj.attributes.name, obj.id));
+
+            }
+
+
+});
+$("#state").show();
+});
+});
+</script>

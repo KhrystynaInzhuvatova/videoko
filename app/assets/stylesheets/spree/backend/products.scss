@@ -34,3 +34,12 @@
 	}
 	}
 	}
+.offer_admin{
+	text-decoration: none;
+  color: #495057;
+	&:hover{
+		text-decoration: none;
+		color: #495057;
+		background-color: transparent;
+	}
+}

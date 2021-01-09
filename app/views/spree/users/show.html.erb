@@ -14,7 +14,31 @@
     </div>
 
   </div>
-
+  <%if @user.offers.count > 0 && !@user.offers.select{|c|c.status == "uncomplete"}.empty?%>
+<div class="container">
+  <div class="text-uppercase spree-mb-medium spree-mt-medium spree-header"><%=Spree.t("my_offer")%></div>
+  <div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Назва</th>
+        <th scope="col">Дата створення</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@user.offers.select{|c|c.status == "uncomplete"}.each do |offer|%>
+      <tr>
+        <td><%=link_to offer.name, show_offer_path(offer.id)%></td>
+        <td><%= offer.created_at.strftime("%Y-%m-%d")%></td>
+        <td><%=link_to Spree.t("delete"), delete_offer_path(id: offer.id), method: :delete%></td>
+      </tr>
+      <%end%>
+    </tbody>
+    </table>
+  </div>
+</div>
+<%end%>
   <div data-hook="account_my_orders" class="account-page-orders" id="account-my-orders">
 
     <h3 class="text-uppercase spree-mb-medium spree-mt-medium spree-header" ><%= Spree.t(:my_orders) %></h3>
@@ -40,13 +64,36 @@
               </td>
             </tr>
           <% end %>
-        </tbody>
+          </tbody>
       </table>
     <% else %>
       <p class="text-center"><%= Spree.t(:you_have_no_orders_yet) %></p>
     <% end %>
     <br />
   </div>
+  <div class="account-page-orders">
+<%if @user.offers.count > 0 && !@user.offers.select{|c|c.status == "complete"}.empty?%>
+    <h3 class="text-uppercase spree-mb-medium spree-mt-medium spree-header" ><%= Spree.t(:my_orders_from_offer) %></h3>
+
+    <table>
+      <thead class="active">
+        <tr>
+          <th class="text-uppercase text-secondary account-page-order-number"><%= Spree::Order.human_attribute_name(:number) %></th>
+          <th class="text-uppercase text-secondary account-page-order-date"><%= Spree.t(:date) %></th>
+          <th class="text-uppercase text-secondary account-page-order-total"><%= Spree.t(:total) %></th>
+        </tr>
+      </thead>
+  <%@user.offers.select{|c|c.status == "complete"}.each do |offer|%>
+  <tr>
+    <td class="account-page-order-number"><%=link_to offer.name, show_offer_path(offer.id), class: "text-primary" %></td>
+    <td class="account-page-order-date"><%= offer.created_at.strftime("%Y-%m-%d")%></td></td>
+    <td class="account-page-text-primary account-page-order-total account-page-lead"><%= offer.total_price %> <%= Money::Currency.find(offer.currency).symbol %></td>
+    </tr>
+  <%end%>
+</tbody>
+</table>
+  <%end%>
+</div>
   <div id="delete-address-popup" class="delete-address-popup-dropdown hide-on-esc">
     <%= render 'spree/shared/delete_address_popup' %>
   </div>

@@ -1,0 +1,44 @@
+<p>&nbsp;</p>
+<div class="container">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Назва</th>
+      <th scope="col">Ціна</th>
+      <th scope="col">Кількість</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@offer.offer_items.each do |product|%>
+    <tr>
+      <td><%=product.variant.product.name%></td>
+      <td><%=product.price%></td>
+      <td><%=product.quantity%></td>
+    </tr>
+    <%end%>
+  </tbody>
+  <tfoot>
+        <tr>
+            <th colspan="2">Загальна вартість</th>
+            <td><%=@offer.total_price%></td>
+        </tr>
+        <tr>
+            <th colspan="2">Валюта</th>
+            <td><%=@offer.currency%></td>
+        </tr>
+        <tr>
+            <td colspan="3"><%=@offer.comment%></td>
+        </tr>
+    </tfoot>
+</table>
+
+</div>
+<p>&nbsp;</p>
+<div class="container">
+  <%= link_to Spree.t("print"), show_offer_path(@offer.id, format: :pdf), class: 'btn btn-block btn-lg index_btn text-uppercase font-weight-bold'%>
+</div>
+<p>&nbsp;</p>
+<div class="container">
+  <%= link_to Spree.t("checkout"), create_order_path(@offer.id), class: 'btn btn-block btn-lg index_btn text-uppercase font-weight-bold'%>
+</div>
+<p>&nbsp;</p>

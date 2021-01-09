@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_122656) do
+ActiveRecord::Schema.define(version: 2020_12_30_122051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,6 +317,34 @@ ActiveRecord::Schema.define(version: 2020_11_12_122656) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uid"], name: "index_spree_oauth_applications_on_uid", unique: true
+  end
+
+  create_table "spree_offer_items", force: :cascade do |t|
+    t.bigint "variant_id"
+    t.bigint "offer_id"
+    t.integer "quantity"
+    t.decimal "price", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["offer_id"], name: "index_spree_offer_items_on_offer_id"
+    t.index ["variant_id"], name: "index_spree_offer_items_on_variant_id"
+  end
+
+  create_table "spree_offers", force: :cascade do |t|
+    t.string "name"
+    t.integer "status", default: 1
+    t.decimal "total_price", precision: 10, scale: 2
+    t.text "comment"
+    t.string "price_role"
+    t.string "currency"
+    t.bigint "user_id"
+    t.bigint "order_id"
+    t.bigint "address_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_spree_offers_on_address_id"
+    t.index ["order_id"], name: "index_spree_offers_on_order_id"
+    t.index ["user_id"], name: "index_spree_offers_on_user_id"
   end
 
   create_table "spree_option_type_prototypes", id: :serial, force: :cascade do |t|

@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
     get "posts", controller: "posts", action: "index"
     get "post/:id", controller: "posts", action: "show", as: :post
+    get "new/:order", controller: "offers", action: "new", as: :new_offer
+    post "create", controller: "offers", action: "create"
+    get "show/:id", controller: "offers", action: "show", as: :show_offer
+    get "create_order/:id", controller: "offers", action: "create_order", as: :create_order
+    delete "delete/:id", controller: "offers", action: "delete", as: :delete_offer
+    post "offer_address", controller: "offers", action: "offer_address", as: :offer_address
   namespace :admin do
     resources :products do
         member do
@@ -14,6 +20,9 @@ Rails.application.routes.draw do
           resources :volumes
         end
       end
+      get "show/:id", controller: "offers", action: "show", as: :show_offer
+      get "index", controller: "offers", action: "index", as: :index_offer
+      delete "delete/:id", controller: "offers", action: "delete", as: :delete_offer
       get "remove_related/:id_product/:id_related", controller: "products", action: "remove_related",  as: :remove_related
       get "reindex_force", controller: "products", action: "reindex_force",  as: :reindex_force
       post "import", controller: "products", action: "import",  as: :import

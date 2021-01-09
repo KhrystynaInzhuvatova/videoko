@@ -825,6 +825,22 @@ uk:
         one:
         other:
   spree:
+    feel_all_fields: Заповніть, будь ласка, всі поля
+    offers_admin: Замовлення з пропозицій
+    name: Ім'я
+    firstname: Ім'я
+    lastname: Прізвище
+    price: Ціна
+    quantity: Кількість
+    total_price: Загальна вартість
+    currency: Валюта
+    print: Роздрукувати
+    offer: Пропозиція
+    my_offer: Мої пропозиції
+    my_orders_from_offer: Мої замовлення з пропозицій
+    add_address: Додати адресу
+    price_offer: Доступна градація цін
+    comment: Коментар
     i18n:
       translations: Переклад
     read: Читати далі
