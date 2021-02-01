@@ -14,6 +14,9 @@
     </div>
 
   </div>
+  <div>
+    <%=link_to Spree.t(:mutual_settlement), show_user_mutual_settlement_path%>
+  </div>
   <%if @user.offers.count > 0 && !@user.offers.select{|c|c.status == "uncomplete"}.empty?%>
 <div class="container">
   <div class="text-uppercase spree-mb-medium spree-mt-medium spree-header"><%=Spree.t("my_offer")%></div>

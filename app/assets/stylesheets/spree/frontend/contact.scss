@@ -1,3 +1,12 @@
+.color_table_header{
+	background-color: #85F03B;
+}
+.color_table_header_second{
+	background-color: #F7FB71;
+}
+.types{
+	font-size: 0.9rem;
+}
 .go_us{
 padding-top: 5%;
 padding-left: 20%;
@@ -335,6 +344,9 @@ color: #000000;
   .map{
     padding-top: 2%;
   }
+	.types{
+		font-size: 0.7rem;
+	}
 }
 @media (max-width: 800px){
   #map{

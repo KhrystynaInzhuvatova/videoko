@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <%if !@documents.nil?%>
+  <div>
+    <p><%=@user.full_name%></p>
+    <p>З <%=@documents.first.date.strftime("%d.%m.%Y")%> по <%=@documents.last.date.strftime("%d.%m.%Y") %></p>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th id="document" colspan="4" class="color_table_header">Документ</th>
+      <th id="debt_usd" colspan="4" class="color_table_header">Борг клієнта у валюті (долари)</th>
+      <th id="debt_uah" colspan="4" class="color_table_header">Борг клієнта у гривнях</th>
+      </tr>
+  </thead>
+  <thead>
+  <tr>
+    <th id="document_second" colspan="2" class="color_table_header">Документ</th>
+    <th id="name" class="color_table_header">Номер</th>
+    <th id="date" class="color_table_header">Дата</th>
+    <th id="increase" class="color_table_header">Збільшення</th>
+    <th id="decrease" class="color_table_header">Зменшення</th>
+    <th id="saldo" class="color_table_header">Сальдо</th>
+    <th id="increase_uah" class="color_table_header">Збільшення</th>
+    <th id="decrease_uah" class="color_table_header">Зменшення</th>
+    <th id="saldo_uah" class="color_table_header">Сальдо</th>
+  </tr>
+  <tbody>
+    <%@documents.each do |document|%>
+    <%case document.type_config%>
+    <% when "sales"%>
+  <tr>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="color_table_header_second">Видаткова накладна</th>
+    <th headers="document name" class="color_table_header_second"><%=document.name%></th>
+    <th headers="document date" class="color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
+    <th headers="debt_usd increase" class="color_table_header_second"><%=document.debt_usd%></th>
+    <th headers="debt_usd decrease" class="color_table_header_second"></th>
+    <th headers="debt_usd saldo" class="color_table_header_second"><%=document.debt_total_usd%></th>
+    <th headers="debt_uah increase" class="color_table_header_second"><%=document.debt_uah%></th>
+    <th headers="debt_uah decrease" class="color_table_header_second"></th>
+    <th headers="debt_uah saldo" class="color_table_header_second"><%=document.debt_total_uah%></th>
+  </tr>
+  <%document.invoice_items.each_with_index do |item, index|%>
+  <tr>
+    <td headers="document document_second <%=document.id%>" ><%=index + 1%></td>
+    <td headers="document document_second <%=document.id%>" ><%=item.name%></td>
+    <td headers="document name <%=document.id%>" ><%=item.quantity%></td>
+    <td headers="document date <%=document.id%>" ><%=item.price%></td>
+    <td headers="debt_usd increase <%=document.id%>"><%=item.final_price%></td>
+    <td headers="debt_usd decrease <%=document.id%>"></td>
+    <td headers="debt_usd saldo <%=document.id%>"></td>
+    <td headers="debt_uah increase <%=document.id%>"></td>
+    <td headers="debt_uah decrease <%=document.id%>"></td>
+    <td headers="debt_uah saldo <%=document.id%>"></td>
+  </tr>
+  <%end%>
+
+  <%when "return"%>
+  <tr>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="color_table_header_second">Прибуткова накладна(повернення)</th>
+    <th headers="document name" class="color_table_header_second"><%=document.name%></th>
+    <th headers="document date" class="color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
+    <th headers="debt_usd increase" class="color_table_header_second"><%="-#{document.income_usd}"%></th>
+    <th headers="debt_usd decrease" class="color_table_header_second"></th>
+    <th headers="debt_usd saldo" class="color_table_header_second"><%=document.income_total_usd%></th>
+    <th headers="debt_uah increase" class="color_table_header_second"><%="-#{document.income_uah}"%></th>
+    <th headers="debt_uah decrease" class="color_table_header_second"></th>
+    <th headers="debt_uah saldo" class="color_table_header_second"><%=document.income_total_uah%></th>
+  </tr>
+  <%document.invoice_items.each_with_index do |item, index|%>
+  <tr>
+    <td headers="document document_second <%=document.id%>" ><%=index + 1 %></td>
+    <td headers="document document_second <%=document.id%>" ><%=item.name%></td>
+    <td headers="document name <%=document.id%>" ><%=item.quantity%></td>
+    <td headers="document date <%=document.id%>" ><%=item.price%></td>
+    <td headers="debt_usd increase <%=document.id%>" ><%=item.final_price%></td>
+    <td headers="debt_usd decrease <%=document.id%>"></td>
+    <td headers="debt_usd saldo <%=document.id%>"></td>
+    <td headers="debt_uah increase <%=document.id%>"></td>
+    <td headers="debt_uah decrease <%=document.id%>"></td>
+    <td headers="debt_uah saldo <%=document.id%>"></td>
+  </tr>
+  <%end%>
+
+  <%when "income"%>
+  <tr>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="color_table_header_second">ПКО</th>
+    <th headers="document name" class="color_table_header_second"><%=document.name%></th>
+    <th headers="document date" class="color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
+    <th headers="debt_usd increase" class="color_table_header_second"></th>
+    <th headers="debt_usd decrease" class="color_table_header_second"><%=document.income_usd%></th>
+    <th headers="debt_usd saldo" class="color_table_header_second"><%=document.income_total_usd%></th>
+    <th headers="debt_uah increase" class="color_table_header_second"></th>
+    <th headers="debt_uah decrease" class="color_table_header_second"><%=document.income_uah%></th>
+    <th headers="debt_uah saldo" class="color_table_header_second"><%=document.income_total_uah%></th>
+  </tr>
+
+  <%end%>
+  <%end%>
+  </tbody>
+  <tfoot>
+        <tr>
+            <th colspan="8">Підсумок</th>
+            <td><%="#{@mutual_settlement.total_number_usd} USD"%></td>
+            <td><%="#{@mutual_settlement.total_number_uah} UAH"%></td>
+        </tr>
+      </tfoot>
+</table>
+<%end%>
+<p><%=link_to "Додати видаткову накладну", admin_new_sales_invoice_path(mutual: @mutual_settlement.id)%></p>
+<p><%=link_to "Додати ПКО", admin_new_income_invoice_path(mutual_id: @mutual_settlement.id)%></p>
+<p><%=link_to "Додати прибуткову накладну", admin_new_return_invoice_path(mutual: @mutual_settlement.id)%></p>
+</div>

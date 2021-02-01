@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_122051) do
+ActiveRecord::Schema.define(version: 2021_01_21_211721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,20 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
     t.index ["test_mode"], name: "index_spree_gateways_on_test_mode"
   end
 
+  create_table "spree_income_invoices", force: :cascade do |t|
+    t.bigint "mutual_settlement_id"
+    t.string "name"
+    t.string "type_config", default: "income"
+    t.date "date"
+    t.decimal "income_usd", precision: 10, scale: 2
+    t.decimal "income_uah", precision: 10, scale: 2
+    t.decimal "income_total_usd", precision: 10, scale: 2
+    t.decimal "income_total_uah", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mutual_settlement_id"], name: "index_spree_income_invoices_on_mutual_settlement_id"
+  end
+
   create_table "spree_inventory_units", id: :serial, force: :cascade do |t|
     t.string "state"
     t.integer "variant_id"
@@ -244,6 +258,19 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
     t.index ["original_return_item_id"], name: "index_spree_inventory_units_on_original_return_item_id"
     t.index ["shipment_id"], name: "index_inventory_units_on_shipment_id"
     t.index ["variant_id"], name: "index_inventory_units_on_variant_id"
+  end
+
+  create_table "spree_invoice_items", force: :cascade do |t|
+    t.bigint "sales_invoice_id"
+    t.bigint "return_invoice_id"
+    t.integer "quantity"
+    t.decimal "final_price", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["return_invoice_id"], name: "index_spree_invoice_items_on_return_invoice_id"
+    t.index ["sales_invoice_id"], name: "index_spree_invoice_items_on_sales_invoice_id"
   end
 
   create_table "spree_line_items", id: :serial, force: :cascade do |t|
@@ -276,6 +303,15 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["source_id", "source_type"], name: "index_spree_log_entries_on_source_id_and_source_type"
+  end
+
+  create_table "spree_mutual_settlements", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "total_number_usd", precision: 10, scale: 2, default: "0.0"
+    t.decimal "total_number_uah", precision: 10, scale: 2, default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_spree_mutual_settlements_on_user_id"
   end
 
   create_table "spree_oauth_access_grants", force: :cascade do |t|
@@ -853,6 +889,20 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
     t.index ["stock_location_id"], name: "index_spree_return_authorizations_on_stock_location_id"
   end
 
+  create_table "spree_return_invoices", force: :cascade do |t|
+    t.bigint "mutual_settlement_id"
+    t.string "name"
+    t.string "type_config", default: "return"
+    t.date "date"
+    t.decimal "income_usd", precision: 10, scale: 2
+    t.decimal "income_uah", precision: 10, scale: 2
+    t.decimal "income_total_usd", precision: 10, scale: 2
+    t.decimal "income_total_uah", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mutual_settlement_id"], name: "index_spree_return_invoices_on_mutual_settlement_id"
+  end
+
   create_table "spree_return_items", id: :serial, force: :cascade do |t|
     t.integer "return_authorization_id"
     t.integer "inventory_unit_id"
@@ -889,6 +939,20 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
   create_table "spree_roles", id: :serial, force: :cascade do |t|
     t.string "name"
     t.index "lower((name)::text)", name: "index_spree_roles_on_lower_name", unique: true
+  end
+
+  create_table "spree_sales_invoices", force: :cascade do |t|
+    t.bigint "mutual_settlement_id"
+    t.string "name"
+    t.string "type_config", default: "sales"
+    t.date "date"
+    t.decimal "debt_usd", precision: 10, scale: 2
+    t.decimal "debt_uah", precision: 10, scale: 2
+    t.decimal "debt_total_usd", precision: 10, scale: 2
+    t.decimal "debt_total_uah", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mutual_settlement_id"], name: "index_spree_sales_invoices_on_mutual_settlement_id"
   end
 
   create_table "spree_shipments", id: :serial, force: :cascade do |t|
@@ -1281,6 +1345,8 @@ ActiveRecord::Schema.define(version: 2020_12_30_122051) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true

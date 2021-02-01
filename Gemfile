@@ -78,3 +78,4 @@ gem 'aws-sdk-ec2', '~> 1'
 gem 'image_optimizer'
 gem 'prawn'
 gem 'prawn-table'
+gem "cocoon"

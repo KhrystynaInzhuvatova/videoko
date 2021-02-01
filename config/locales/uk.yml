@@ -825,6 +825,7 @@ uk:
         one:
         other:
   spree:
+    mutual_settlement: Взаєморозрахунки
     feel_all_fields: Заповніть, будь ласка, всі поля
     offers_admin: Замовлення з пропозицій
     name: Ім'я

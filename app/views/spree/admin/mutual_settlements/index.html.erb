@@ -1,0 +1,14 @@
+
+<div class="container">
+  <h5>Оберіть користувача</h5>
+  <div class="row">
+<%@users.each do |user|%>
+<div class="col-6">
+  <%= link_to controller: "mutual_settlements", action: "show", id: user.id do %>
+  <%=user.full_name%>
+<% end %>
+
+</div>
+<%end%>
+</div>
+</div>

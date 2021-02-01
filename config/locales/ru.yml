@@ -738,6 +738,7 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    mutual_settlement: Взаиморасчеты
     feel_all_fields: Заполните, пожалуйста, все поля
     name: имя
     firstname: имя
