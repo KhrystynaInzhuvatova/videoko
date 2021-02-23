@@ -17,10 +17,9 @@ module Spree
       end
 
       def list_mutual_settlements
-        #curr_page = params[:page] || 1
+        curr_page = params[:page] || 1
         @user = Spree::User.find(params[:id])
-        @mutual_settlements = @user.mutual_settlements
-        #@mutual_settlements = @user.mutual_settlements.page(curr_page).per(15)
+        @mutual_settlements = @user.mutual_settlements.page(curr_page).per(15)
       end
 
       def add_new_table
