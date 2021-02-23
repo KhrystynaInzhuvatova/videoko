@@ -11,7 +11,12 @@
     <br/>
     <%= f.text_field :date, class: "form-control datepicker" %>
   </div>
-  <%= f.fields_for :invoice_items do |f|%>
+  <div class="form-group">
+    <%= f.label :debt_total_usd, "Сальдо"%>
+    <br/>
+    <%= f.number_field :debt_total_usd, min: 0, step: :any, class: "form-control", required: true %>
+  </div>
+    <%= f.fields_for :invoice_items do |f|%>
    <%= render 'invoice_item_fields', f: f%>
    <%end%>
   <div class='form-group'>

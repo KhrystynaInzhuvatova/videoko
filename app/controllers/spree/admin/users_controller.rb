@@ -94,6 +94,7 @@ module Spree
                                      [:use_billing,
                                       :first_name,
                                       :last_name,
+                                      :sku,
                                       spree_role_ids: [],
                                       ship_address_attributes: permitted_address_attributes,
                                       bill_address_attributes: permitted_address_attributes])

@@ -825,6 +825,30 @@ uk:
         one:
         other:
   spree:
+    number_repair: Номер квитанції
+    search_number: Шукати по квитанції
+    search_phone: Шукати по номеру телефона
+    dont_found: Не знайдено
+    in_progress: В ремонті
+    waiting_for_parts: Очікуємо на запчастини
+    sent_to_manufacturer: Відправлено виробникові
+    repaired: Відремонтовано
+    without_repair: Без ремонту
+    message_send: Повідомлення відправлено
+    additional_information: Текст повідомлення
+    tables_mutual: Таблиці взаєморозрахунків
+    document: Документ
+    header_debt: Борг клієнта у валюті (долари)
+    number_name: Номер
+    date: Дата
+    increase_table: Збільшення
+    decrease_table: Зменшення
+    saldo: Сальдо
+    sales: Видаткова накладна
+    return_table: Прибуткова накладна(повернення)
+    pko: ПКО
+    summary_table: Підсумок
+    require_to_change: Запит про оновлення взаєморозрахунків
     mutual_settlement: Взаєморозрахунки
     feel_all_fields: Заповніть, будь ласка, всі поля
     offers_admin: Замовлення з пропозицій

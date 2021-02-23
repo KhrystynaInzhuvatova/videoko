@@ -11,7 +11,8 @@ module Spree
         if !params[:return_invoice][:invoice_items_attributes].nil?
         @return_invoice = Spree::ReturnInvoice.create(mutual_settlement_id: params[:return_invoice][:mutual_settlement],
          name: params[:return_invoice][:name],
-         date: params[:return_invoice][:date]
+         date: params[:return_invoice][:date],
+         income_total_usd: params[:return_invoice][:income_total_usd].to_f
           )
         params[:return_invoice][:invoice_items_attributes].each do |item|
         Spree::InvoiceItem.create(name: item[1]["name"], quantity: item[1]["quantity"],
@@ -22,11 +23,7 @@ module Spree
         item.update(final_price: item.quantity*item.price)
       end
       sum = @return_invoice.invoice_items.map{|c|c.final_price}.sum
-      sum_uah = sum*Spree::Config[:rate]
-      new_total_sum = @return_invoice.mutual_settlement.total_number_usd - sum
-      new_total_sum_uah = @return_invoice.mutual_settlement.total_number_uah - sum_uah
-      @return_invoice.update(income_usd: sum, income_uah: sum_uah, income_total_usd: new_total_sum, income_total_uah: new_total_sum_uah )
-      @return_invoice.mutual_settlement.update(total_number_usd: new_total_sum, total_number_uah: new_total_sum_uah)
+      @return_invoice.update(income_usd: sum)
       redirect_to admin_show_return_invoice_path(id: @return_invoice.id)
       else
         flash[:error] = "має бути доданий хоча б один товар"
@@ -40,11 +37,9 @@ module Spree
 
       def delete_return
         return_invoice = Spree::ReturnInvoice.find(params[:id])
-        new_sum_usd = return_invoice.mutual_settlement.total_number_usd + return_invoice.income_usd
-        new_sum_uah = return_invoice.mutual_settlement.total_number_uah + return_invoice.income_uah
-        return_invoice.mutual_settlement.update(total_number_usd: new_sum_usd, total_number_uah: new_sum_uah)
+        return_invoice.invoice_items.each{|item| item.delete}
         return_invoice.delete
-        redirect_to admin_show_mutual_settlement_path(id: return_invoice.mutual_settlement.user.id)
+        redirect_to admin_show_mutual_settlement_path(id: return_invoice.mutual_settlement.id)
       end
 
   end

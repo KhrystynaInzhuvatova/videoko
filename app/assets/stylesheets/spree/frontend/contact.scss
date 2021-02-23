@@ -1,3 +1,17 @@
+.center_span{
+	text-align: center;
+	font-size: 1.5rem;
+	color: #00336E;
+}
+.date_btn{
+	color: #00336E;
+	font-size: 1.5rem;
+	text-decoration: none;
+	&:hover{
+		text-decoration: none;
+	}
+}
+
 .color_table_header{
 	background-color: #85F03B;
 }
@@ -349,6 +363,12 @@ color: #000000;
 	}
 }
 @media (max-width: 800px){
+	.center_span{
+		font-size: 1rem;
+	}
+	.date_btn{
+		font-size: 1rem;
+	}
   #map{
     overflow: scroll !important;
     height: 60vw !important;

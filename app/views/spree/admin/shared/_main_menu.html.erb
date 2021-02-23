@@ -12,6 +12,10 @@
       <%= link_to "Взаєморозрахунки", admin_mutual_settlements_path, class: "w-100 p-3 d-flex align-items-center icon-link with-tip offer_admin"  %>
     </ul>
 
+    <ul class="nav nav-sidebar border-bottom" >
+      <%= link_to "Ремонт", admin_index_repairs_path, class: "w-100 p-3 d-flex align-items-center icon-link with-tip offer_admin"  %>
+    </ul>
+
 
   <% if can? :admin, Spree::Order %>
     <ul class="nav nav-sidebar border-bottom" id="sidebarOrder">

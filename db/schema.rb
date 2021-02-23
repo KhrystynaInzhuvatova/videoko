@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_211721) do
+ActiveRecord::Schema.define(version: 2021_02_15_161008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,8 @@ ActiveRecord::Schema.define(version: 2021_01_21_211721) do
     t.decimal "total_number_uah", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date_from"
+    t.date "date_to"
     t.index ["user_id"], name: "index_spree_mutual_settlements_on_user_id"
   end
 
@@ -865,6 +867,17 @@ ActiveRecord::Schema.define(version: 2021_01_21_211721) do
     t.index ["order_id"], name: "index_spree_reimbursements_on_order_id"
   end
 
+  create_table "spree_repairs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "number"
+    t.string "phone"
+    t.text "comment"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_spree_repairs_on_user_id"
+  end
+
   create_table "spree_return_authorization_reasons", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true
@@ -1347,6 +1360,7 @@ ActiveRecord::Schema.define(version: 2021_01_21_211721) do
     t.datetime "confirmation_sent_at"
     t.string "first_name"
     t.string "last_name"
+    t.string "sku"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true

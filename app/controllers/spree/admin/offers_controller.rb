@@ -3,7 +3,8 @@ module Spree
     class OffersController < Spree::Admin::BaseController
 
       def index_offer
-        @offers = Spree::Offer.select{|c|c.status == "complete"}
+        curr_page = params[:page] || 1
+        @offers = Spree::Offer.all.where(status: "complete").page(curr_page).per(15)
       end
 
       def show_offer
@@ -12,6 +13,8 @@ module Spree
 
       def delete_offer
         offer = Spree::Offer.find(params[:id])
+        offer.offer_items.each{|item|item.delete}
+        offer.address.delete
         offer.delete
         redirect_to admin_index_offer_path
       end

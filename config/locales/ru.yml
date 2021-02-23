@@ -738,6 +738,30 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    number_repair: Номер квитанции
+    search_number: Искать по квитанции
+    search_phone: Искать по номеру телефона
+    dont_found: Не найдено
+    in_progress: В ремонте
+    waiting_for_parts: Ожидаем запчасти
+    sent_to_manufacturer: Отправлено производителю
+    repaired: Отремонтировано
+    without_repair: Без ремонта
+    message_send: Сообщение отправлено
+    additional_information: Текст сообщения
+    tables_mutual: Таблицы взаиморасчетов
+    document: Документ
+    header_debt: Долг клиента в валюте (доллары)
+    number_name: Номер
+    date: Дата
+    increase_table: Увеличение
+    decrease_table: Уменьшение
+    saldo: Сальдо
+    sales: Расходная накладная
+    return_table: Приходная накладная (возврат)
+    pko: ПКО
+    summary_table: Итог
+    require_to_change: Запрос об обновлении взаиморасчетов
     mutual_settlement: Взаиморасчеты
     feel_all_fields: Заполните, пожалуйста, все поля
     name: имя

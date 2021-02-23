@@ -2,44 +2,37 @@
   <p>&nbsp;</p>
   <div class="row justify-content-md-center">
     <div class="col-lg-3 col-md-4 col-sm-12">
-      <p>З <%=@documents.first.date.strftime("%d.%m.%Y")%> по <%=@documents.last.date.strftime("%d.%m.%Y") %></p>
+      <p>З <%=@mutual_settlement.date_from.strftime("%d.%m.%Y")%> по <%=@mutual_settlement.date_to.strftime("%d.%m.%Y") %></p>
   </div>
 </div>
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
     <tr >
-      <th id="document" colspan="4" class="types color_table_header">Документ</th>
-      <th id="debt_usd" colspan="3" class="types color_table_header">Борг клієнта у валюті (долари)</th>
-      <th id="debt_uah" colspan="3" class="types color_table_header">Борг клієнта у гривнях</th>
-      </tr>
+      <th id="document" colspan="4" class="types color_table_header"><%=Spree.t("document")%></th>
+      <th id="debt_usd" colspan="3" class="types color_table_header"><%=Spree.t("header_debt")%></th>
+    </tr>
   </thead>
   <thead>
   <tr>
-    <th id="document_second" colspan="2" class="types color_table_header">Документ</th>
-    <th id="name" class="types color_table_header">Номер</th>
-    <th id="date" class="types color_table_header">Дата</th>
-    <th id="increase" class="types color_table_header">Збільшення</th>
-    <th id="decrease" class="types color_table_header">Зменшення</th>
-    <th id="saldo" class="types color_table_header">Сальдо</th>
-    <th id="increase_uah" class="types color_table_header">Збільшення</th>
-    <th id="decrease_uah" class="types color_table_header">Зменшення</th>
-    <th id="saldo_uah" class="types color_table_header">Сальдо</th>
+    <th id="document_second" colspan="2" class="types color_table_header"><%=Spree.t("document")%></th>
+    <th id="name" class="types color_table_header"><%=Spree.t("number_name")%></th>
+    <th id="date" class="types color_table_header"><%=Spree.t("date")%></th>
+    <th id="increase" class="types color_table_header"><%=Spree.t("increase_table")%></th>
+    <th id="decrease" class="types color_table_header"><%=Spree.t("decrease_table")%></th>
+    <th id="saldo" class="types color_table_header"><%=Spree.t("saldo")%></th>
   </tr>
   <tbody>
     <%@documents.each do |document|%>
     <%case document.type_config%>
     <% when "sales"%>
   <tr>
-    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second">Видаткова накладна</th>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second"><%=Spree.t("sales")%></th>
     <th headers="document name" class="types color_table_header_second"><%=document.name%></th>
     <th headers="document date" class="types color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
     <th headers="debt_usd increase" class="types color_table_header_second"><%=document.debt_usd%></th>
     <th headers="debt_usd decrease" class="types color_table_header_second"></th>
     <th headers="debt_usd saldo" class="types color_table_header_second"><%=document.debt_total_usd%></th>
-    <th headers="debt_uah increase" class="types color_table_header_second"><%=document.debt_uah%></th>
-    <th headers="debt_uah decrease" class="types color_table_header_second"></th>
-    <th headers="debt_uah saldo" class="types color_table_header_second"><%=document.debt_total_uah%></th>
   </tr>
   <%document.invoice_items.each_with_index do |item, index|%>
   <tr>
@@ -50,23 +43,17 @@
     <td headers="debt_usd increase <%=document.id%>" class="types"><%=item.final_price%></td>
     <td headers="debt_usd decrease <%=document.id%>" class="types"></td>
     <td headers="debt_usd saldo <%=document.id%>" class="types"></td>
-    <td headers="debt_uah increase <%=document.id%>" class="types"></td>
-    <td headers="debt_uah decrease <%=document.id%>" class="types"></td>
-    <td headers="debt_uah saldo <%=document.id%>"class="types"></td>
   </tr>
   <%end%>
 
   <%when "return"%>
   <tr>
-    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second">Прибуткова накладна(повернення)</th>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second"><%=Spree.t("return_table")%></th>
     <th headers="document name" class="types color_table_header_second"><%=document.name%></th>
     <th headers="document date" class="types color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
     <th headers="debt_usd increase" class="types color_table_header_second"><%="-#{document.income_usd}"%></th>
     <th headers="debt_usd decrease" class="types color_table_header_second"></th>
     <th headers="debt_usd saldo" class="types color_table_header_second"><%=document.income_total_usd%></th>
-    <th headers="debt_uah increase" class="types color_table_header_second"><%="-#{document.income_uah}"%></th>
-    <th headers="debt_uah decrease" class="types color_table_header_second"></th>
-    <th headers="debt_uah saldo" class="types color_table_header_second"><%=document.income_total_uah%></th>
   </tr>
   <%document.invoice_items.each_with_index do |item, index|%>
   <tr>
@@ -77,36 +64,25 @@
     <td headers="debt_usd increase <%=document.id%>" class="types"><%=item.final_price%></td>
     <td headers="debt_usd decrease <%=document.id%>" class="types"></td>
     <td headers="debt_usd saldo <%=document.id%>" class="types"></td>
-    <td headers="debt_uah increase <%=document.id%>" class="types"></td>
-    <td headers="debt_uah decrease <%=document.id%>" class="types"></td>
-    <td headers="debt_uah saldo <%=document.id%>" class="types"></td>
   </tr>
   <%end%>
 
   <%when "income"%>
   <tr>
-    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second">ПКО</th>
+    <th headers="document document_second" id="<%=document.id%>" colspan="2" class="types color_table_header_second"><%=Spree.t("pko")%></th>
     <th headers="document name" class="types color_table_header_second"><%=document.name%></th>
     <th headers="document date" class="types color_table_header_second"><%=document.date.strftime("%d.%m.%Y")%></th>
     <th headers="debt_usd increase" class="types color_table_header_second"></th>
     <th headers="debt_usd decrease" class="types color_table_header_second"><%=document.income_usd%></th>
     <th headers="debt_usd saldo" class="types color_table_header_second"><%=document.income_total_usd%></th>
-    <th headers="debt_uah increase" class="types color_table_header_second"></th>
-    <th headers="debt_uah decrease" class="types color_table_header_second"><%=document.income_uah%></th>
-    <th headers="debt_uah saldo" class="types color_table_header_second"><%=document.income_total_uah%></th>
   </tr>
 
   <%end%>
   <%end%>
   </tbody>
-  <tfoot>
-        <tr>
-            <th colspan="8" class="types">Підсумок</th>
-            <td class="types"><%="#{@mutual_settlement.total_number_usd} USD"%></td>
-            <td class="types"><%="#{@mutual_settlement.total_number_uah} UAH"%></td>
-        </tr>
-      </tfoot>
+
 </table>
 </div>
 <p>&nbsp;</p>
+<p><%=link_to Spree.t(:back), "/account", class:"date_btn"%></p>
 </div>

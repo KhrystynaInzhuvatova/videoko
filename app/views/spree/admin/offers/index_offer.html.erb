@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="container">
+
   <table class="table">
     <thead>
       <tr>
@@ -14,11 +14,21 @@
       <tr>
         <td><%=link_to offer.name, admin_show_offer_path(offer.id)%></td>
         <td><%= offer.created_at.strftime("%Y-%m-%d")%></td>
-        <td><%= offer.user.login%></td>
+        <td><%= offer.user.full_name%></td>
         <td><%=link_to Spree.t("delete"), admin_delete_offer_path(id: offer.id), method: :delete%></td>
       </tr>
       <%end%>
     </tbody>
     </table>
-  </div>
+    <div class="row pl-md-4 pl-sm-4">
+      <div class="col-12">
+        <div class="plp-pagination d-none d-lg-flex">
+          <%= paginate @offers, window: 2, theme: 'twitter-bootstrap-4' %>
+        </div>
+
+        <div class="plp-pagination d-lg-none">
+          <%= paginate @offers, window: 1, theme: 'twitter-bootstrap-4'%>
+        </div>
+      </div>
+    </div>
 </div>

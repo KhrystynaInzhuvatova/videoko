@@ -5,7 +5,7 @@ module Spree
     has_many :offer_items, class_name: 'Spree::OfferItem', dependent: :destroy
     belongs_to :address, class_name: 'Spree::Address', optional: true
     accepts_nested_attributes_for :address
-
+    
     enum status: [:complete, :uncomplete]
 
     PRICES_FOR_OPT = [ "opt", "rozdrib" ]

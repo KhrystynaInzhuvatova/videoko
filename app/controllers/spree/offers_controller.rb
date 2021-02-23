@@ -1,6 +1,6 @@
 module Spree
   class OffersController < Spree::StoreController
-    before_action :check_user
+    before_action :check_user, only: [:show, :new]
     include Spree::Admin::BaseHelper
 
     def new
@@ -56,6 +56,7 @@ module Spree
 
     def delete
       offer = Spree::Offer.find(params[:id])
+      offer.offer_items.each{|item|item.delete}
       offer.delete
       redirect_to "/account"
     end

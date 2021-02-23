@@ -40,5 +40,9 @@
         <%= f.label :last_name, Spree.t(:last_name) %>
         <%= f.text_field :last_name, class: 'form-control' %>
         <% end %>
+      <%= f.field_container :sku, class: ['form-group'] do %>
+        <%= f.label :sku, Spree.t(:sku) %>
+        <%= f.text_field :sku, class: 'form-control' %>
+      <% end %>
   </div>
 </div>
