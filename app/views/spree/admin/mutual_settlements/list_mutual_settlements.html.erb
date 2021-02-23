@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-<%=@mutual_settlements.each do |mutual_settlement| %>
+<%@mutual_settlements.each do |mutual_settlement| %>
 <div class="col-6">
 <%=link_to "Таблиця взаєморозрахунків з #{mutual_settlement.date_from.strftime('%d.%m.%Y')} по #{mutual_settlement.date_to.strftime('%d.%m.%Y')}", admin_show_mutual_settlement_path(id: mutual_settlement.id)%>
 </div>
