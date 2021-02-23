@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div>
     <p><%=@user.full_name%></p>
-    <p>З <%=@mutual_settlement.date_from.strftime("%d.%m.%Y")%> по <%=@mutual_settlement.date_to.strftime("%d.%m.%Y") %></p>
+    <p>З <%#=@mutual_settlement.date_from.strftime("%d.%m.%Y")%> по <%#=@mutual_settlement.date_to.strftime("%d.%m.%Y") %></p>
   </div>
   <table class="table table-bordered">
     <thead>
@@ -77,7 +77,7 @@
   <%end%>
   <%end%>
   </tbody>
-  
+
 </table>
 <p><%=link_to "Додати видаткову накладну", admin_new_sales_invoice_path(mutual: @mutual_settlement.id)%></p>
 <p><%=link_to "Додати ПКО", admin_new_income_invoice_path(mutual_id: @mutual_settlement.id)%></p>
