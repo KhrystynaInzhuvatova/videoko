@@ -3,6 +3,6 @@ class MutualSettlementRequestMailer < ApplicationMailer
     @user_name = Spree::User.find(user).full_name
     @message = message
     email = Spree::User.find(user).email
-    mail(to: email, from: "videoko2016@gmail.com", subject: "")
+    mail(to: "videoko2016@gmail.com", from: email, subject: "")
   end
 end
