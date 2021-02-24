@@ -1,8 +1,8 @@
 module Spree
   class RepairsController < Spree::StoreController
-    
+
     def find_repair_phone_user
-      @phone = Spree::Repair.find_by(phone: params[:phone])
+      @phone = Spree::Repair.where(phone: params[:phone])
       if !@phone.nil?
         respond_to do |format|
         format.html{}

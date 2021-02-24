@@ -58,9 +58,9 @@ module Spree
       end
 
       def find_repair_phone
-        phone = Spree::Repair.find_by(phone: params[:phone])
+        phone = Spree::Repair.where(phone: params[:phone])
         if !phone.nil?
-        redirect_to admin_show_repair_path(phone.id)
+        render template: "spree/admin/repairs/find_repair_phone", locals: {repairs: phone}
         else
         flash[:notice] = "Запису не знайдено"
         redirect_to admin_index_repairs_path
