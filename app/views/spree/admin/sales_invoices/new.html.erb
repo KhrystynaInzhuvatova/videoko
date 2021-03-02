@@ -9,7 +9,7 @@
   <div class="form-group">
     <%= f.label :date, Spree.t(:date)%>
     <br/>
-    <%= f.text_field :date, class: "form-control datepicker" %>
+    <%= f.text_field :date, class: "form-control datepicker", autocomplete: "off" %>
   </div>
   <div class="form-group">
     <%= f.label :debt_total_usd, "Сальдо"%>

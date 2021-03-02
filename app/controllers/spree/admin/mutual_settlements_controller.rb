@@ -24,12 +24,17 @@ module Spree
 
       def add_new_table
         @user = Spree::User.find(params[:id])
-        @mutual_settlement = Spree::MutualSettlement.create(user: @user)
       end
 
       def add_date_to_new_table
-        @mutual_settlement = Spree::MutualSettlement.find(params[:mutual_settlement])
-        @mutual_settlement.update(date_from: params[:date_from], date_to: params[:date_to])
+        @user = Spree::User.find(params[:user])
+        @mutual_settlement = Spree::MutualSettlement.new(user: @user, date_from: params[:date_from], date_to: params[:date_to])
+        if @mutual_settlement.save!
+          render template: "spree/admin/mutual_settlements/add_date_to_new_table"
+        else
+          flash[:error] = "дати не можуть бути пустими"
+          redirect_to admin_add_new_table_path
+        end
       end
 
       def delete_mutual_settlement
