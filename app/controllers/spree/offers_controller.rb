@@ -77,12 +77,14 @@ module Spree
         state_id: params[:address][:state_id],
         user_id: params[:address][:user_id],
         country_id: params[:address][:country_id],
-        city: params[:address][:city]
+        city: params[:address][:city],
+        nova_poshta_address: params[:address][:nova_poshta_address],
+        nova_poshta_number: params[:address][:nova_poshta_number]
        )
        if @address.save
        @offer.update(address_id: @address.id, status: :complete)
-       OrderMailer.confirm_email_offer(@offer.id).deliver_later
-       OrderMailer.inform_admin_offer(@offer.id).deliver_later
+       #OrderMailer.confirm_email_offer(@offer.id).deliver_later
+       #OrderMailer.inform_admin_offer(@offer.id).deliver_later
      else
        flash[:error]= Spree.t("feel_all_fields")
        redirect_back(fallback_location: offer_address_path)

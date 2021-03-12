@@ -1,5 +1,5 @@
 <div class="container">
-      <%= form_with(model: @address, url: offer_address_path, local: true) do |f| %>
+      <%= form_with(model: @address, url: offer_address_path, local: true, html: { autocomplete: "off" }) do |f| %>
 
     <div class="form-group">
       <%= f.label :firstname, Spree.t(:firstname) %>
@@ -9,18 +9,12 @@
       <%= f.label :lastname, Spree.t(:lastname) %>
       <%= f.text_field :lastname, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= f.label :city, Spree.t(:city) %>
-      <%= f.text_field :city, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :address1, Spree.t(:address1) %>
-      <%= f.text_field :address1, class: 'form-control' %>
-    </div>
-    <div class="form-group">
+
+    <div class="form-group" id="phone">
       <%= f.label :phone, Spree.t(:phone) %>
       <%= f.telephone_field :phone, class: 'form-control' %>
     </div>
+
     <div class="form-group" id="country">
       <%= f.label :country, Spree.t(:country) %>
       <%= f.collection_select :country_id, available_countries, :id, :name,
@@ -28,10 +22,44 @@
                                          { class: 'required form-control spree-flat-select'} %>
 
     </div>
+    <div class="row">
+    <div class=col-6>
+      <%= content_tag(:div, "Posta",id: "add_address", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
+    </div>
+    <div class=col-6>
+      <%= content_tag(:div, "Nova Posta",id: "add_poshta", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
+    </div>
+  <p>&nbsp;</p>
+  </div>
     <div class="form-group" id="state">
       <%= f.label :state, Spree.t(:state) %>
-      <%= f.collection_select :state_id, {},:id, :name, { prompt: Spree.t(:country).upcase },{ class: 'form-control spree-flat-select'}%>
+      <%= f.collection_select :state_id, {},:id, :name, { prompt: Spree.t(:state).upcase },{ class: 'form-control spree-flat-select'}%>
 
+    </div>
+
+    <div class="form-group" id="city">
+      <%= f.label :city, Spree.t(:city) %>
+      <%= f.text_field :city, class: 'form-control' %>
+    </div>
+    <div class="form-group" id="address1">
+      <%= f.label :address1, Spree.t(:address1) %>
+      <%= f.text_field :address1, class: 'form-control' %>
+    </div>
+
+    <div class="form-group" id="nova_poshta">
+      <%= f.label :nova_poshta_address, Spree.t(:nova_poshta_address) %>
+      <%=f.text_field :nova_poshta_address, {list:"address_nova_poshta_area", id:"address_nova_poshta_area1", class: 'form-control', autocomplete:"new-password" }%>
+
+      <datalist id="address_nova_poshta_area" autocomplete="off">
+
+      </datalist>
+      <input type="hidden" id="nova_poshta_address" value="">
+    </div>
+
+
+    <div class="form-group" id="nova_poshta_number">
+      <%= f.label :nova_poshta_number, Spree.t(:nova_poshta_number) %>
+      <%= f.collection_select :nova_poshta_number, {},:id, :name, { prompt: Spree.t(:nova_poshta_number).upcase, include_blank: true }, class: 'form-control spree-flat-select' %>
     </div>
 
     <div class="form-group">
@@ -44,9 +72,27 @@
 <script>
 document.addEventListener('turbolinks:load', function () {
 $("#state").hide();
+$("#city").hide();
+$("#address1").hide();
+$("#nova_poshta").hide();
+$("#nova_poshta_number").hide();
+$("#add_address").hide();
+$("#add_poshta").hide();
 $("#country").change(function(event) {
 
 var countryId  =  $('#country').find(":selected").val();
+
+if (countryId == 230){
+  $("#nova_poshta").hide();
+  $("#nova_poshta_number").hide();
+  $("#state").hide();
+  $("#city").hide();
+  $("#address1").hide();
+  $("#add_address").show();
+  $("#add_poshta").show();
+$("#add_address").click(function(event) {
+  $("#address_nova_poshta_number").val("")
+  $("#address_nova_poshta_area1").val("");
 $('#address_state_id').empty();
 $.ajax({
               async: false,
@@ -63,7 +109,149 @@ $.ajax({
 
 
 });
+
+
+$("#nova_poshta").hide();
+$("#nova_poshta_number").hide();
 $("#state").show();
+$("#city").show();
+$("#address1").show();
 });
+
+$( "#add_poshta" ).click(function() {
+  $("#address_state").val("");
+  $("#address_city").val("");
+  $("#address_address1").val("");
+  $('#address_state_id').val("");
+  $("#state").hide();
+  $("#city").hide();
+  $("#address1").hide();
+
+  $("#nova_poshta").show();
+
+  $('#address_nova_poshta_area1').keyup(function(e) {
+    e.preventDefault();
+    if ($(this).val().length > 2) {
+
+   var input_value = $( this ).val();
+
+
+  var settings = {
+    modelName: "Address",
+    calledMethod: "getCities",
+    methodProperties: {
+      FindByString: input_value
+    },
+    apiKey: "<%=""%>"
+
+  };
+
+
+$.ajax({
+      url: "https://api.novaposhta.ua/v2.0/json/",
+      method: "POST",
+      processData: false,
+      crossDomain: true,
+      async: true,
+      contentType: "application/json",
+      data: JSON.stringify(settings)
+  }).done(function (response) {
+    $('#address_nova_poshta_area').empty();
+    console.log(response);
+    var json = response.data;
+    for (var i = 0; i < json.length; i++) {
+      var obj = json[i];
+      $('#address_nova_poshta_area').append(
+        `<option data-value=${obj.Ref}>
+        ${obj.SettlementTypeDescription + ' ' +obj.Description + ', '+"обл."+obj.AreaDescription}
+        </option>`
+      );
+    }
+  });
+}
+e.preventDefault();
+});
+$('#address_nova_poshta_area1').change(function (e) {
+  e.preventDefault();
+    var val =  $(this).val();
+    var hidden_value = $('#address_nova_poshta_area option').filter(function() {
+     return this.value == val;
+   }).data('value');
+   $("#nova_poshta_address").val(hidden_value).trigger('change');
+});
+$('#nova_poshta_address').change(function (e) {
+  e.preventDefault();
+  var cityRef =  $(this).val();
+if (cityRef.length > 4){
+  var settings = {
+    modelName: "AddressGeneral",
+    calledMethod: "getWarehouses",
+    methodProperties: {
+      CityRef: cityRef
+    },
+    apiKey: "<%=""%>"
+  };
+
+  $.ajax({
+        url: "https://api.novaposhta.ua/v2.0/json/",
+        method: "POST",
+        processData: false,
+        crossDomain: true,
+        async: true,
+        contentType: "application/json",
+        data: JSON.stringify(settings)
+    }).done(function (response) {
+      $('#address_nova_poshta_number').empty();
+      console.log(response);
+      var json = response.data;
+      for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        $('#address_nova_poshta_number').append(new Option(obj.Description, obj.Description));
+      }
+    });
+    $('#nova_poshta_number').show();
+    e.preventDefault();
+  }
+});
+});
+}else{
+  $("#add_address").hide();
+  $("#add_poshta").hide();
+  $("#nova_poshta").hide();
+  $('#nova_poshta_number').hide();
+  $('#address_nova_poshta_number').empty();
+  $('#address_nova_poshta_number').val("");
+  $('#address_nova_poshta_area1').empty();
+  $('#address_nova_poshta_area1').val("");
+  $("#address_state").val("");
+  $("#address_city").val("");
+  $("#address_address1").val("");
+  $('#address_state_id').val("");
+  $("#state").hide();
+  $("#city").hide();
+  $("#address1").hide();
+  $('#address_state_id').empty();
+  $.ajax({
+                async: false,
+                method: 'GET',
+                url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
+                dataType: 'json'
+              }).done(function(data) {
+              var json = data.included;
+              for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                $('#address_state_id').append(new Option(obj.attributes.name, obj.id));
+
+              }
+
+
+  });
+  $("#state").show();
+  $("#city").show();
+  $("#address1").show();
+
+}
+});
+
 });
 </script>

@@ -43,6 +43,8 @@
       <th scope="col">Місто</th>
       <th scope="col">Адреса</th>
       <th scope="col">Телефон</th>
+      <th scope="col">Нова пошта(місто)</th>
+      <th scope="col">Нова пошта(номер відділення)</th>
     </tr>
   </thead>
   <tbody>
@@ -55,6 +57,8 @@
       <td><%=@offer.address.city%></td>
       <td><%=@offer.address.address1%></td>
       <td><%=@offer.address.phone%></td>
+      <td><%=@offer.address.nova_poshta_address%></td>
+      <td><%=@offer.address.nova_poshta_number%></td>
     </tr>
   </tbody>
 </table>
