@@ -83,8 +83,8 @@ module Spree
        )
        if @address.save
        @offer.update(address_id: @address.id, status: :complete)
-       #OrderMailer.confirm_email_offer(@offer.id).deliver_later
-       #OrderMailer.inform_admin_offer(@offer.id).deliver_later
+       OrderMailer.confirm_email_offer(@offer.id).deliver_later
+       OrderMailer.inform_admin_offer(@offer.id).deliver_later
        redirect_to offer_show_path(id: @offer.id)
      else
        flash[:error]= Spree.t("feel_all_fields")
