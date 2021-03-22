@@ -47,9 +47,7 @@ module Spree
         )
         if prev_status != status_params
           StatusRepairMailer.inform_user_repair(user: repair.user.id, message: repair.status, comment: repair.comment).deliver_later
-          sns = Aws::SNS::Client.new(region: 'us-east-2',
-            
-            sns.publish(phone_number: '+380997603849', message: 'test message')
+          
         end
         redirect_to admin_show_repair_path(id: repair.id)
       end

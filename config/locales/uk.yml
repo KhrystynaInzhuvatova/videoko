@@ -825,6 +825,11 @@ uk:
         one:
         other:
   spree:
+    country_select: Оберіть країну
+    nova_poshta_address: Місто доставки
+    nova_poshta_number: Номер відділення
+    poshta: Відправлення "Укрпоштою"
+    nova_poshta: Відправлення "Новою поштою"
     number_repair: Номер квитанції
     search_number: Шукати по квитанції
     search_phone: Шукати по номеру телефона
@@ -1538,6 +1543,7 @@ uk:
       tel_to_us: Телефонуйте
       mail_us: Електронна адреса
     homepage:
+      account: Особистий кабінет
       news: Новини
       znak: Знак якості
       main_page: Головна

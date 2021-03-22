@@ -19,10 +19,15 @@
     </div>
     <%end%>
     <div class="local">
-      <% unless address.city.blank? %>
+      <% unless address.state.blank? %>
+      <span class="locality"><%= address.state %></span>
+        <%end%>
+      </div>
+        <div class="local">
+        <% unless address.city.blank? %>
       <span class="locality"><%= address.city %></span>
         <%end%>
-      <div class="country-name"><%= address.country.try(:name) %></div>
+      <div class="country-name"><%= Spree.t(address.country.iso, scope: 'country_names', default: address.country.name) %></div>
     </div>
   </div>
 </div>

@@ -85,10 +85,15 @@ module Spree
        @offer.update(address_id: @address.id, status: :complete)
        #OrderMailer.confirm_email_offer(@offer.id).deliver_later
        #OrderMailer.inform_admin_offer(@offer.id).deliver_later
+       redirect_to offer_show_path(id: @offer.id)
      else
        flash[:error]= Spree.t("feel_all_fields")
        redirect_back(fallback_location: offer_address_path)
      end
+    end
+
+    def offer_show
+      @offer = Spree::Offer.find(params[:id])
     end
 
     private

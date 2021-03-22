@@ -39,12 +39,16 @@
       <th scope="col">Імя</th>
       <th scope="col">Прізвище</th>
       <th scope="col">Країна</th>
+      <%if !@offer.address.state.blank?%>
       <th scope="col">Область</th>
       <th scope="col">Місто</th>
       <th scope="col">Адреса</th>
+      <%end%>
       <th scope="col">Телефон</th>
+      <%if !@offer.address.nova_poshta_address.blank?%>
       <th scope="col">Нова пошта(місто)</th>
       <th scope="col">Нова пошта(номер відділення)</th>
+      <%end%>
     </tr>
   </thead>
   <tbody>
@@ -53,12 +57,16 @@
       <td><%=@offer.address.firstname%></td>
       <td><%=@offer.address.lastname%></td>
       <td><%=@offer.address.country.name%></td>
+      <%if !@offer.address.state.blank?%>
       <td><%=@offer.address.state.name%></td>
       <td><%=@offer.address.city%></td>
       <td><%=@offer.address.address1%></td>
+      <%end%>
       <td><%=@offer.address.phone%></td>
+      <%if !@offer.address.nova_poshta_address.blank?%>
       <td><%=@offer.address.nova_poshta_address%></td>
       <td><%=@offer.address.nova_poshta_number%></td>
+      <%end%>
     </tr>
   </tbody>
 </table>

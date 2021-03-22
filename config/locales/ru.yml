@@ -738,6 +738,11 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    country_select: Выберите страну
+    nova_poshta_address: Город доставки
+    nova_poshta_number: Номер отделения
+    poshta: Доставка "Укрпоштою"
+    nova_poshta: Доставка "Новою поштою"
     number_repair: Номер квитанции
     search_number: Искать по квитанции
     search_phone: Искать по номеру телефона
@@ -1381,6 +1386,7 @@ ru:
       tel_to_us: Звоните
       mail_us: E-mail
     homepage:
+      account: Личный кабинет
       news: Новости
       znak: знак качества
       main_page: Главная

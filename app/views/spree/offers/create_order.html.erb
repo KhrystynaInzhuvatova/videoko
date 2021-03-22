@@ -18,22 +18,22 @@
     <div class="form-group" id="country">
       <%= f.label :country, Spree.t(:country) %>
       <%= f.collection_select :country_id, available_countries, :id, :name,
-                                         { prompt: Spree.t(:country).upcase },
+                                         { prompt: true },
                                          { class: 'required form-control spree-flat-select'} %>
 
     </div>
     <div class="row">
     <div class=col-6>
-      <%= content_tag(:div, "Posta",id: "add_address", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
+      <%= content_tag(:div, Spree.t(:poshta),id: "add_address", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
     </div>
     <div class=col-6>
-      <%= content_tag(:div, "Nova Posta",id: "add_poshta", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
+      <%= content_tag(:div, Spree.t(:nova_poshta),id: "add_poshta", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
     </div>
   <p>&nbsp;</p>
   </div>
     <div class="form-group" id="state">
       <%= f.label :state, Spree.t(:state) %>
-      <%= f.collection_select :state_id, {},:id, :name, { prompt: Spree.t(:state).upcase },{ class: 'form-control spree-flat-select'}%>
+      <%= f.collection_select :state_id, {},:id, :name, { required: true },{ class: 'form-control spree-flat-select'}%>
 
     </div>
 
@@ -59,18 +59,19 @@
 
     <div class="form-group" id="nova_poshta_number">
       <%= f.label :nova_poshta_number, Spree.t(:nova_poshta_number) %>
-      <%= f.collection_select :nova_poshta_number, {},:id, :name, { prompt: Spree.t(:nova_poshta_number).upcase, include_blank: true }, class: 'form-control spree-flat-select' %>
+      <%= f.collection_select :nova_poshta_number, {},:id, :name, {prompt: true}, {class: 'form-control spree-flat-select'} %>
     </div>
 
     <div class="form-group">
       <%= hidden_field_tag "id", @offer.id %>
       <%=f.hidden_field "user_id", value: @offer.user.id%>
-      <%=f.submit Spree.t(:add_address), class: 'btn btn-block btn-lg index_btn text-uppercase font-weight-bold'%>
+      <%=f.submit Spree.t(:add_address), class: 'btn btn-block btn-lg index_btn text-uppercase font-weight-bold', id: "form_address_offer"%>
   </div>
     <%end%>
 </div>
 <script>
 document.addEventListener('turbolinks:load', function () {
+
 $("#state").hide();
 $("#city").hide();
 $("#address1").hide();
@@ -93,13 +94,19 @@ if (countryId == 230){
 $("#add_address").click(function(event) {
   $("#address_nova_poshta_number").val("")
   $("#address_nova_poshta_area1").val("");
-$('#address_state_id').empty();
+
 $.ajax({
               async: false,
               method: 'GET',
               url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
               dataType: 'json'
             }).done(function(data) {
+              $('#address_state_id').empty();
+              if ("<%=I18n.locale %>" == "uk"){
+              $('#address_state_id').append(new Option("Оберіть регіон"));
+            }else{
+              $('#address_state_id').append(new Option("Выберите регион"));
+            }
             var json = data.included;
             for (var i = 0; i < json.length; i++) {
               var obj = json[i];
@@ -128,47 +135,96 @@ $( "#add_poshta" ).click(function() {
   $("#address1").hide();
 
   $("#nova_poshta").show();
+  if ("<%=I18n.locale %>" == "ru"){
+  localStorage.clear();
+
+  var settings = {
+    modelName: "Address",
+    calledMethod: "getCities",
+    methodProperties: {},
+    apiKey: "<%=Rails.application.credentials[:nova_poshta]%>"
+  };
+
+  $.ajax({
+          url: "https://api.novaposhta.ua/v2.0/json/",
+          method: "POST",
+          processData: false,
+          crossDomain: true,
+          async: true,
+          contentType: "application/json",
+          data: JSON.stringify(settings)
+      }).done(function (response) {
+
+        var json = response.data;
+        for (var i = 0; i < json.length; i++) {
+          var obj = json[i];
+          var ru ={
+            "desc": `${obj.SettlementTypeDescriptionRu + ' ' +obj.DescriptionRu.trim().replace(/ *\([^)]*\) */g, "")+ ', '+'обл.'+obj.AreaDescriptionRu}`,
+            "ref": `${obj.Ref}`
+          }
+          localStorage.setItem( `${(obj.DescriptionRu).trim().replace(/ *\([^)]*\) */g, "")}`, JSON.stringify(ru))
+
+        }
+
+      });
+}
 
   $('#address_nova_poshta_area1').keyup(function(e) {
     e.preventDefault();
     if ($(this).val().length > 2) {
 
    var input_value = $( this ).val();
+   var final_input_value = input_value.charAt(0).toUpperCase() + input_value.slice(1).toLowerCase();
+
+   if ("<%=I18n.locale %>" == "uk"){
+     var settings = {
+       modelName: "Address",
+       calledMethod: "getCities",
+       methodProperties: {
+         FindByString: final_input_value
+       },
+       apiKey: "<%=Rails.application.credentials[:nova_poshta]%>"
+
+     };
 
 
-  var settings = {
-    modelName: "Address",
-    calledMethod: "getCities",
-    methodProperties: {
-      FindByString: input_value
-    },
-    apiKey: "<%=""%>"
+   $.ajax({
+         url: "https://api.novaposhta.ua/v2.0/json/",
+         method: "POST",
+         processData: false,
+         crossDomain: true,
+         async: true,
+         contentType: "application/json",
+         data: JSON.stringify(settings)
+     }).done(function (response) {
+       $('#address_nova_poshta_area').empty();
+       console.log(response);
+       var json = response.data;
+       for (var i = 0; i < json.length; i++) {
+         var obj = json[i];
+         $('#address_nova_poshta_area').append(
+           `<option data-value=${obj.Ref}>
+           ${obj.SettlementTypeDescription + ' ' +(obj.Description).trim().replace(/ *\([^)]*\) */g, "") + ', '+"обл."+obj.AreaDescription}
+           </option>`
+         );
+       }
+     });
 
-  };
+ }else{
+
+    var json = JSON.parse(localStorage.getItem(final_input_value))
 
 
-$.ajax({
-      url: "https://api.novaposhta.ua/v2.0/json/",
-      method: "POST",
-      processData: false,
-      crossDomain: true,
-      async: true,
-      contentType: "application/json",
-      data: JSON.stringify(settings)
-  }).done(function (response) {
     $('#address_nova_poshta_area').empty();
-    console.log(response);
-    var json = response.data;
-    for (var i = 0; i < json.length; i++) {
-      var obj = json[i];
+
       $('#address_nova_poshta_area').append(
-        `<option data-value=${obj.Ref}>
-        ${obj.SettlementTypeDescription + ' ' +obj.Description + ', '+"обл."+obj.AreaDescription}
+        `<option data-value=${json['ref']}>
+        ${json["desc"]}
         </option>`
       );
     }
-  });
-}
+
+  }
 e.preventDefault();
 });
 $('#address_nova_poshta_area1').change(function (e) {
@@ -189,7 +245,7 @@ if (cityRef.length > 4){
     methodProperties: {
       CityRef: cityRef
     },
-    apiKey: "<%=""%>"
+    apiKey: "<%=Rails.application.credentials[:nova_poshta]%>"
   };
 
   $.ajax({
@@ -206,7 +262,11 @@ if (cityRef.length > 4){
       var json = response.data;
       for (var i = 0; i < json.length; i++) {
         var obj = json[i];
+        if ("<%=I18n.locale %>" == "uk"){
         $('#address_nova_poshta_number').append(new Option(obj.Description, obj.Description));
+      }else{
+        $('#address_nova_poshta_number').append(new Option(obj.DescriptionRu, obj.DescriptionRu));
+      }
       }
     });
     $('#nova_poshta_number').show();
@@ -230,13 +290,19 @@ if (cityRef.length > 4){
   $("#state").hide();
   $("#city").hide();
   $("#address1").hide();
-  $('#address_state_id').empty();
+
   $.ajax({
                 async: false,
                 method: 'GET',
                 url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
                 dataType: 'json'
               }).done(function(data) {
+                $('#address_state_id').empty();
+                if ("<%=I18n.locale %>" == "uk"){
+                $('#address_state_id').append(new Option("Оберіть регіон"));
+              }else{
+                $('#address_state_id').append(new Option("Выберите регион"));
+              }
               var json = data.included;
               for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -250,6 +316,12 @@ if (cityRef.length > 4){
   $("#city").show();
   $("#address1").show();
 
+}
+});
+
+$( "#form_address_offer" ).click(function( event ) {
+  if ("<%=I18n.locale %>" == "ru"){
+  localStorage.clear();
 }
 });
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get "create_order/:id", controller: "offers", action: "create_order", as: :create_order
     delete "delete/:id", controller: "offers", action: "delete", as: :delete_offer
     post "offer_address", controller: "offers", action: "offer_address", as: :offer_address
+    get "offer_show/:id", controller: "offers", action: "offer_show", as: :offer_show
 
     post "find_repair_phone_user", controller: "repairs", action: "find_repair_phone_user", as: :find_repair_phone_user
     post "find_repair_number_user", controller: "repairs", action: "find_repair_number_user", as: :find_repair_number_user

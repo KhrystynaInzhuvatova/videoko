@@ -5,7 +5,15 @@
   <div id="sidenav">
   <a href='#' class='closebtn' id="closeNav" >&times;</a>
   <ul class="header_ul_sidenav">
-    <li class="header_ul_sidenav_li"><%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %></li>
+    <li class="header_ul_sidenav_li">
+      <%if spree_current_user.nil? %>
+      <%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %>
+      <%elsif !spree_current_user.nil? && !spree_current_user.has_spree_role?("rozdrib")%>
+      <%= link_to Spree.t('homepage.account'), "/account", class: "blue" %>
+      <%elsif !spree_current_user.nil? && spree_current_user.has_spree_role?("rozdrib")%>
+      <%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %>
+      <%end%>
+    </li>
 
     <% spree_navigation_data.each do |root| %>
     <li class="header_ul_sidenav_li"><%= link_to Spree.t(root[:title]), spree.nested_taxons_path(root[:url]),class:"blue" %></li>
@@ -93,4 +101,4 @@
     </div>
   </header>
 </div>
-<% end %>
+<%end %>
