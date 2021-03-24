@@ -46,8 +46,17 @@ module Spree
           comment: params[:repair][:comment]
         )
         if prev_status != status_params
+          status_code = {"in_progress" => "В ремонті",
+                    "waiting_for_parts" => "Очікуємо на запчастини",
+                    "sent_to_manufacturer" => "Відправлено виробникові",
+                    "repaired" => "Відремонтовано",
+                    "without_repair" => "Без ремонту"}
+          status_final = status_code.select{|k,v| k == repair.status}.values.first
+
           StatusRepairMailer.inform_user_repair(user: repair.user.id, message: repair.status, comment: repair.comment).deliver_later
-          
+          sns = Aws::SNS::Client.new(region: 'us-east-2', access_key_id: Rails.application.credentials[:sns][:access_key_id], secret_access_key: Rails.application.credentials[:sns][:secret_access_key])
+          sns.publish(phone_number: repair.phone,
+                      message: "Шановна/ий #{repair.user.full_name}, статус ремонту Вашого обладнання змінився на: '#{status_final}' ")
         end
         redirect_to admin_show_repair_path(id: repair.id)
       end
@@ -60,7 +69,7 @@ module Spree
 
       def find_repair_phone
         phone = Spree::Repair.where(phone: params[:phone])
-        if !phone.nil?
+        if !phone.blank?
         render template: "spree/admin/repairs/find_repair_phone", locals: {repairs: phone}
         else
         flash[:notice] = "Запису не знайдено"
@@ -70,7 +79,7 @@ module Spree
 
       def find_repair_number
         number = Spree::Repair.find_by(number: params[:number])
-        if !number.nil?
+        if !number.blank?
         redirect_to admin_show_repair_path(number.id)
         else
         flash[:notice] = "Запису не знайдено"

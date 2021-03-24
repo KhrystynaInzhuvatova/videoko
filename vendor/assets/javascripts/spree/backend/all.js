@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require spree/backend
 //= require cocoon
+//= require intlTelInput
 //= require_tree .
 
 //= require spree/backend/spree_globalize

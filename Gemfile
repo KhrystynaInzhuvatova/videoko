@@ -80,3 +80,4 @@ gem 'image_optimizer'
 gem 'prawn'
 gem 'prawn-table'
 gem "cocoon"
+gem 'intl-tel-input-rails'

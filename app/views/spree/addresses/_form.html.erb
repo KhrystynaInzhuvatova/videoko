@@ -3,16 +3,17 @@
 
 <div class="form-group">
   <%= address_form.label :firstname, Spree.t(:firstname) %>
-  <%= address_form.text_field :firstname, class: 'form-control' %>
+  <%= address_form.text_field :firstname, class: 'form-control', autocomplete:"new-password" %>
 </div>
 <div class="form-group">
   <%= address_form.label :lastname, Spree.t(:lastname) %>
-  <%= address_form.text_field :lastname, class: 'form-control' %>
+  <%= address_form.text_field :lastname, class: 'form-control', autocomplete:"new-password" %>
 </div>
 
 <div class="form-group" id="phone">
   <%= address_form.label :phone, Spree.t(:phone) %>
-  <%= address_form.telephone_field :phone, class: 'form-control' %>
+  <%= text_field_tag :phone_show, "",class: 'form-control', id: "phone_code" %>
+  <%=address_form.hidden_field :phone, id:"real_phone"%>
 </div>
 
 <div class="form-group" id="country">
@@ -39,11 +40,11 @@
 
 <div class="form-group" id="city">
   <%= address_form.label :city, Spree.t(:city) %>
-  <%= address_form.text_field :city, class: 'form-control' %>
+  <%= address_form.text_field :city, class: 'form-control', autocomplete:"new-password" %>
 </div>
 <div class="form-group" id="address1">
   <%= address_form.label :address1, Spree.t(:address1) %>
-  <%= address_form.text_field :address1, class: 'form-control' %>
+  <%= address_form.text_field :address1, class: 'form-control', autocomplete:"new-password" %>
 </div>
 
 <div class="form-group" id="nova_poshta">
@@ -64,6 +65,30 @@
 
 <script>
 document.addEventListener('turbolinks:load', function () {
+
+  $("#phone_code").intlTelInput({
+      formatOnInit: true,
+      separateDialCode: true,
+      onlyCountries: ["ua","pl","ru"]
+  });
+
+  $( "#phone_code" ).keyup(function(e) {
+    e.preventDefault();
+    if ($(this).val().length > 8) {
+
+   var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var intlNumber = $("#phone_code").intlTelInput("getSelectedCountryData");
+    var final_phone = `+${intlNumber.dialCode+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+  }
+  });
+
+  $( "#phone_code" ).on('countrychange', function(e, countryData){
+    var intlNumber = countryData.dialCode;
+    var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var final_phone = `+${intlNumber+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+  })
 
 $("#state").hide();
 $("#city").hide();

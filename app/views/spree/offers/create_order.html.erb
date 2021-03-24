@@ -3,16 +3,17 @@
 
     <div class="form-group">
       <%= f.label :firstname, Spree.t(:firstname) %>
-      <%= f.text_field :firstname, class: 'form-control' %>
+      <%= f.text_field :firstname, class: 'form-control', autocomplete:"new-password"%>
     </div>
     <div class="form-group">
       <%= f.label :lastname, Spree.t(:lastname) %>
-      <%= f.text_field :lastname, class: 'form-control' %>
+      <%= f.text_field :lastname, class: 'form-control', autocomplete:"new-password" %>
     </div>
 
     <div class="form-group" id="phone">
       <%= f.label :phone, Spree.t(:phone) %>
-      <%= f.telephone_field :phone, class: 'form-control' %>
+      <%= text_field_tag :phone_show, "",class: 'form-control', id: "phone_code" %>
+      <%=f.hidden_field :phone, id:"real_phone"%>
     </div>
 
     <div class="form-group" id="country">
@@ -39,11 +40,11 @@
 
     <div class="form-group" id="city">
       <%= f.label :city, Spree.t(:city) %>
-      <%= f.text_field :city, class: 'form-control' %>
+      <%= f.text_field :city, class: 'form-control', autocomplete:"new-password" %>
     </div>
     <div class="form-group" id="address1">
       <%= f.label :address1, Spree.t(:address1) %>
-      <%= f.text_field :address1, class: 'form-control' %>
+      <%= f.text_field :address1, class: 'form-control', autocomplete:"new-password" %>
     </div>
 
     <div class="form-group" id="nova_poshta">
@@ -71,6 +72,31 @@
 </div>
 <script>
 document.addEventListener('turbolinks:load', function () {
+
+  $("#phone_code").intlTelInput({
+      formatOnInit: true,
+      separateDialCode: true,
+      onlyCountries: ["ua","pl","ru"]
+  });
+
+  $( "#phone_code" ).keyup(function(e) {
+    e.preventDefault();
+    if ($(this).val().length > 8) {
+
+   var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var intlNumber = $("#phone_code").intlTelInput("getSelectedCountryData");
+    var final_phone = `+${intlNumber.dialCode+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+  }
+  });
+
+  $( "#phone_code" ).on('countrychange', function(e, countryData){
+    var intlNumber = countryData.dialCode;
+    var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var final_phone = `+${intlNumber+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+})
+
 
 $("#state").hide();
 $("#city").hide();
@@ -198,7 +224,6 @@ $( "#add_poshta" ).click(function() {
          data: JSON.stringify(settings)
      }).done(function (response) {
        $('#address_nova_poshta_area').empty();
-       console.log(response);
        var json = response.data;
        for (var i = 0; i < json.length; i++) {
          var obj = json[i];
@@ -258,7 +283,6 @@ if (cityRef.length > 4){
         data: JSON.stringify(settings)
     }).done(function (response) {
       $('#address_nova_poshta_number').empty();
-      console.log(response);
       var json = response.data;
       for (var i = 0; i < json.length; i++) {
         var obj = json[i];

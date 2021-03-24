@@ -1,5 +1,10 @@
 <div class="address vcard">
   <div class="fn"><%= address.full_name %></div>
+  <% unless address.phone.blank? %>
+    <div class="org">
+      <%= address.phone %>
+    </div>
+  <% end %>
   <% unless address.nova_poshta_address.blank? %>
     <div class="org">
       <%= address.nova_poshta_address %>

@@ -18,7 +18,8 @@
   <div class="form-group">
     <%= f.label :phone, Spree.t(:phone)%>
     <br/>
-    <%= f.telephone_field :phone,class: "form-control" %>
+    <%= text_field_tag :phone_show, "",class: 'form-control', id: "phone_code" %>
+    <%=f.hidden_field :phone, id:"real_phone"%>
   </div>
   <div class="form-group">
     <%= f.label :comment, Spree.t(:comment)%>
@@ -30,3 +31,30 @@
   </div>
   <%end%>
 </div>
+<script>
+$( document ).ready(function() {
+  $("#phone_code").intlTelInput({
+      formatOnInit: true,
+      separateDialCode: true,
+      onlyCountries: ["ua","pl","ru"]
+  });
+
+  $( "#phone_code" ).keyup(function(e) {
+    e.preventDefault();
+    if ($(this).val().length > 8) {
+
+   var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var intlNumber = $("#phone_code").intlTelInput("getSelectedCountryData");
+    var final_phone = `+${intlNumber.dialCode+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+  }
+  });
+
+  $( "#phone_code" ).on('countrychange', function(e, countryData){
+    var intlNumber = countryData.dialCode;
+    var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
+    var final_phone = `+${intlNumber+input_value}`
+    $("#real_phone").val(final_phone).trigger('change');
+})
+});
+</script>
