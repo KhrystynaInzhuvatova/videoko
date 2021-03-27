@@ -86,7 +86,6 @@ if (Spree::Variant.where(sku: t['id']).map{|variant| variant.prices.nil?} + Spre
      end
    rescue Exception
      if (retries += 1) < 3
-         sleep 1
          retry
        end
        end
