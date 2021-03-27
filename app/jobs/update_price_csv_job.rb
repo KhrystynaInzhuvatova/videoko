@@ -4,13 +4,15 @@ class UpdatePriceCsvJob < ApplicationJob
   queue_as :default
 
   after_perform do |job|
-    double_prices = Spree::Variant.select{|c| c.prices.count > 6}
+    Spree::Variant.find_in_batches(batch_size: 100) do |variants|
+    double_prices = variants.select{|c| c.prices.count > 6}
     if !double_prices.empty?
     double_prices.each do |variant|
       variant.prices.order("created_at DESC")[6..-1].each{|c|c.delete}
     end
   end
   end
+end
 
   def perform(csv_path)
     prices = {"6"=> "rozdrib", "5"=> "opt", "4"=> "gold", "3"=> "vip", "2"=> "vip2", "1"=> "vip1"}
@@ -37,7 +39,6 @@ class UpdatePriceCsvJob < ApplicationJob
     rescue Exception
       Rails.logger.info " Exception #{retries}"
       if (retries += 1) < 3
-          sleep 1
           retry
         end
         end
