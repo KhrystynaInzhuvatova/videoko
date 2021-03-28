@@ -20,9 +20,6 @@ end
 
     CSV.foreach(csv_file, headers: true, skip_blanks: true)do |t|
 
-    begin
-      retries ||= 0
-
 
     if !Spree::Variant.find_by(sku: t['id']).nil?
 
@@ -34,15 +31,7 @@ end
       end
     end
   end
-
-
-    rescue Exception
-      Rails.logger.info " Exception #{retries}"
-      if (retries += 1) < 3
-          retry
-        end
-        end
-      end
+end
     File.delete(csv_file)
      end
 

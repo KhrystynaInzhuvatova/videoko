@@ -15,15 +15,8 @@ end
   def perform(*args)
     Spree::Product.find_each(batch_size: 100) do |product|
       product.prices.each do |price|
-        begin
-          retries ||= 0
-      price.update!(updated_at: Time.now)
-    rescue Exception
-      if (retries += 1) < 3
-          retry
-        end
-        end
-    end
+        price.update!(updated_at: Time.now)
+      end
   end
-end
+ end
 end
