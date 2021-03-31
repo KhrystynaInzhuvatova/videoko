@@ -206,3 +206,11 @@
    height: 2rem !important;
  }
 }
+@media (max-width: 450px){
+  .for_small_dev{
+  word-break: break-word;
+}
+  .address_info {
+      font-size: 0.65rem;
+    }
+}

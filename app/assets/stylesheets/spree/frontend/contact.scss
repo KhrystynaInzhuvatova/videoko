@@ -1,3 +1,18 @@
+.multy_image{
+	width: 100% !important;
+}
+.product-carousel-control--previous{
+	left: 5% !important;
+}
+.product-carousel-control--next{
+	right: 5% !important;
+}
+.carousel-rounded{
+	background: none !important;
+}
+.padding_mult_imag{
+	padding-bottom: 70% !important;
+}
 .intl-tel-input{
 	display: block !important;
 }
@@ -454,6 +469,9 @@ color: #000000;
     line-height: normal;
   }
   .product_d{
+		white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
     font-size: 1rem;
     line-height: normal;
   }
