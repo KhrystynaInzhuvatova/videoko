@@ -28,6 +28,9 @@ Rails.application.routes.draw do
           resources :volumes
         end
       end
+
+      delete "delete_order/:id", controller: "orders", action: "delete_order", as: :delete_order
+
       get "index", controller: "mutual_settlements", action: "index" , as: :mutual_settlements
       delete "delete_mutual_settlement/:id", controller: "mutual_settlements", action: "delete_mutual_settlement" , as: :delete_mutual_settlement
       get "list_mutual_settlements", controller: "mutual_settlements", action: "list_mutual_settlements" , as: :list_mutual_settlements

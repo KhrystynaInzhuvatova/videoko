@@ -46,7 +46,7 @@ module Spree
       def orders
         params[:q] ||= {}
         @search = Spree::Order.reverse_chronological.ransack(params[:q].merge(user_id_eq: @user.id))
-        @orders = @search.result.page(params[:page])
+        @orders = @search.result.page(params[:page]).per(10)
       end
 
       def items
@@ -56,7 +56,7 @@ module Spree
             variant: [:product, { option_values: :option_type }]
           }
         ).ransack(params[:q].merge(user_id_eq: @user.id))
-        @orders = @search.result.page(params[:page])
+        @orders = @search.result.page(params[:page]).per(5)
       end
 
       def generate_api_key
