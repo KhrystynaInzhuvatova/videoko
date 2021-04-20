@@ -19,6 +19,18 @@ module Spree
      end
     end
 
+    def full_name_header
+      if self.first_name.blank? && self.last_name.blank?
+        result = self.login.split("@")[0].truncate(11, omission: ".")
+      elsif self.first_name.blank? && !self.last_name.blank?
+        result = self.last_name.truncate(11, omission: ".")
+      elsif !self.first_name.blank? && self.last_name.blank?
+        result =self.first_name.truncate(11, omission: ".")
+      elsif !self.first_name.blank? && !self.last_name.blank?
+       result = self.first_name.truncate(11, omission: ".")
+     end
+    end
+
     Spree::User.prepend self
   end
 end

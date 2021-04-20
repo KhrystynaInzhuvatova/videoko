@@ -23,5 +23,9 @@
         %>
       </div>
     </div>
+    <%else%>
+    <div class="col-8 empty_image">
+      <%= image_tag(main_app.url_for("no_img.png"),class: "d-block w-100") %>
+  </div>
   <% end %>
 </div>

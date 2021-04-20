@@ -110,6 +110,44 @@ module Spree
       !discontinued? && product.available?
     end
 
+    def prices_range(role_id)
+      role = Spree::Role.find(role_id).name
+      case role
+      when "rozdrib"
+        []
+      when "admin"
+        Spree::Offer::PRICES_FOR_VIP1.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      when "opt"
+        Spree::Offer::PRICES_FOR_OPT.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      when "gold"
+        Spree::Offer::PRICES_FOR_GOLD.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      when "vip"
+        Spree::Offer::PRICES_FOR_VIP.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      when "vip2"
+        Spree::Offer::PRICES_FOR_VIP2.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      when "vip1"
+        Spree::Offer::PRICES_FOR_VIP1.map do |price_role|
+          price = self.prices.find_by(role_id: Spree::Role.find_by(name: price_role).id)
+          !price.blank? ? price.amount : nil
+          end
+      end
+    end
+
     def tax_category
       if self[:tax_category_id].nil?
         product.tax_category

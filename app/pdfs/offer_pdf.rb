@@ -21,21 +21,21 @@ class OfferPdf < Prawn::Document
   end
 
   def item_header
-    ["#{Spree.t('name')}", "#{Spree.t('price')}", "#{Spree.t('quantity')}"]
+    ["№","#{Spree.t('name')}","#{Spree.t('quantity')}", "#{Spree.t('price')}"]
   end
 
   def item_header_summary
-    ["","#{Spree.t('total_price')}", "#{Spree.t('currency')}"]
+    ["","Дата", "#{Spree.t('currency')}","#{Spree.t('total_price')}"]
   end
 
   def item_rows
-    @offer.offer_items.map do |product|
-   [product.variant.product.name, product.price, product.quantity]
+    @offer.offer_items.to_enum.with_index(1).map do |product, index|
+   [index,product.variant.product.name, product.quantity, product.price]
     end
   end
 
   def item_rows_summary
-    [["",@offer.total_price, @offer.currency]]
+    [["",@offer.created_at.strftime("%d.%m.%Y"), @offer.currency,@offer.total_price]]
   end
 
   def item_table_data
@@ -49,7 +49,7 @@ class OfferPdf < Prawn::Document
       row(-2).font_style = :bold
       self.header = true
       self.row_colors = ['DDDDDD', 'FFFFFF']
-      self.column_widths = [250, 170, 100]
+      self.column_widths = [50, 190, 170, 90]
     end
   end
 

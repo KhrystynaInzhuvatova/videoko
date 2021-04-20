@@ -11,12 +11,16 @@
   <%= product.name %>
 </div>
 <div class="card-footer money_product">
+  <%if product.empty_price%>
+  <%=Spree.t(:empty_price)%>
+  <%else%>
   <%if !product.price_for_index(role_id: id).nil?%>
   <%product.price_for_index(role_id: id).each do |price|%>
   <%= number_to_currency(price, unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
 <%end%>
 <%else%>
-<%= number_to_currency(0, unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
+<%= number_to_currency(0.00, unit: "₴", separator: ".", delimiter: "", format: "%u %n") %>
+<%end%>
 <%end%>
 </div>
 </div>

@@ -58,6 +58,7 @@ module Spree
     preference :street_ru, :string, default: 'Шевченка, 120'
     preference :hours_week, :string, default: '09.00-18.00'
     preference :hours_weekend, :string, default: '09.00-15.00'
+    preference :email_admin, :string, default: 'videoko2016@gmail.com'
     # Store credits configurations
     preference :non_expiring_credit_types, :array, default: []
     preference :credit_to_new_allocation, :boolean, default: false

@@ -64,7 +64,8 @@ module Spree
         prod.prices.find_by(role_id: id).nil? ? 0 : prod.prices.find_by(role_id: id).amount
     end
       transaction = @products.map{|prod|prod.translations.map{|tr|tr.name}}
-      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{count}-#{max_updated_at.to_s(:number)}-#{transaction}-#{id}-#{prices}"
+      empty = @products.map{|c|c.empty_price}
+      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{count}-#{empty}-#{max_updated_at.to_s(:number)}-#{transaction}-#{id}-#{prices}"
     end
 
     def cache_key_for_product(product = @product)
@@ -78,7 +79,7 @@ module Spree
     end
 
     def product_cache(product,id)
-      [id, I18n.locale, product.name, product.prices.map{|pr| pr.amount}.split(",")]
+      [id, I18n.locale, product.name, product.empty_price, product.prices.map{|pr| pr.amount}.split(",")]
     end
 
     def limit_descritpion(string)

@@ -168,6 +168,7 @@ module Spree
     after_touch :touch_taxons
     before_validation :normalize_slug, on: :update
     before_validation :validate_master
+    before_save :update_empty_price
 
     with_options length: { maximum: 255 }, allow_blank: true do
       validates :meta_keywords
@@ -219,6 +220,12 @@ module Spree
 
     def find_or_build_master
       master || build_master
+    end
+
+    def update_empty_price
+      if will_save_change_to_empty_price? && changes_to_save[:empty_price] == [false, true]
+        UpdateEmptyPriceJob.perform_later(self.id)
+      end
     end
 
     # the master variant is not a member of the variants array

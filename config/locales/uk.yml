@@ -20,6 +20,7 @@ uk:
         state:
   activerecord:
     attributes:
+      phone_error: невірний
       spree/address:
         address1: Адреса
         address2: Адреса (2-й рядок)
@@ -126,13 +127,13 @@ uk:
         state: Стан
         total: Разом
       spree/order/bill_address:
-        address1: Платіжна адреса. Вулиця
-        city: Платіжна адреса. Місто
-        firstname: Платіжна адреса. Ім’я
-        lastname: Платіжна адреса. Прізвище
-        phone: Платіжна адреса. Телефон
-        state: Платіжна адреса. Регіон/Область
-        zipcode: Платіжна адреса. Індекс
+        address1: Вулиця
+        city: Місто
+        firstname: Ім’я
+        lastname: Прізвище
+        phone: Телефон
+        state: Регіон/Область
+        zipcode: Індекс
       spree/order/ship_address:
         address1: Адреса доставки. Вулиця
         city: Адреса доставки. Місто
@@ -825,8 +826,9 @@ uk:
         one:
         other:
   spree:
+    empty_price: Ціну уточнюйте
     country_select: Оберіть країну
-    nova_poshta_address: Місто доставки
+    nova_poshta_address: Населений пункт доставки (Відправлення "Новою поштою")
     nova_poshta_number: Номер відділення
     poshta: Відправлення "Укрпоштою"
     nova_poshta: Відправлення "Новою поштою"
@@ -865,7 +867,7 @@ uk:
     total_price: Загальна вартість
     currency: Валюта
     print: Роздрукувати
-    offer: Пропозиція
+    offer: Комерційна пропозиція
     my_offer: Мої пропозиції
     my_orders_from_offer: Мої замовлення з пропозицій
     add_address: Додати адресу
@@ -1526,6 +1528,7 @@ uk:
     go_to_category: До категорії
     home: Додому
     pdp:
+      continue_buy: Продовжити покупки
       view_cart: Корзина
       checkout: Сформувати
       you_may_also_like: Супутні товари

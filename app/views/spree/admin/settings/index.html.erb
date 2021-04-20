@@ -101,4 +101,14 @@
     <% end %>
 
 </li>
+<li class="list-group-item">
+  <span>Електронна скринька на яку приходять повідомлення про замовлення -- </span>
+  <%=Spree::Config.email_admin%>
+  <%= form_with url: spree.admin_change_path, local: true do |form| %>
+  <%= form.text_field :name_new %>
+  <%= form.hidden_field :name, :value => :email_admin %>
+  <%= form.submit 'Змінити' %>
+  <% end %>
+
+</li>
 </ul>

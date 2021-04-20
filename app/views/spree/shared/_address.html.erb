@@ -32,7 +32,6 @@
         <% unless address.city.blank? %>
       <span class="locality"><%= address.city %></span>
         <%end%>
-      <div class="country-name"><%= Spree.t(address.country.iso, scope: 'country_names', default: address.country.name) %></div>
     </div>
   </div>
 </div>

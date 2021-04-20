@@ -58,7 +58,7 @@ module Spree
       offer = Spree::Offer.find(params[:id])
       offer.offer_items.each{|item|item.delete}
       offer.delete
-      redirect_to "/account"
+      redirect_to spree.account_path
     end
 
     def create_order

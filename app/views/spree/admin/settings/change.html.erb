@@ -44,5 +44,9 @@
     <span>Години роботи в суботу</span>
   <%=Spree::Config.hours_weekend%>
 </li>
+<li class="list-group-item">
+  <span>Електронна скринька на яку приходять повідомлення про замовлення</span>
+<%=Spree::Config.email_admin%>
+</li>
 </ul>
 <%= link_to 'Повернутися', admin_settings_path %>

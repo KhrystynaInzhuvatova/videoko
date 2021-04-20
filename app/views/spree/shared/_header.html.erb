@@ -9,7 +9,7 @@
       <%if spree_current_user.nil? %>
       <%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %>
       <%elsif !spree_current_user.nil? && !spree_current_user.has_spree_role?("rozdrib")%>
-      <%= link_to Spree.t('homepage.account'), "/account", class: "blue" %>
+      <%= link_to Spree.t('homepage.account'), spree.account_path, class: "blue" %>
       <%elsif !spree_current_user.nil? && spree_current_user.has_spree_role?("rozdrib")%>
       <%= link_to Spree.t('homepage.main_page'), spree.root_path, class: "blue" %>
       <%end%>

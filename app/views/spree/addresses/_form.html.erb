@@ -12,40 +12,10 @@
 
 <div class="form-group" id="phone">
   <%= address_form.label :phone, Spree.t(:phone) %>
-  <%= text_field_tag :phone_show, "",class: 'form-control', id: "phone_code" %>
+  <%= text_field_tag :phone_show, "",class: 'form-control', id: "phone_code",autocomplete: "off"%>
   <%=address_form.hidden_field :phone, id:"real_phone"%>
 </div>
-
-<div class="form-group" id="country">
-  <%= address_form.label :country, Spree.t(:country) %>
-  <%= address_form.select :country_id, options_for_select( available_countries.map{|c|[c.name, c.id]}),
-                                      {:include_blank => Spree.t(:country_select).upcase},
-                                     class: ' form-control spree-flat-select' %>
-
-</div>
-<div class="row">
-<div class=col-6>
-  <%= content_tag(:div, Spree.t(:poshta),id: "add_address", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
-</div>
-<div class=col-6>
-  <%= content_tag(:div, Spree.t(:nova_poshta),id: "add_poshta", class: "btn btn-block btn-lg index_btn text-uppercase font-weight-bold")%>
-</div>
-<p>&nbsp;</p>
-</div>
-<div class="form-group" id="state">
-  <%= address_form.label :state, Spree.t(:state) %>
-  <%= address_form.collection_select :state_id, {},:id, :name, { prompt: Spree.t(:state).upcase },{ class: 'form-control spree-flat-select'}%>
-
-</div>
-
-<div class="form-group" id="city">
-  <%= address_form.label :city, Spree.t(:city) %>
-  <%= address_form.text_field :city, class: 'form-control', autocomplete:"new-password" %>
-</div>
-<div class="form-group" id="address1">
-  <%= address_form.label :address1, Spree.t(:address1) %>
-  <%= address_form.text_field :address1, class: 'form-control', autocomplete:"new-password" %>
-</div>
+<%=address_form.hidden_field :country_id, value: 230%>
 
 <div class="form-group" id="nova_poshta">
   <%= address_form.label :nova_poshta_address, Spree.t(:nova_poshta_address) %>
@@ -66,10 +36,13 @@
 <script>
 document.addEventListener('turbolinks:load', function () {
 
+$("#nova_poshta_number").hide();
+
   $("#phone_code").intlTelInput({
-      formatOnInit: true,
+      allowDropdown: false,
+      autoHideDialCode: false,
       separateDialCode: true,
-      onlyCountries: ["ua","pl","ru"]
+      onlyCountries: ["ua"]
   });
 
   $( "#phone_code" ).keyup(function(e) {
@@ -83,76 +56,6 @@ document.addEventListener('turbolinks:load', function () {
   }
   });
 
-  $( "#phone_code" ).on('countrychange', function(e, countryData){
-    var intlNumber = countryData.dialCode;
-    var input_value = $( this ).val().replace(/\s/g, '').replace(/[()]/g, '');
-    var final_phone = `+${intlNumber+input_value}`
-    $("#real_phone").val(final_phone).trigger('change');
-  })
-
-$("#state").hide();
-$("#city").hide();
-$("#address1").hide();
-$("#nova_poshta").hide();
-$("#nova_poshta_number").hide();
-$("#add_address").hide();
-$("#add_poshta").hide();
-$("#country").change(function(event) {
-
-var countryId  =  $('#country').find(":selected").val();
-
-if (countryId == 230){
-  $("#nova_poshta").hide();
-  $("#nova_poshta_number").hide();
-  $("#state").hide();
-  $("#city").hide();
-  $("#address1").hide();
-  $("#add_address").show();
-  $("#add_poshta").show();
-$("#add_address").click(function(event) {
-  $("#address_nova_poshta_number").val("")
-  $("#address_nova_poshta_area1").val("");
-
-$.ajax({
-              async: false,
-              method: 'GET',
-              url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
-              dataType: 'json'
-            }).done(function(data) {
-              $('#order_bill_address_attributes_state_id').empty();
-              if ("<%=I18n.locale %>" == "uk"){
-              $('#order_bill_address_attributes_state_id').append(new Option("Оберіть регіон"));
-            }else{
-              $('#order_bill_address_attributes_state_id').append(new Option("Выберите регион"));
-            }
-            var json = data.included;
-            for (var i = 0; i < json.length; i++) {
-              var obj = json[i];
-              $('#order_bill_address_attributes_state_id').append(new Option(obj.attributes.name, obj.id));
-
-            }
-
-
-});
-
-
-$("#nova_poshta").hide();
-$("#nova_poshta_number").hide();
-$("#state").show();
-$("#city").show();
-$("#address1").show();
-});
-
-$( "#add_poshta" ).click(function() {
-  $("#address_state").val("");
-  $("#address_city").val("");
-  $("#address_address1").val("");
-  $('#address_state_id').val("");
-  $("#state").hide();
-  $("#city").hide();
-  $("#address1").hide();
-
-  $("#nova_poshta").show();
 
   if ("<%=I18n.locale %>" == "ru"){
   localStorage.clear();
@@ -193,9 +96,44 @@ $( "#add_poshta" ).click(function() {
     if ($(this).val().length > 2) {
 
    var input_value = $( this ).val();
-   var final_input_value = input_value.charAt(0).toUpperCase() + input_value.slice(1).toLowerCase();
+   if (input_value.indexOf('місто ') > -1)
+{
 
+  var final_input_value = input_value.split("місто ").slice(1).toString().trim().charAt(0).toUpperCase() + input_value.split("місто ").slice(1).toString().trim().slice(1).toLowerCase();
+
+}
+else if (input_value.indexOf('город ') > -1)
+{
+
+var final_input_value = input_value.split("город ").slice(1).toString().trim().charAt(0).toUpperCase() + input_value.split("город ").slice(1).toString().trim().slice(1).toLowerCase();
+
+}
+else if (input_value.indexOf('село ') > -1)
+{
+
+var final_input_value = input_value.split("село ").slice(1).toString().trim().charAt(0).toUpperCase() + input_value.split("село ").slice(1).toString().trim().slice(1).toLowerCase();
+
+}
+
+else if (input_value.indexOf('селище міського типу ') > -1)
+{
+
+var final_input_value = input_value.split("селище міського типу ").slice(1).toString().trim().charAt(0).toUpperCase() + input_value.split("селище міського типу ").slice(1).toString().trim().slice(1).toLowerCase();
+
+}
+else if (input_value.indexOf('поселок городского типа ') > -1)
+{
+
+var final_input_value = input_value.split("поселок городского типа ").slice(1).toString().trim().charAt(0).toUpperCase() + input_value.split("селище міського типу ").slice(1).toString().trim().slice(1).toLowerCase();
+
+}
+
+else{
+   var final_input_value = input_value.charAt(0).toUpperCase() + input_value.slice(1).toLowerCase();
+ }
+   console.log(final_input_value)
    if ("<%=I18n.locale %>" == "uk"){
+     if(final_input_value.length > 1){
      var settings = {
        modelName: "Address",
        calledMethod: "getCities",
@@ -217,7 +155,6 @@ $.ajax({
       data: JSON.stringify(settings)
   }).done(function (response) {
     $('#address_nova_poshta_area').empty();
-    console.log(response);
     var json = response.data;
     for (var i = 0; i < json.length; i++) {
       var obj = json[i];
@@ -225,9 +162,11 @@ $.ajax({
         `<option data-value=${obj.Ref}>
         ${obj.SettlementTypeDescription + ' ' +(obj.Description).trim().replace(/ *\([^)]*\) */g, "") + ', '+"обл."+obj.AreaDescription}
         </option>`
-      );
+      )
+      $('#address_nova_poshta_area').trigger('show');
     }
   });
+}
 }else{
    var json = JSON.parse(localStorage.getItem(final_input_value))
 
@@ -291,50 +230,6 @@ if (cityRef.length > 4){
   }
 });
 });
-}else{
-  $("#add_address").hide();
-  $("#add_poshta").hide();
-  $("#nova_poshta").hide();
-  $('#nova_poshta_number').hide();
-  $('#address_nova_poshta_number').empty();
-  $('#address_nova_poshta_number').val("");
-  $('#address_nova_poshta_area1').empty();
-  $('#address_nova_poshta_area1').val("");
-  $("#address_state").val("");
-  $("#address_city").val("");
-  $("#address_address1").val("");
-  $('#address_state_id').val("");
-  $("#state").hide();
-  $("#city").hide();
-  $("#address1").hide();
-
-  $.ajax({
-                async: false,
-                method: 'GET',
-                url: Spree.pathFor('/api/v2/storefront/countries/' + countryId + '?include=states'),
-                dataType: 'json'
-              }).done(function(data) {
-                $('#order_bill_address_attributes_state_id').empty();
-                if ("<%=I18n.locale %>" == "uk"){
-                $('#order_bill_address_attributes_state_id').append(new Option("Оберіть регіон"));
-              }else{
-                $('#order_bill_address_attributes_state_id').append(new Option("Выберите регион"));
-              }
-              var json = data.included;
-              for (var i = 0; i < json.length; i++) {
-                var obj = json[i];
-                $('#order_bill_address_attributes_state_id').append(new Option(obj.attributes.name, obj.id));
-
-              }
 
 
-  });
-  $("#state").show();
-  $("#city").show();
-  $("#address1").show();
-
-}
-});
-
-});
 </script>

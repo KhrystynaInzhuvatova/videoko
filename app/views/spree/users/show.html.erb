@@ -17,34 +17,34 @@
   <%if !@user.has_spree_role?("rozdrib") %>
   <div class="row">
   <div class="col-6">
-    <%=link_to Spree.t(:mutual_settlement), user_list_mutual_settlements_path%>
+    <%=link_to Spree.t(:mutual_settlement), user_list_mutual_settlements_path, class: "for_small_screen"%>
   </div>
-  <div class="col-6"><%=link_to "Статус ремонта", check_repair_path%></div>
+  <div class="col-6"><%=link_to "Статус ремонта", check_repair_path, class: "for_small_screen"%></div>
 </div>
 <%end%>
 <%if @user.has_spree_role?("rozdrib") %>
 <div class="row justify-content-center">
-<div class="col-12"><%=link_to "Статус ремонта", check_repair_path%></div>
+<div class="col-12"><%=link_to "Статус ремонта", check_repair_path, class: "for_small_screen"%></div>
 </div>
 <%end%>
-  <% if !@offers_uncomplete.blank?%>
+  <% if !@user.has_spree_role?("rozdrib") && !@offers_uncomplete.blank?%>
 <div class="container">
   <div class="text-uppercase spree-mb-medium spree-mt-medium spree-header"><%=Spree.t("my_offer")%></div>
   <div class="container">
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Назва</th>
-        <th scope="col">Дата створення</th>
-        <th scope="col"></th>
+        <th scope="col text-uppercase text-secondary account-page-order-date">Назва</th>
+        <th scope="col text-uppercase text-secondary account-page-order-date">Дата створення</th>
+        <th scope="col text-uppercase text-secondary account-page-order-date"></th>
       </tr>
     </thead>
     <tbody>
       <%@offers_uncomplete.each do |offer|%>
       <tr>
-        <td><%=link_to offer.name, show_offer_path(offer.id)%></td>
-        <td><%= offer.created_at.strftime("%Y-%m-%d")%></td>
-        <td><%=link_to Spree.t("delete"), delete_offer_path(id: offer.id), method: :delete%></td>
+        <td class="account-page-order-date"><span class="for_small_screen"><%=link_to offer.name, show_offer_path(offer.id)%></span></td>
+        <td class="account-page-order-date"><span class="for_small_screen"><%= offer.created_at.strftime("%Y-%m-%d")%></span></td>
+        <td class="account-page-order-date"><span class="for_small_screen"><%=link_to Spree.t("delete"), delete_offer_path(id: offer.id), method: :delete%></span></td>
       </tr>
       <%end%>
     </tbody>

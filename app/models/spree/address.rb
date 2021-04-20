@@ -25,9 +25,10 @@ module Spree
 
     with_options presence: true do
       validates :firstname, :lastname,  :country
-      validates :zipcode, if: :require_zipcode?
-      validates :phone, if: :require_phone?
+      #validates :zipcode, if: :require_zipcode?
     end
+
+    validates :phone, length: { is: 13, message: I18n.t('activerecord.attributes.phone_error') }
 
     validate :state_validate, :postal_code_validate
 

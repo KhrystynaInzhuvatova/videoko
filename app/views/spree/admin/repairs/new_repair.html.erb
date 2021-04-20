@@ -34,9 +34,10 @@
 <script>
 $( document ).ready(function() {
   $("#phone_code").intlTelInput({
-      formatOnInit: true,
-      separateDialCode: true,
-      onlyCountries: ["ua","pl","ru"]
+    allowDropdown: false,
+    autoHideDialCode: false,
+    separateDialCode: true,
+    onlyCountries: ["ua"]
   });
 
   $( "#phone_code" ).keyup(function(e) {

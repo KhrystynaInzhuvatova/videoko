@@ -9,6 +9,7 @@ ru:
         state: Статус
   activerecord:
     attributes:
+      phone_error: неверный
       spree/address:
         address1: Адрес
         address2: Квартира/Офис
@@ -738,8 +739,9 @@ ru:
         one: Пользователь
         other: Пользователи
   spree:
+    empty_price: Цену уточняйте
     country_select: Выберите страну
-    nova_poshta_address: Город доставки
+    nova_poshta_address: Город доставки(Доставка "Новою поштою")
     nova_poshta_number: Номер отделения
     poshta: Доставка "Укрпоштою"
     nova_poshta: Доставка "Новою поштою"
@@ -777,7 +779,7 @@ ru:
     total_price: Общая стоимость
     currency: Валюта
     print: Распечатать
-    offer: предложение
+    offer: Коммерческое предложение
     my_offer: Мои предложения
     my_orders_from_offer: Мои заказы из предложений
     add_address: Добавить адрес
@@ -1356,6 +1358,7 @@ ru:
     home: Домой
     go_to_category: в категориию
     pdp:
+      continue_buy: Продолжить покупки
       view_cart: Корзина
       checkout: сформировать
       you_may_also_like: сопутствующие товары

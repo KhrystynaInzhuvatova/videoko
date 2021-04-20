@@ -135,6 +135,8 @@ module Spree
 
         begin
           # TODO: why is @product.destroy raising ActiveRecord::RecordNotDestroyed instead of failing with false result
+          @product.variants.each{|variant| variant.prices.delete_all}
+          @product.variants.delete_all
           if @product.destroy
             flash[:success] = Spree.t('notice_messages.product_deleted')
           else
@@ -242,7 +244,7 @@ module Spree
       end
 
       def permit_params
-        params.require(:product).permit(:show, :video, :iframe, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
+        params.require(:product).permit(:show, :video, :empty_price, :iframe, :related,prices_attributes:[:id,:role_id, :variant_id, :amount_usd])
       end
 
       def permit_related
