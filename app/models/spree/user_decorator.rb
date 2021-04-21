@@ -1,7 +1,7 @@
 module Spree
   module UserDecorator
     def self.prepended(base)
-      base.validates_uniqueness_of :sku
+      base.validates_uniqueness_of :sku, allow_blank: true
       base.has_many :offers, class_name: 'Spree::Offer',dependent: :destroy
       base.has_many :mutual_settlements, class_name: 'Spree::MutualSettlement',dependent: :destroy
       base.has_many :repairs, class_name: 'Spree::Repair',dependent: :destroy
