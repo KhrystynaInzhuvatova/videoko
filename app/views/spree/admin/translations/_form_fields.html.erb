@@ -1,9 +1,12 @@
 <%= javascript_include_tag Ckeditor.cdn_url %>
 <%= javascript_include_tag 'ckeditor/config.js' %>
 <div id="attr_fields">
+
   <% SpreeI18n::Config.available_locales.each do |locale| %>
-    <%= f.globalize_fields_for locale.to_sym do |g| %>
+
+      <%= f.globalize_fields_for locale.to_sym do |g| %>
       <% @resource.class.translated_attribute_names.each_with_index do |attr, i| %>
+
         <div class="panel panel-default <%= attr %> <%= locale %>" style="display:<%= i == 0 ? 'auto' : 'none' %>;">
           <div class="panel-heading">
             <% I18n.with_locale(locale) do %>
@@ -17,11 +20,19 @@
 
           <div class="panel-body">
             <% field_type = @resource.class.translation_class.columns_hash[attr.to_s].type %>
+            <%if !(f.object.translations.find_by_locale locale).blank?%>
             <% if field_type == :text %>
-              <%= g.cktext_area attr, class: 'form-control', ckeditor: { toolbar: "Full",language: 'uk'} %>
+              <%= g.cktext_area attr, class: 'form-control', ckeditor: { toolbar: "Full",language: 'uk'},value: (f.object.translations.find_by_locale locale)[attr] || ""%>
+            <% else %>
+              <%= g.text_field attr, class: 'form-control',value: (f.object.translations.find_by_locale locale)[attr] || "" %>
+            <% end %>
+            <%else%>
+            <% if field_type == :text %>
+              <%= g.cktext_area attr, class: 'form-control', ckeditor: { toolbar: "Full",language: 'uk'}%>
             <% else %>
               <%= g.text_field attr, class: 'form-control' %>
             <% end %>
+            <%end%>
           </div>
         </div>
       <% end %>

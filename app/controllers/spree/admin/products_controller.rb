@@ -44,6 +44,7 @@ module Spree
         if params[:product][:option_type_ids].present?
           params[:product][:option_type_ids] = params[:product][:option_type_ids].split(',')
         end
+
         invoke_callbacks(:update, :before)
         if @object.update(permitted_resource_params)
           invoke_callbacks(:update, :after)
@@ -137,6 +138,22 @@ module Spree
           # TODO: why is @product.destroy raising ActiveRecord::RecordNotDestroyed instead of failing with false result
           @product.variants.each{|variant| variant.prices.delete_all}
           @product.variants.delete_all
+          
+          translated = @product.translations.map{|c|c.id}
+          Spree::Product::Translation.unscoped do
+            translated.each do |tr|
+            Spree::Product::Translation.where(id: tr).delete_all
+          end
+          end
+          @product.video.purge if @product.video
+          if !@product.volume.blank?
+          @product.volume.images.each{|c|c.purge}
+          @product.volume.delete
+          end
+          if !@product.images.blank?
+          @product.images.each{|c|c.attachment.purge}
+          @product.images.delete_all
+          end
           if @product.destroy
             flash[:success] = Spree.t('notice_messages.product_deleted')
           else
