@@ -3,7 +3,16 @@ module Spree
     respond_to :html
 
     def index
-      fresh_when etag: store_etag, last_modified: store_last_modified, public: true
+      fresh_when etag: home_etag, public: true
+    end
+
+    private
+
+    def home_etag
+      [
+        I18n.locale,
+        spree_current_user,
+      ].compact
     end
 
   end
