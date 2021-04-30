@@ -65,7 +65,7 @@ module Spree
       else
         @products = Spree::Product.search("*",where:{show: true, active: true}, page: curr_page, per_page: 9)
       end
-
+=begin
       etag = [
         Spree::Config[:rate],
         spree_current_user,
@@ -77,6 +77,7 @@ module Spree
       ]
 
       fresh_when etag: etag, public: true
+=end
     else
       @taxon_id = params[:taxon_id]
       curr_page = params[:page] || 1
@@ -90,12 +91,12 @@ module Spree
 
       @taxon = params[:taxon_id].present? ? Spree::Taxon.find(params[:taxon_id]) : @product.taxons.first
 
-      if !@product.related.nil?
+      if !@product.related.blank?
       related = @product.related.tr('["\"]','').split(',').reject { |c| c.empty? }.map(&:to_i).reject { |c| c == 0 }
       @related_products = related.map{|c| Spree::Product.where(id: c) }.flatten!
       end
       load_variants
-      if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
+      #if stale?(etag: product_etag, last_modified: @product.updated_at.utc, public: true)
 
         @product_summary = Spree::ProductSummaryPresenter.new(@product).call
         @product_properties = @product.product_properties.includes(:property)
@@ -128,7 +129,7 @@ module Spree
 
         @product_images = product_images(@product, @variants)
         @product_3D = @product.volume.images.sort_by{|c|c.filename.base.to_i} if !@product.volume.nil?
-      end
+      #end
   end
 
     private

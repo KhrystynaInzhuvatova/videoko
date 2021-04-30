@@ -29,7 +29,7 @@
       <div class="col-12 col-md-5" data-hook="product_properties">
         <%= render partial: 'properties' %>
       </div>
-      
+
     </div>
 
     <div id="no-product-available" class="no-product-available-dropdown">
@@ -40,7 +40,7 @@
   </div>
 
 
-    <% if !@related_products.nil? && @related_products.count > 0 %>
+    <% if !@related_products.blank? %>
 
       <div id="related-products">
         <div class="product-details-related">

@@ -6,7 +6,7 @@
   <div class="default_choose  products_image">
   <%= plp_and_carousel_image(product, image_class) %>
 </div>
-<%cache product_cache(product,id) do %>
+<%#cache product_cache(product,id) do %>
 <div class="card-body-prod name_product" title="<%= product.name %>">
   <%= product.name %>
 </div>
@@ -23,6 +23,6 @@
 <%end%>
 <%end%>
 </div>
+<%# end %>
 </div>
-<% end %>
 <%end %>

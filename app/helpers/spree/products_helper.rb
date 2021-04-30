@@ -58,14 +58,13 @@ module Spree
     end
 
     def cache_key_for_products(products = @products, id)
-      count = @products.count
       max_updated_at = @products.map(&:updated_at)
       prices = @products.map do |prod|
-        prod.prices.find_by(role_id: id).nil? ? 0 : prod.prices.find_by(role_id: id).amount
+        prod.prices.map{|pr| pr.amount}
     end
       transaction = @products.map{|prod|prod.translations.map{|tr|tr.name}}
       empty = @products.map{|c|c.empty_price}
-      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{count}-#{empty}-#{max_updated_at.to_s(:number)}-#{transaction}-#{id}-#{prices}"
+      "#{I18n.locale}/spree/products/all-#{params[:page]}-#{empty}-#{max_updated_at.to_s(:number)}-#{transaction}-#{id}-#{prices}"
     end
 
     def cache_key_for_product(product = @product)

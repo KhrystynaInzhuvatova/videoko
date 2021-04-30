@@ -6,7 +6,7 @@
 <%end%>
 <% id = Spree::Role.find_by(name: role).id%>
 
-<% cache cache_key_for_products(products, id) do %>
+<%# cache cache_key_for_products(products, id) do %>
 
 <% content_for :head do %>
 
@@ -25,7 +25,7 @@
 
   </div>
 
-<% end %>
+<%#end %>
     <div class="row pl-md-4 pl-sm-4">
       <div class="col-12">
         <div class="plp-pagination d-none d-lg-flex">
