@@ -136,9 +136,10 @@ module Spree
 
         begin
           # TODO: why is @product.destroy raising ActiveRecord::RecordNotDestroyed instead of failing with false result
+          if @product.offer_items.blank? && @product.line_items.blank?
           @product.variants.each{|variant| variant.prices.delete_all}
           @product.variants.delete_all
-          
+
           translated = @product.translations.map{|c|c.id}
           Spree::Product::Translation.unscoped do
             translated.each do |tr|
@@ -154,7 +155,9 @@ module Spree
           @product.images.each{|c|c.attachment.purge}
           @product.images.delete_all
           end
-          if @product.destroy
+          @product.destroy
+        end
+          if !@product.deleted_at.blank?
             flash[:success] = Spree.t('notice_messages.product_deleted')
           else
             flash[:error] = Spree.t('notice_messages.product_not_deleted', error: @product.errors.full_messages.to_sentence)

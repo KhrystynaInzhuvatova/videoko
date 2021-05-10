@@ -48,6 +48,7 @@ module Spree
     }
 
     def search_data
+      if self.deleted_at.blank?
     json = {
       name: name.gsub('’', '').gsub("'", '').downcase.gsub(/\s+/, "").gsub('-', ''),
       active: available?,
@@ -59,6 +60,13 @@ module Spree
       taxonomy_ids: taxonomy_ids,
       price_variant: self.variants.map{|v|v.prices.find_by(role_id: Spree::Role.find_by(name: "rozdrib").id).amount if v.prices.count >0}
     }
+  else
+    json={
+     deleted_at: deleted_at,
+     show: false
+    }
+  end
+  if self.deleted_at.blank?
     if self.variants.count > 0 && self.option_types.count > 0
       array =  self.variants.map do |variant|
 
@@ -78,6 +86,7 @@ module Spree
     end
     json.merge!(price_hash)
   end
+end
     json
   end
 
@@ -145,6 +154,7 @@ module Spree
     has_many :stock_items, through: :variants_including_master
 
     has_many :line_items, through: :variants_including_master
+    has_many :offer_items, through: :variants_including_master
     has_many :orders, through: :line_items
 
     has_one_attached :video, dependent: :destroy

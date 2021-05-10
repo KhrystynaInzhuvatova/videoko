@@ -12,12 +12,10 @@
   <tbody>
     <%@offer.offer_items.each_with_index do |product, index|%>
     <tr>
-      <%if !product.variant.product.blank?%>
       <td><%=index+1%></td>
       <td><%=product.variant.product.name%></td>
       <td><%=product.quantity%></td>
       <td><%=product.price%></td>
-      <%end%>
     </tr>
     <%end%>
   </tbody>
